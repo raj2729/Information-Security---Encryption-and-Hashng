@@ -14,6 +14,7 @@ const {
   getAllCoursesOfUser,
   getAllCoursesOfInstructor,
   createChapter,
+  createQuiz
 } = require("../controllers/courseControllers");
 
 const {
@@ -25,9 +26,6 @@ const router = express.Router();
 
 // Create new course - Only for instructors
 router.route("/createCourse").post(createCourse);
-
-// Create new chapter - Only for instructors
-router.route("/createChapter/:id").put(createChapter);
 
 // Get all courses
 router.route("/allCourses").get(getAllCourses);
@@ -61,5 +59,11 @@ router.route("/allInstructorCourses/:id").get(getAllCoursesOfInstructor);
 
 // Pay using Razorpay
 router.route("/razorpay").post(payUsingRazorpay);
+
+// Create new chapter - Only for instructors
+router.route("/createChapter/:id").put(createChapter);
+
+// Create new quiz - Only for instructors
+router.route("/createQuiz/:id").post(createQuiz);
 
 module.exports = router;

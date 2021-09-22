@@ -78,104 +78,6 @@ const createCourse = asyncHandler(async (req, res) => {
   }
 });
 
-// Create a new chapter
-const createChapter = asyncHandler(async (req, res) => {
-  const {
-    chapterNumber,
-    chapterName,
-    chapterVideoLink,
-    chapterVideoDescription,
-    chapterStudyMaterial,
-  } = req.body;
-  const courseId = req.params.id;
-  // console.log(courseId);
-  // await Course.findOneAndUpdate(
-  //   { _id: courseId },
-  //   {
-  //     $push: {
-  //       chapters: {
-  //         chapterNumber: chapterNumber,
-  //         chapterName: chapterName,
-  //         chapterVideoLink: chapterVideoLink,
-  //         chapterVideoDescription: chapterVideoDescription,
-  //         chapterStudyMaterial,
-  //       },
-  //     },
-  //   },
-  //   function (error, success) {
-  //     if (error) {
-  //       console.log(error);
-  //     } else {
-  //       console.log(success);
-  //     }
-  //   }
-  // );
-
-  const course = await Course.findById(req.params.id);
-  // console.log(course);
-
-  if (course) {
-    if (course.chapters) {
-      if (course.chapters.length === 0) {
-        course.chapters = [
-          {
-            chapterNumber,
-            chapterName,
-            chapterVideoLink,
-            chapterVideoDescription,
-            chapterStudyMaterial,
-          },
-        ];
-        const updatedCourse = await course.save();
-        // res.status(200).json({
-        //   success: true,
-        //   data: updatedCourse,
-        // });
-        // course.save();
-      } else {
-        course.chapters.push({
-          chapterNumber,
-          chapterName,
-          chapterVideoLink,
-          chapterVideoDescription,
-          chapterStudyMaterial,
-        });
-        const updatedCourse = await course.save();
-        // res.status(200).json({
-        //   success: true,
-        //   data: updatedCourse,
-        // });
-      }
-    } else {
-      course.chapters = [
-        {
-          chapterNumber,
-          chapterName,
-          chapterVideoLink,
-          chapterVideoDescription,
-          chapterStudyMaterial,
-        },
-      ];
-      // course.save();
-      // const updatedCourse = await course.save();
-      // res.status(200).json({
-      //   success: true,
-      //   data: updatedCourse,
-      // });
-    }
-    // await course.save();
-    // res.status(201).json({
-    //   success: true,
-    //   data: course,
-    // });
-  } else {
-    res.status(400).json({
-      success: false,
-      message: "Chapter not added Successfully",
-    });
-  }
-});
-
 // Get details of all courses
 const getAllCourses = asyncHandler(async (req, res) => {
   const courses = await Course.find({});
@@ -334,9 +236,181 @@ const payUsingRazorpay = async (req, res) => {
   }
 };
 
+// Create a new chapter
+const createChapter = asyncHandler(async (req, res) => {
+  const {
+    chapterNumber,
+    chapterName,
+    chapterVideoLink,
+    chapterVideoDescription,
+    chapterStudyMaterial,
+  } = req.body;
+  const courseId = req.params.id;
+  // console.log(courseId);
+  // await Course.findOneAndUpdate(
+  //   { _id: courseId },
+  //   {
+  //     $push: {
+  //       chapters: {
+  //         chapterNumber: chapterNumber,
+  //         chapterName: chapterName,
+  //         chapterVideoLink: chapterVideoLink,
+  //         chapterVideoDescription: chapterVideoDescription,
+  //         chapterStudyMaterial,
+  //       },
+  //     },
+  //   },
+  //   function (error, success) {
+  //     if (error) {
+  //       console.log(error);
+  //     } else {
+  //       console.log(success);
+  //     }
+  //   }
+  // );
+
+  const course = await Course.findById(req.params.id);
+  // console.log(course);
+
+  if (course) {
+    if (course.chapters) {
+      if (course.chapters.length === 0) {
+        course.chapters = [
+          {
+            chapterNumber,
+            chapterName,
+            chapterVideoLink,
+            chapterVideoDescription,
+            chapterStudyMaterial,
+          },
+        ];
+        const updatedCourse = await course.save();
+        // res.status(200).json({
+        //   success: true,
+        //   data: updatedCourse,
+        // });
+        // course.save();
+      } else {
+        course.chapters.push({
+          chapterNumber,
+          chapterName,
+          chapterVideoLink,
+          chapterVideoDescription,
+          chapterStudyMaterial,
+        });
+        const updatedCourse = await course.save();
+        // res.status(200).json({
+        //   success: true,
+        //   data: updatedCourse,
+        // });
+      }
+    } else {
+      course.chapters = [
+        {
+          chapterNumber,
+          chapterName,
+          chapterVideoLink,
+          chapterVideoDescription,
+          chapterStudyMaterial,
+        },
+      ];
+      // course.save();
+      // const updatedCourse = await course.save();
+      // res.status(200).json({
+      //   success: true,
+      //   data: updatedCourse,
+      // });
+    }
+    // await course.save();
+    // res.status(201).json({
+    //   success: true,
+    //   data: course,
+    // });
+  } else {
+    res.status(400).json({
+      success: false,
+      message: "Chapter not added Successfully",
+    });
+  }
+});
+
+
+// Create a new quiz
+const createQuiz = asyncHandler(async (req, res) => {
+  const {
+    question,
+    correct,
+    incorrect
+  } = req.body;
+
+  if(!question || !correct || !incorrect || question==="" || correct==="" || incorrect.length===0) {
+    res.status(400).json({
+      success: false,
+      error: "Send proper data",
+    });
+  }
+  
+  let errorFound = false;
+
+  for(const each of incorrect) {
+    if(each==="" || each===correct) {
+      errorFound = true;
+      break;
+    }
+  }
+
+  if(errorFound) {
+    res.status(400).json({
+      success: false,
+      error: "Either some option is empty or correct ans is set as incorrect",
+    });
+  }
+
+  const course = await Course.findById(req.params.id);
+
+  if (course) {
+    if (course.quiz) {
+      if (course.quiz.length === 0) {
+        course.quiz = [
+          {
+            question,
+            correct,
+            incorrect
+          },
+        ];
+      } else {
+        course.quiz.push({
+          question,
+          correct,
+          incorrect
+        });
+      }
+    } else {
+      course.quiz = [
+        {
+          question,
+          correct,
+          incorrect
+        },
+      ];
+    }
+    await course.save();
+    res.status(200).json({
+      success: true,
+      data: course,
+    });
+  } else {
+    res.status(400).json({
+      success: false,
+      error: "Quiz not added Successfully",
+    });
+  }
+});
+
+
+
 module.exports = {
   createCourse,
-  createChapter,
   getAllCourses,
   getAllFrontendCourses,
   getAllBackendCourses,
@@ -348,4 +422,6 @@ module.exports = {
   getAllCoursesOfUser,
   getAllCoursesOfInstructor,
   payUsingRazorpay,
+  createChapter,
+  createQuiz
 };

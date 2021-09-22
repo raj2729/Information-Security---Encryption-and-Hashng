@@ -1,3 +1,4 @@
+   
 const mongoose = require("mongoose");
 
 const courseSchema = mongoose.Schema(
@@ -62,6 +63,24 @@ const courseSchema = mongoose.Schema(
           default: "Self study",
         },
       },
+    ],
+    quiz: [
+      {
+        question: {
+          type: String,
+          required: true
+        },
+        correct: {
+          type: String,
+          required: true
+        },
+        incorrect: {
+          type: [{
+            type: String,
+            required: true
+          }]
+        }
+      }
     ],
     image: {
       type: String,
