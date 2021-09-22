@@ -1,7 +1,9 @@
 import { Container, Button, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import QuizAnswers from './QuizAnswers'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router';
+import axios from 'axios'
 
 const useStyles = makeStyles({
     paper: {
@@ -56,8 +58,23 @@ const Quiz = () => {
     const classes = useStyles();
     const [currentQuizStep, setCurrentQuizStep] = useState("start");
     const [quizData, setQuizData] = useState([]);
-    const data = [{ 'question': 'Which of this is an Animal?', 'correct': 'Cow', 'incorrect': ['Owl', 'Crow', 'Parrot'] },
-    { 'question': 'Which of this is NOT a bird?', 'correct': 'Cow', 'incorrect': ['Owl', 'Crow', 'Parrot'] }]
+    const { courseId } = useParams();
+    const [data, setData] = useState([])
+
+    const fetchQuiz = async()=> {
+        try{
+            const {data} = await axios.get(`/course/getQuizByCourse/${courseId}`)
+            setData(data.data)
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        fetchQuiz();
+    }, [courseId])
+    // const data = [{ 'question': 'Which of this is an Animal?', 'correct': 'Cow', 'incorrect': ['Owl', 'Crow', 'Parrot'] },
+    // { 'question': 'Which of this is NOT a bird?', 'correct': 'Cow', 'incorrect': ['Owl', 'Crow', 'Parrot'] }]
     const fetchQuizData = () => {
         const formattedCategory = data.map((cat) => {
             const incorrectAnswersIndexes = cat.incorrect.length;
