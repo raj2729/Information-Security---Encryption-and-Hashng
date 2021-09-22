@@ -474,12 +474,12 @@ function CoursePage({ history, match }) {
 
         <br />
 
-        <div style={{ padding: "80px 0px" }} className="teacher-div">
+        <div style={{ padding: "10px 0px 110px 0px" }} className="teacher-div">
           <h1>Meet your Teacher</h1>
           <Grid>
             <Grid xs={12} sm={12}>
               <img
-                src="https://cdn.shopify.com/s/files/1/0045/5104/9304/t/27/assets/AC_ECOM_SITE_2020_REFRESH_1_INDEX_M2_THUMBS-V2-1.jpg?v=8913815134086573859"
+                src={course.data.instructorId.profilePicture}
                 alt="pic"
                 className="teacher-img"
               />
@@ -487,13 +487,14 @@ function CoursePage({ history, match }) {
           </Grid>
 
           <Grid xs={12} sm={12} style={{ padding: "30px" }}>
-            <h3>Sahil&nbsp;Raj</h3>
+            <h3>{course.data.instructorId.name}</h3>
             <p>
-              A&nbsp;professional teacher with 10+ years of experience in the
+              {/* A&nbsp;professional teacher with 10+ years of experience in the
               teaching field. A professional teacher with 10+ years of
               experience in the teaching field.A professional teacher with 10+
               years of experience in the teaching field.A professional teacher
-              with 10+ years of experience in the teaching field.
+              with 10+ years of experience in the teaching field. */}
+              {course.data.instructorId.description}
             </p>
           </Grid>
         </div>
