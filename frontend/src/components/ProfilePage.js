@@ -21,6 +21,7 @@ import coursesCompleted from "../assets/courses-completed.svg";
 
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 // Importing Header
 import Header from "./Header";
@@ -211,20 +212,25 @@ function ProfilePage({ history }) {
           <Grid item xs={12} sm={4}>
             <img
               // src="https://res.cloudinary.com/dizvyn9b5/image/upload/v1632215752/mtxpeyrrjcbmmuygtj5z.jpg"
-              src="https://res.cloudinary.com/dizvyn9b5/image/upload/v1632241265/sjddbfkcij5tz8vokcmo.jpg"
+              src={userInfo.data.profilePicture}
               // src="https://res.cloudinary.com/dizvyn9b5/image/upload/v1632241300/oxndm5wvrwbmgoortsbs.jpg"
               alt="pic"
               className={classes.profilePic}
             />
             <h1 className={classes.name}>{userInfo.data.name}</h1>
             <p className={classes.description}>{userInfo.data.description}</p>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.editBtn}
+            <Link
+              to={"/editProfile"}
+              style={{ textDecoration: "none", color: "black" }}
             >
-              Edit Profile
-            </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.editBtn}
+              >
+                Edit Profile
+              </Button>
+            </Link>
           </Grid>
           <Grid item xs={12} sm={8}>
             <TableContainer component={Paper} className={classes.table}>
