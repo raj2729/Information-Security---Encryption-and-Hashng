@@ -16,6 +16,7 @@ import CreateCourse from "./components/CreateCourse";
 import CreateChapter from "./components/CreateChapter";
 import CareerForm from "./components/CareerForm";
 import ProfilePage from "./components/ProfilePage";
+import Quiz from "./components/quiz/Quiz";
 
 function App() {
   return (
@@ -31,13 +32,10 @@ function App() {
       <Route path="/contactForm" component={ContactForm} exact></Route>
       <Route path="/careerForm" component={CareerForm} exact></Route>
       <Route path="/myProfile" component={ProfilePage} exact></Route>
-      <Route
-        path="/instructorcourses/:id"
-        component={MyCoursesInstr}
-        exact
-      ></Route>
+      <Route path="/instructorcourses/:id" component={MyCoursesInstr} exact></Route>
       <Route path="/createCourse" component={CreateCourse} exact></Route>
       <Route path="/createChapter/:id" component={CreateChapter} exact></Route>
+      <Route path="/quiz/:courseId" component={Quiz} exact></Route>
     </BrowserRouter>
   );
 }
