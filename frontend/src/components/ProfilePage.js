@@ -133,11 +133,11 @@ const useStyles = makeStyles({
 
 function createData(name, calories, fat, carbs, protein) {
   //   const s = typeof name;
-  console.log(name);
+  // console.log(name);
   return { name, calories, fat, carbs, protein };
 }
 
-function ProfilePage() {
+function ProfilePage({ history }) {
   const classes = useStyles();
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -145,45 +145,61 @@ function ProfilePage() {
   const allUserCourses = useSelector((state) => state.allUserCourses);
   const { courses } = allUserCourses;
 
-  const [assignments, setAssignments] = useState({});
+  const [assignments, setAssignments] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    // console.log(courses.data.length);
     fetch(
-      `http://localhost:8080/assignment/getAssignmentsOfUser/${userInfo.data.id}`,
+      `http://localhost:8080/assignment/getAssignmentsOfUser/${userInfo.data._id}`,
       { method: "GET" }
     )
-      .then((response) =>
+      .then(
+        (response) =>
+          // console.log(response);
+          // return response;
+          response.json()
         // console.log(response);
-        // return response;
-        response.json()
       )
       .then((response) => {
-        setAssignments(response);
+        // console.log(response);
+        setAssignments(response.data);
+        numOfAssignments();
         setLoaded(true);
         return response;
       });
-    console.log(assignments.data);
-  }, [history]);
+    // console.log(assignments.data);
+  }, []);
 
-  const rows = [
-    createData(<p className={classes.tableText}>Name</p>, "Darshan Raval"),
-    createData(<p className={classes.tableText}>Email</p>, "darshan@gmail.com"),
-    createData(
-      <p className={classes.tableText}>Github Link</p>,
-      "github.github"
-    ),
-    createData(
-      <p className={classes.tableText}>LinkedIn Link</p>,
-      "facebook link"
-    ),
-    createData(<p className={classes.tableText}>Mobile No.</p>, "111111111111"),
-    createData(
-      <p className={classes.tableText}>Skills/ Domains</p>,
-      "Machine Learning",
-      "Web Dev"
-    ),
-  ];
+  // const rows = [
+  //   createData(<p className={classes.tableText}>Name</p>, "Darshan Raval"),
+  //   createData(<p className={classes.tableText}>Email</p>, "darshan@gmail.com"),
+  //   createData(
+  //     <p className={classes.tableText}>Github Link</p>,
+  //     "github.github"
+  //   ),
+  //   createData(
+  //     <p className={classes.tableText}>LinkedIn Link</p>,
+  //     "facebook link"
+  //   ),
+  //   createData(<p className={classes.tableText}>Mobile No.</p>, "111111111111"),
+  //   createData(
+  //     <p className={classes.tableText}>Skills/ Domains</p>,
+  //     "Machine Learning",
+  //     "Web Dev"
+  //   ),
+  // ];
+
+  const numOfAssignments = () => {
+    let count = 0;
+    // console.log(assignments);
+    assignments.map((assign) => {
+      if (assign.isCertified === true) count++;
+    });
+    console.log(count);
+    return count;
+  };
+
   return (
     <>
       <ThemeProvider theme={homePageTheme}>
@@ -313,7 +329,7 @@ function ProfilePage() {
           <Card className={classes.smallCard}>
             <h3 style={{ color: "gray" }}>Courses Completed</h3>
             <br />
-            <p className={classes.numOfCourses}>7</p>
+            <p className={classes.numOfCourses}>{numOfAssignments()}</p>
             <img src={coursesCompleted} className={classes.smallCardImg} />
           </Card>
         </Grid>
