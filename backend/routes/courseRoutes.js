@@ -14,7 +14,8 @@ const {
   getAllCoursesOfUser,
   getAllCoursesOfInstructor,
   createChapter,
-  createQuiz
+  createQuiz,
+  getQuizByCourse
 } = require("../controllers/courseControllers");
 
 const {
@@ -65,5 +66,8 @@ router.route("/createChapter/:id").put(createChapter);
 
 // Create new quiz - Only for instructors
 router.route("/createQuiz/:id").post(createQuiz);
+
+// Get quiz of a chapter -  only instructor
+router.route("/getQuizByCourse/:courseId").get(getQuizByCourse);
 
 module.exports = router;

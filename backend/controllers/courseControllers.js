@@ -22,6 +22,7 @@ LIST OF CONTROLLERS
 9. Pay using Razorpay
 10. Get details of all Other courses
 11. Add a chapter
+12. Get quiz details
 */
 
 // Create a new course
@@ -408,6 +409,17 @@ const createQuiz = asyncHandler(async (req, res) => {
 });
 
 
+const getQuizByCourse = asyncHandler(async(req,res)=> {
+  const {courseId} = req.params
+  const course = await Course.findById(courseId)
+  // console.log(courseId, course)
+  const quiz = course.quiz
+  res.status(200).json({
+    success: true,
+    data: quiz
+  })
+})
+
 
 module.exports = {
   createCourse,
@@ -423,5 +435,6 @@ module.exports = {
   getAllCoursesOfInstructor,
   payUsingRazorpay,
   createChapter,
-  createQuiz
+  createQuiz,
+  getQuizByCourse
 };
