@@ -12,6 +12,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { Button } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { Box } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
@@ -163,10 +164,10 @@ function MyCoursesInstr({ history, match }) {
               </Button>
             </Link>
           </Box>
-          {instructorCourses.data.map((course) => (
-            <>
-              <Card className={classes.card}>
-                <CardActionArea>
+          <Grid container spacing={8}>
+            {instructorCourses.data.map((course, index) => (
+              <Grid item key={index} xs={12} sm={6} md={3}>
+                <Card className={classes.card}>
                   <CardMedia
                     className={classes.media}
                     image={course.image}
@@ -180,20 +181,20 @@ function MyCoursesInstr({ history, match }) {
                       {course.description}
                     </Typography>
                   </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Link
-                    to={`/course/${course._id}`}
-                    style={{ textDecoration: "none" }}
-                  >
-                    <Button size="large" color="primary">
-                      Go To Course
-                    </Button>
-                  </Link>
-                </CardActions>
-              </Card>
-            </>
-          ))}
+                  <CardActions>
+                    <Link
+                      to={`/course/${course._id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Button size="large" color="primary">
+                        Go To Course
+                      </Button>
+                    </Link>
+                  </CardActions>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
         </main>
       )}
     </div>

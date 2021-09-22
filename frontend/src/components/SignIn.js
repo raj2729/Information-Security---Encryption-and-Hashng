@@ -39,14 +39,14 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     backgroundImage:
-      "url(https://media.istockphoto.com/vectors/online-education-vector-id960268208)",
+      "url(https://elearningindustry.com/wp-content/uploads/2019/07/top-6-eLearning-trends-of-2019.jpg)",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
         ? theme.palette.grey[50]
         : theme.palette.grey[900],
     backgroundSize: "cover",
-    backgroundPosition: "",
+    backgroundPosition: "center",
   },
   paper: {
     margin: theme.spacing(8, 4),
@@ -100,9 +100,6 @@ function SignIn({ history }) {
 
   return (
     <>
-      <ThemeProvider theme={homePageTheme}>
-        <Header />
-      </ThemeProvider>
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -112,7 +109,7 @@ function SignIn({ history }) {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Login
             </Typography>
             <form className={classes.form} noValidate onSubmit={submitHandler}>
               <TextField
@@ -150,7 +147,7 @@ function SignIn({ history }) {
                 color="primary"
                 className={classes.submit}
               >
-                Sign In
+                Login
               </Button>
               <Grid container>
                 {/* <Grid item xs>
