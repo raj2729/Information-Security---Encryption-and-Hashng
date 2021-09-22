@@ -21,6 +21,6 @@ router.route("/userLogin").post(userLogin);
 router.route("/userDetails").get(protect, getUserDetails);
 
 // User updates his/her own details - Only logged in user
-router.route("/userUpdate").put(protect, updateUserDetails);
+router.route("/userUpdate/:id").put(protect, updateUserDetails);
 
 module.exports = router;
