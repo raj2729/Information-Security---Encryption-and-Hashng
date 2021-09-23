@@ -18,7 +18,7 @@ router.route("/userRegister").post(registerUser);
 router.route("/userLogin").post(userLogin);
 
 // User gets his/her own details - Only logged in user
-router.route("/userDetails").get(protect, getUserDetails);
+router.route("/userDetails/:id").get(protect, getUserDetails);
 
 // User updates his/her own details - Only logged in user
 router.route("/userUpdate/:id").put(protect, updateUserDetails);

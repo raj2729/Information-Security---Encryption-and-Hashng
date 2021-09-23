@@ -677,7 +677,13 @@ function CoursePage({ history, match }) {
           ) : (
             <p></p>
           )}
-          <img src={quiz} className={classes.img} alt="student" />
+          <img
+            src="https://cdn.dribbble.com/users/4908/screenshots/2787171/invoice-animation-dribbble.gif"
+            // src="https://cdn.dribbble.com/users/4241563/screenshots/11874468/media/7796309c77cf752615a3f9062e6a3b3d.gif"
+            className={classes.img}
+            alt="student"
+          />
+          {/* <img src={quiz} className={classes.img} alt="student" /> */}
         </div>
         <div>
           <h1>Assignment Submission</h1>
@@ -759,7 +765,13 @@ function CoursePage({ history, match }) {
         </div>
         <div>
           <h1>Solve Your Doubts Here!!</h1>
-          <img src={discussion} className={classes.img} alt="student" />
+          <img
+            // src="http://www.rcdspcg.com/images/course/img17.gif"
+            src="https://content.app-sources.com/s/70633399122816051/uploads/LOGOS/f5340454c0da1eabb125df9efff4b504_1-9593554.gif"
+            className={classes.img}
+            alt="student"
+          />
+          {/* <img src={discussion} className={classes.img} alt="student" /> */}
           <br />
           <Button
             disabled={

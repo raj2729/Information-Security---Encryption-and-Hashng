@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Box from "@material-ui/core/Box";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 // import "./profilepage.css"
 import Grid from "@material-ui/core/Grid";
@@ -169,27 +166,28 @@ function ProfilePage({ history }) {
         setLoaded(true);
         return response;
       });
+
+    fetch(`http://localhost:8080/user/userDetails/${userInfo.data._id}`, {
+      method: "GET",
+    })
+      .then(
+        (response) =>
+          // console.log(response);
+          // return response;
+          response.json()
+        // console.log(response);
+      )
+      .then((response) => {
+        // console.log(response);
+        // setAssignments(response.data);
+        userInfo = response.data;
+        // numOfAssignments();
+        // setLoaded(true);
+        return response;
+      });
+
     // console.log(assignments.data);
   }, []);
-
-  // const rows = [
-  //   createData(<p className={classes.tableText}>Name</p>, "Darshan Raval"),
-  //   createData(<p className={classes.tableText}>Email</p>, "darshan@gmail.com"),
-  //   createData(
-  //     <p className={classes.tableText}>Github Link</p>,
-  //     "github.github"
-  //   ),
-  //   createData(
-  //     <p className={classes.tableText}>LinkedIn Link</p>,
-  //     "facebook link"
-  //   ),
-  //   createData(<p className={classes.tableText}>Mobile No.</p>, "111111111111"),
-  //   createData(
-  //     <p className={classes.tableText}>Skills/ Domains</p>,
-  //     "Machine Learning",
-  //     "Web Dev"
-  //   ),
-  // ];
 
   const numOfAssignments = () => {
     let count = 0;

@@ -7,28 +7,13 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid"
+import Grid from "@material-ui/core/Grid";
 import { Button } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 // Importing Header
 import Header from "./Header";
-import { createTheme, ThemeProvider } from "@material-ui/core";
-const homePageTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#809FFF",
-    },
-    secondary: {
-      main: "#000000",
-    },
-    text: {
-      primary: "#000000",
-      secondary: "#FEFFFF",
-    },
-  },
-});
 
 const drawerWidth = 240;
 

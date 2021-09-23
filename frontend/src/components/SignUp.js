@@ -14,25 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { register } from "../actions/userActions";
 
-import { createTheme, ThemeProvider } from "@material-ui/core";
-
 // Importing Header, Footer and Copyright
 import Header from "./Header";
-
-const homePageTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#809FFF",
-    },
-    secondary: {
-      main: "#000000",
-    },
-    text: {
-      primary: "#000000",
-      secondary: "#FEFFFF",
-    },
-  },
-});
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -185,10 +168,6 @@ function SignUp({ history }) {
         // console.log(response.json());
         response.json();
         if (response.status === 200) {
-          // setShowPassword(true);
-          // setShowSendOtpButton(false);
-          // setShowVerifyOtpButton(false);
-          // setShowResendOtpButton(false);
           setshowEnterMobileOtp(true);
           setshowVerifyMobileOtpButton(true);
           setshowMobileSendOtpButton(false);
@@ -249,9 +228,7 @@ function SignUp({ history }) {
 
   return (
     <>
-      {/* <ThemeProvider theme={homePageTheme}> */}
       <Header />
-      {/* </ThemeProvider> */}
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
