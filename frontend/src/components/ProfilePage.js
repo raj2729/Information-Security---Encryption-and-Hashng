@@ -292,7 +292,7 @@ function ProfilePage({ history }) {
                     <TableCell component="th" scope="row">
                       Skills/Domains Interested
                     </TableCell>
-                    {userInfo.data.domains.length == 0 ? (
+                    {userInfo.data.domains === '' ? (
                       <TableCell align="right">----</TableCell>
                     ) : (
                       <TableCell align="right">
