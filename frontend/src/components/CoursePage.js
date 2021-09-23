@@ -26,7 +26,7 @@ import TextField from "@material-ui/core/TextField";
 import { Box } from "@material-ui/core";
 
 import quiz from "../assets/quiz.png";
-import discussion from '../assets/discussion.png'
+import discussion from "../assets/discussion.png";
 import Carousel from "react-material-ui-carousel";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import { Link } from "react-router-dom";
@@ -55,74 +55,74 @@ import { createAssignment } from "../actions/assignmentActions";
 
 const useStyles = makeStyles((theme) => ({
   app: {
-    textAlign: 'center',
+    textAlign: "center",
   },
   bigBox: {
-    width: '80%',
-    height: '400px',
-    backgroundColor: '#FFB830',
-    margin: 'auto',
-    borderRadius: '30px',
-    marginTop: '30px',
+    width: "80%",
+    height: "400px",
+    backgroundColor: "#FFB830",
+    margin: "auto",
+    borderRadius: "30px",
+    marginTop: "30px",
   },
   bigText: {
-    paddingTop: '40px',
-    paddingLeft: '40px',
+    paddingTop: "40px",
+    paddingLeft: "40px",
   },
   smallText: {
-    color: 'white',
-    paddingLeft: '40px',
+    color: "white",
+    paddingLeft: "40px",
   },
   bigBtn: {
-    height: '70px',
-    padding: '40px !important',
-    color: '#C8C6C6',
-    paddingBottom: '10px'
+    height: "70px",
+    padding: "40px !important",
+    color: "#C8C6C6",
+    paddingBottom: "10px",
   },
   enroll: {
-    width: '300px',
-    backgroundColor: '#FF2442 !important',
-    borderRadius: '999px !important',
+    width: "300px",
+    backgroundColor: "#FF2442 !important",
+    borderRadius: "999px !important",
   },
   enrollText: {
-    color: 'white'
+    color: "white",
   },
   halfDiv: {
-    paddingTop: '10px',
-    margin: 'auto',
-    width: '60%',
-    backgroundColor: 'lightgrey',
-    borderRadius: '30px',
-    position: 'relative',
-    bottom: '50px',
+    paddingTop: "10px",
+    margin: "auto",
+    width: "60%",
+    backgroundColor: "lightgrey",
+    borderRadius: "30px",
+    position: "relative",
+    bottom: "50px",
   },
   halfDivText: {
-    paddingRight: '10px',
-    textAlign: 'center',
-    paddingBottom: '15px',
+    paddingRight: "10px",
+    textAlign: "center",
+    paddingBottom: "15px",
   },
   icons: {
-    color: 'blue',
-    opacity: '0.5',
-    padding: '5px',
-    position: 'relative',
-    top: '10px',
+    color: "blue",
+    opacity: "0.5",
+    padding: "5px",
+    position: "relative",
+    top: "10px",
   },
   teacher: {
-    backgroundColor: '#FFB830',
+    backgroundColor: "#FFB830",
   },
   teacherImg: {
-    width: '200px',
-    borderRadius: '999px',
-    display: 'flex',
-    padding: '30px',
-    float: 'left',
+    width: "200px",
+    borderRadius: "999px",
+    display: "flex",
+    padding: "30px",
+    float: "left",
   },
   courseItem: {
-    border: '2px solid #C8C6C6',
-    padding: '10px !important',
-    margin: '10px',
-    borderRadius: '10px',
+    border: "2px solid #C8C6C6",
+    padding: "10px !important",
+    margin: "10px",
+    borderRadius: "10px",
   },
   column1: {
     flexBasis: "80%",
@@ -151,24 +151,24 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   button: {
-    width: '200px',
-    height: '50px',
-    borderRadius: '999px',
+    width: "200px",
+    height: "50px",
+    borderRadius: "999px",
   },
   uploadBtn: {
-    width: '300px',
-    height: '50px',
-    margin: '10px !important',
+    width: "300px",
+    height: "50px",
+    margin: "10px !important",
   },
   uploadIcon: {
     fontSize: "100px",
-    color: '#000000',
-    padding: '5px',
-    paddingRight: '10px',
+    color: "#000000",
+    padding: "5px",
+    paddingRight: "10px",
   },
   img: {
-    marginTop: '20px',
-    width: '40%',
+    marginTop: "20px",
+    width: "40%",
   },
   root2: {
     "& .MuiTextField-root": {
@@ -177,26 +177,26 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   reviewCard: {
-    padding: '20px',
-    width: '60%',
-    boxShadow: '5px 5px 15px 5px #8f8f8f !important',
-    justifyContent: 'center',
-    alignItems: 'center',
-    justifySelf: 'center',
-    alignSelf: 'center',
-    margin: '50px auto',
+    padding: "20px",
+    width: "60%",
+    boxShadow: "5px 5px 15px 5px #8f8f8f !important",
+    justifyContent: "center",
+    alignItems: "center",
+    justifySelf: "center",
+    alignSelf: "center",
+    margin: "50px auto",
   },
   manImg: {
-    width: '200px',
-    borderRadius: '999px',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    justifySelf: 'center',
-    alignSelf: 'center',
-    margin: '30px auto',
-    padding: '20px',
-  }
+    width: "200px",
+    borderRadius: "999px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    justifySelf: "center",
+    alignSelf: "center",
+    margin: "30px auto",
+    padding: "20px",
+  },
   // image: {
   //   backgroundImage:
   //     "url(https://media.istockphoto.com/vectors/online-education-vector-id960268208)",
@@ -233,7 +233,6 @@ const useStyles = makeStyles((theme) => ({
   // detailStudyMaterial: {
   //   alignItems: "left",
   // },
-
 
   // helper: {
   //   borderLeft: `2px solid ${theme.palette.divider}`,
@@ -498,7 +497,9 @@ function CoursePage({ history, match }) {
             ) : (
               <Link to={"/signin"} style={{ textDecoration: "none" }}>
                 <Button className={classes.enroll} variant="contained">
-                  <span className={classes.enrollText}>Login to enroll course</span>
+                  <span className={classes.enrollText}>
+                    Login to enroll course
+                  </span>
                 </Button>
               </Link>
             )}
@@ -544,11 +545,14 @@ function CoursePage({ history, match }) {
             </Grid>
           </Grid>
         </div>
-        <div style={{ padding: "80px 0px" }} className={classes.teacher}>
+        <div
+          style={{ padding: "50px 0px 50px 0px" }}
+          className={classes.teacher}
+        >
           <Grid>
             <Grid xs={12} sm={12}>
               <img
-                src="https://cdn.shopify.com/s/files/1/0045/5104/9304/t/27/assets/AC_ECOM_SITE_2020_REFRESH_1_INDEX_M2_THUMBS-V2-1.jpg?v=8913815134086573859"
+                src={course.data.instructorId.profilePicture}
                 alt="pic"
                 className={classes.teacherImg}
               />
@@ -556,14 +560,8 @@ function CoursePage({ history, match }) {
           </Grid>
           <Grid xs={12} sm={12} style={{ padding: "30px" }}>
             <h1>Meet your Teacher</h1>
-            <h3>Sahil Raj</h3>
-            <p>
-              A professional teacher with 10+ years of experience in the
-              teaching field. A professional teacher with 10+ years of
-              experience in the teaching field.A professional teacher with 10+
-              years of experience in the teaching field.A professional teacher
-              with 10+ years of experience in the teaching field.
-            </p>
+            <h3>{course.data.instructorId.name}</h3>
+            <p>{course.data.instructorId.description}</p>
           </Grid>
         </div>
         <div style={{ paddingLeft: "10%", paddingRight: "10%" }}>
@@ -572,7 +570,13 @@ function CoursePage({ history, match }) {
           <br />
           <Grid container spacing={2}>
             {course.data.chapters.map((chapter) => (
-              <Grid item xs={15} sm={15} className={classes.courseItem} style={{ width: "100%" }}>
+              <Grid
+                item
+                xs={15}
+                sm={15}
+                className={classes.courseItem}
+                style={{ width: "100%" }}
+              >
                 <Accordion style={{ boxShadow: "none" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
@@ -589,13 +593,17 @@ function CoursePage({ history, match }) {
                     <div className={classes.column}>
                       <Button
                         disabled={
-                          userInfo === null || isUserEnrolledInCourseFromAllCourses === false
+                          userInfo === null ||
+                          isUserEnrolledInCourseFromAllCourses === false
                         }
-                        color='primary'
+                        color="primary"
                         variant="contained"
                         onClick={handleOpen}
                       >
-                        {userInfo === null || isUserEnrolledInCourseFromAllCourses === false ? "Enroll course first" : "View Chapter"}
+                        {userInfo === null ||
+                        isUserEnrolledInCourseFromAllCourses === false
+                          ? "Enroll course first"
+                          : "View Chapter"}
                       </Button>
                       <Modal
                         className={classes.modal}
@@ -623,7 +631,8 @@ function CoursePage({ history, match }) {
           </Grid>
           <Box m={2} pt={3} />
           {userInfo ? (
-            userInfo.data.isInstructor === true && userInfo.data._id === course.data.instructorId ? (
+            userInfo.data.isInstructor === true &&
+            userInfo.data._id === course.data.instructorId ? (
               <Link
                 to={`/createChapter/${course.data._id}`}
                 style={{ textDecoration: "none" }}
@@ -649,18 +658,18 @@ function CoursePage({ history, match }) {
         </div>
         <div>
           <h1>Take a Quiz and test your skills!</h1>
-            <Button
-              disabled={
-                userInfo === null ||
-                isUserEnrolledInCourseFromAllCourses === false
-              }
-              className={classes.button}
-              variant="contained"
-              color="primary"
-              onClick={()=>history.push(`/quiz/${match.params.id}`)}
-            >
-              <span> Start Quiz </span>
-            </Button>
+          <Button
+            disabled={
+              userInfo === null ||
+              isUserEnrolledInCourseFromAllCourses === false
+            }
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            onClick={() => history.push(`/quiz/${match.params.id}`)}
+          >
+            <span> Start Quiz </span>
+          </Button>
           {userInfo === null ? (
             <p style={{ color: "red" }}>Login to access Quiz</p>
           ) : isUserEnrolledInCourseFromAllCourses === false ? (
@@ -674,7 +683,8 @@ function CoursePage({ history, match }) {
           <h1>Assignment Submission</h1>
           <Input
             disabled={
-              userInfo === null || isUserEnrolledInCourseFromAllCourses === false
+              userInfo === null ||
+              isUserEnrolledInCourseFromAllCourses === false
             }
             onChange={(event) => {
               setImageSelected(event.target.files[0]);
@@ -739,7 +749,7 @@ function CoursePage({ history, match }) {
                 isUserEnrolledInCourseFromAllCourses === false
               }
               className={classes.button}
-              color='primary'
+              color="primary"
               variant="contained"
               onClick={submitAssignmentHandler}
             >
@@ -750,19 +760,19 @@ function CoursePage({ history, match }) {
         <div>
           <h1>Solve Your Doubts Here!!</h1>
           <img src={discussion} className={classes.img} alt="student" />
-          <br/>
-            <Button
-              disabled={
-                userInfo === null ||
-                isUserEnrolledInCourseFromAllCourses === false
-              }
-              className={classes.button}
-              variant='contained'
-              color='primary'
-              onClick={()=>history.push(`/discuss/${match.params.id}`)}
-            >
-              Discussion Forum
-            </Button>
+          <br />
+          <Button
+            disabled={
+              userInfo === null ||
+              isUserEnrolledInCourseFromAllCourses === false
+            }
+            className={classes.button}
+            variant="contained"
+            color="primary"
+            onClick={() => history.push(`/discuss/${match.params.id}`)}
+          >
+            Discussion Forum
+          </Button>
           {userInfo === null ? (
             <p style={{ color: "red" }}>Login to upload Assignment</p>
           ) : isUserEnrolledInCourseFromAllCourses === false ? (
@@ -777,7 +787,7 @@ function CoursePage({ history, match }) {
           style={{
             paddingLeft: "10%",
             paddingRight: "10%",
-            backgroundColor: '#CBCBE1',
+            backgroundColor: "#CBCBE1",
           }}
         >
           <h1 style={{ paddingTop: "70px" }}>Course Advantages</h1>
@@ -792,7 +802,7 @@ function CoursePage({ history, match }) {
         </div>
         <div style={{ paddingLeft: "10%", paddingRight: "10%" }}>
           <h1 style={{ paddingTop: "70px" }}>About this Course</h1>
-          <ul style={{ textAlign: 'left' }}>
+          <ul style={{ textAlign: "left" }}>
             <li style={{ lineHeight: 3 }}>
               This course doesn't cut any corners, tens of real-world projects
               which you will get to build.
@@ -818,7 +828,7 @@ function CoursePage({ history, match }) {
             paddingLeft: "10%",
             paddingRight: "10%",
             paddingBottom: "10%",
-            backgroundColor: '#CBCBE1',
+            backgroundColor: "#CBCBE1",
           }}
         >
           <h1 style={{ paddingTop: "70px" }}>Have some query?</h1>
