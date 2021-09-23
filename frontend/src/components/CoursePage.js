@@ -649,7 +649,6 @@ function CoursePage({ history, match }) {
         </div>
         <div>
           <h1>Take a Quiz and test your skills!</h1>
-          <Link to={`#`} style={{ textDecoration: "none" }}>
             <Button
               disabled={
                 userInfo === null ||
@@ -658,10 +657,10 @@ function CoursePage({ history, match }) {
               className={classes.button}
               variant="contained"
               color="primary"
+              onClick={()=>history.push(`/quiz/${match.params.id}`)}
             >
               <span> Start Quiz </span>
             </Button>
-          </Link>
           {userInfo === null ? (
             <p style={{ color: "red" }}>Login to access Quiz</p>
           ) : isUserEnrolledInCourseFromAllCourses === false ? (
