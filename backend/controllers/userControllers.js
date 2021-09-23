@@ -13,7 +13,8 @@ LIST OF CONTROLLERS
 
 // Register New user
 const registerUser = asyncHandler(async (req, res) => {
-  const { email, name, password, isInstructor, isAdmin } = req.body;
+  const { email, name, password, isInstructor, isAdmin, mobileNumber } =
+    req.body;
 
   const userExist = await User.findOne({ email });
   if (userExist) {
@@ -24,6 +25,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name,
       email,
       password,
+      mobileNumber,
       isInstructor,
       isAdmin,
     });
@@ -37,6 +39,7 @@ const registerUser = asyncHandler(async (req, res) => {
     <ul>
       <li>Name : ${req.body.name}</li>
       <li>Email : ${req.body.email}</li>
+      <li>Mobile Number : ${req.body.mobileNumber}</li>
       <li>Password : ${req.body.password}</li>
     </ul>
     <p>Please save your account details for future references</p>

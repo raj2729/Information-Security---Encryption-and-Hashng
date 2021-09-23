@@ -75,6 +75,7 @@ function SignUp({ history }) {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [showEmail, setShowEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showEnterOtp, setShowEnterOtp] = useState(false);
@@ -82,6 +83,14 @@ function SignUp({ history }) {
   const [showResendOtpButton, setShowResendOtpButton] = useState(false);
   const [showVerifyOtpButton, setShowVerifyOtpButton] = useState(true);
   const [enteredOtp, setEnteredOtp] = useState(0);
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [showMobileSendOtpButton, setshowMobileSendOtpButton] = useState(true);
+  const [showResendMobileOtpButton, setshowResendMobileOtpButton] =
+    useState(false);
+  const [enteredMobileOtp, setenteredMobileOtp] = useState(0);
+  const [showEnterMobileOtp, setshowEnterMobileOtp] = useState(false);
+  const [showVerifyMobileOtpButton, setshowVerifyMobileOtpButton] =
+    useState(false);
 
   const dispatch = useDispatch();
 
@@ -155,6 +164,78 @@ function SignUp({ history }) {
       });
   };
 
+  const sendMobileOtpClickHandler = () => {
+    // console.log(mobileNumber);
+    // setshowResendMobileOtpButton(true);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        // courseId: match.params.id,
+        mobileNumber: mobileNumber,
+      }),
+    };
+    // setshowEnterMobileOtp(true);
+    // setshowVerifyMobileOtpButton(true);
+    // setshowMobileSendOtpButton(false);
+    // setshowResendMobileOtpButton(true);
+    // alert("Mobile number has been verified");
+    fetch(`http://localhost:8080/otp/sendMobileOtp`, requestOptions)
+      .then((response) => {
+        // console.log(response.json());
+        response.json();
+        if (response.status === 200) {
+          // setShowPassword(true);
+          // setShowSendOtpButton(false);
+          // setShowVerifyOtpButton(false);
+          // setShowResendOtpButton(false);
+          setshowEnterMobileOtp(true);
+          setshowVerifyMobileOtpButton(true);
+          setshowMobileSendOtpButton(false);
+          setshowResendMobileOtpButton(true);
+          alert("Otp has been sent to mobile number");
+        } else {
+          alert("Please retry verification of mobile number.");
+        }
+      })
+      .then((response) => {
+        // response.json();
+        console.log(response);
+      });
+  };
+
+  const verifyMobileOtpClickHandler = () => {
+    console.log(enteredOtp);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        // courseId: match.params.id,
+        mobileNumber: mobileNumber,
+        otpCode: enteredMobileOtp,
+      }),
+    };
+    // setPublicIdd(response.data.secure_url);
+    fetch(`http://localhost:8080/otp/checkMobileOtp`, requestOptions)
+      .then((response) => {
+        // console.log(response.json());
+        response.json();
+        if (response.status === 200) {
+          setShowEmail(true);
+          setshowEnterMobileOtp(false);
+          setshowVerifyMobileOtpButton(false);
+          setshowResendMobileOtpButton(false);
+          alert("Mobile number has been verified");
+        } else {
+          alert("Please retry verification of mobile number.");
+        }
+      })
+      .then((response) => {
+        // response.json();
+        console.log(response);
+      });
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     // if (password !== confirmPassword) {
@@ -163,14 +244,14 @@ function SignUp({ history }) {
     //   //dispatch
     //   dispatch(register(name, email, password));
     // }
-    dispatch(register(name, email, password));
+    dispatch(register(name, email, password, mobileNumber));
   };
 
   return (
     <>
-      <ThemeProvider theme={homePageTheme}>
-        <Header />
-      </ThemeProvider>
+      {/* <ThemeProvider theme={homePageTheme}> */}
+      <Header />
+      {/* </ThemeProvider> */}
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -196,18 +277,93 @@ function SignUp({ history }) {
                 onChange={(e) => setName(e.target.value)}
               />
               <TextField
+                type="text"
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="mobileNumber"
+                label="Enter Mobile Number"
+                name="mobileNumber"
+                autoComplete="mobileNumber"
                 autoFocus
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setMobileNumber(e.target.value)}
               />
-              {showSendOtpButton === true ? (
+              {showMobileSendOtpButton === true ? (
+                <Button
+                  type="button"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={sendMobileOtpClickHandler}
+                >
+                  Send OTP on mobile
+                </Button>
+              ) : (
+                <p></p>
+              )}
+              {showResendMobileOtpButton === true ? (
+                <Button
+                  type="button"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={sendMobileOtpClickHandler}
+                >
+                  Resend OTP on mobile
+                </Button>
+              ) : (
+                <p></p>
+              )}
+              {showEnterMobileOtp === true &&
+              showVerifyMobileOtpButton === true ? (
+                <>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="enteredOtp"
+                    label="Enter OTP"
+                    name="enteredOtp"
+                    autoComplete="enteredOtp"
+                    autoFocus
+                    onChange={(e) => setenteredMobileOtp(e.target.value)}
+                  />
+                  <Button
+                    type="button"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={verifyMobileOtpClickHandler}
+                  >
+                    Verify OTP
+                  </Button>
+                </>
+              ) : (
+                <p></p>
+              )}
+              {showEmail === true ? (
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              ) : (
+                <p></p>
+              )}
+
+              {showSendOtpButton === true && showEmail === true ? (
                 <Button
                   type="button"
                   fullWidth
