@@ -7,6 +7,8 @@ const User = require("../models/userModel");
 LIST OF CONTROLLERS
 1. Create an assignment
 2. Get all assignments of a user by userId
+3. Get all assignments of a instructor by instructorId
+4. Update assignment status to certified
 */
 
 // 1. Create a new assignment
@@ -17,6 +19,7 @@ const createAssignment = asyncHandler(async (req, res) => {
     assignmentLink,
     assignmentScreenshotLink,
     courseId,
+    instructorId,
     assignmentStatus,
   } = req.body;
   // const userId = req.user._id;
@@ -35,6 +38,7 @@ const createAssignment = asyncHandler(async (req, res) => {
       userId,
       courseId,
       isCertified,
+      instructorId,
       assignmentLink,
       assignmentScreenshotLink,
       assignmentStatus,
@@ -62,6 +66,7 @@ const createAssignment = asyncHandler(async (req, res) => {
     courseId,
     isCertified,
     assignmentLink,
+    instructorId,
     assignmentScreenshotLink,
     assignmentStatus: assignmentStatus,
   });
@@ -86,7 +91,59 @@ const getAllAssignmentsOfUser = asyncHandler(async (req, res) => {
   });
 });
 
+// 3. Get all assignments of a instructor by instructorId
+const getAllAssignmentsOfInstructor = asyncHandler(async (req, res) => {
+  const assignments = await Assignment.find({
+    instructorId: req.params.id,
+    isCertified: false,
+    assignmentStatus: "submit",
+  }).populate("courseId");
+  res.status(200).json({
+    success: true,
+    data: assignments,
+  });
+});
+
+// 4. Update status to certified by assignment Id in params
+const updateToCertified = asyncHandler(async (req, res) => {
+  const assignment = await Assignment.findById(req.params.id);
+  if (assignment) {
+    assignment.isCertified = true;
+    const updatedAssignment = await assignment.save();
+    res.status(200).json({
+      success: true,
+      data: updatedAssignment,
+    });
+  } else {
+    res.status(404).json({
+      success: false,
+      data: "Not certified",
+    });
+  }
+});
+
+// 5. Update status to unsubmit by assignment Id in params
+const updateToUnSubmit = asyncHandler(async (req, res) => {
+  const assignment = await Assignment.findById(req.params.id);
+  if (assignment) {
+    assignment.assignmentStatus = "unsubmit";
+    const updatedAssignment = await assignment.save();
+    res.status(200).json({
+      success: true,
+      data: updatedAssignment,
+    });
+  } else {
+    res.status(404).json({
+      success: false,
+      data: "Not certified",
+    });
+  }
+});
+
 module.exports = {
   createAssignment,
   getAllAssignmentsOfUser,
+  getAllAssignmentsOfInstructor,
+  updateToCertified,
+  updateToUnSubmit,
 };

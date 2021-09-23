@@ -109,11 +109,11 @@ const useStyles = makeStyles({
   },
 });
 
-function createData(name, calories, fat, carbs, protein) {
-  //   const s = typeof name;
-  // console.log(name);
-  return { name, calories, fat, carbs, protein };
-}
+// function createData(name, calories, fat, carbs, protein) {
+//   //   const s = typeof name;
+//   // console.log(name);
+//   return { name, calories, fat, carbs, protein };
+// }
 
 function ProfilePage({ history }) {
   const classes = useStyles();
@@ -270,7 +270,7 @@ function ProfilePage({ history }) {
                     <TableCell component="th" scope="row">
                       Skills/Domains Interested
                     </TableCell>
-                    {userInfo.data.domains === '' ? (
+                    {userInfo.data.domains === "" ? (
                       <TableCell align="right">----</TableCell>
                     ) : (
                       <TableCell align="right">
@@ -304,7 +304,11 @@ function ProfilePage({ history }) {
             <h3 style={{ color: "gray" }}>Courses Enrolled</h3>
             <br />
             <p className={classes.numOfCourses}>{courses.data.length}</p>
-            <img src={coursesEnrolled} className={classes.smallCardImg} />
+            <img
+              src={coursesEnrolled}
+              className={classes.smallCardImg}
+              alt="Courses enrolled"
+            />
           </Card>
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -312,7 +316,11 @@ function ProfilePage({ history }) {
             <h3 style={{ color: "gray" }}>Courses Completed</h3>
             <br />
             <p className={classes.numOfCourses}>{numOfAssignments()}</p>
-            <img src={coursesCompleted} className={classes.smallCardImg} />
+            <img
+              src={coursesCompleted}
+              className={classes.smallCardImg}
+              alt="Courses Completed"
+            />
           </Card>
         </Grid>
       </Grid>

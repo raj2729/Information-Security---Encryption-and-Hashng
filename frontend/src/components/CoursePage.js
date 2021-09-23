@@ -320,7 +320,8 @@ function CoursePage({ history, match }) {
             match.params.id,
             response.data.secure_url,
             githubLink,
-            "submit"
+            "submit",
+            course.data.instructorId._id
           )
         );
       });

@@ -6,7 +6,7 @@ import {
 } from "../constants/assignmentConstants";
 
 export const createAssignment =
-  (userId, courseId, publicIdd, githubLink, assignmentStatus) =>
+  (userId, courseId, publicIdd, githubLink, assignmentStatus, instructorId) =>
   async (dispatch) => {
     try {
       dispatch({ type: ASSIGNMENT_CREATE_REQUEST });
@@ -21,6 +21,7 @@ export const createAssignment =
           assignmentLink: publicIdd,
           assignmentScreenshotLink: githubLink,
           assignmentStatus,
+          instructorId: instructorId,
         },
         config
       );

@@ -33,14 +33,27 @@ app.use(express.json());
 
 const PORT = process.env.PORT;
 
-app.post("/getCertificate/:name/:course", (req, res) => {
+app.post("/getCertificate", async (req, res) => {
   // res.send("<h1>Welcome to Full Stack Simplified</h1>");
   // res.download("output.pdf");
-  console.log(req.params.name, req.params.course);
-  generatePDF(req.params.name, req.params.course);
-  res.download("CertificateOfCompletion.pdf");
+  try {
+    const { name, email, course } = req.body;
+    console.log(name, email, course);
+    generatePDF(name, email, course);
+    res.download("CertificateOfCompletion.pdf");
+    res.status(200).json({
+      success: true,
+      data: "Successfull",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      success: true,
+      data: error,
+    });
+  }
 });
-// generatePDF("Raj Sanghavi", "HTML COURSE");
+// generatePDF("Raj Sanghavi", "rajsanghavi9@gmail.com", "HTML COURSE");
 
 app.use("/user", userRoutes);
 app.use("/course", courseRoutes);

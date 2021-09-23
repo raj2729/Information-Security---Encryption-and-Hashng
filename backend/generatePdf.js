@@ -2,7 +2,7 @@ const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const nodemailer = require("nodemailer");
 
-const generatePDF = (name, course) => {
+const generatePDF = (name, email, course) => {
   const doc = new PDFDocument({
     layout: "landscape",
     size: "A4",
@@ -268,13 +268,13 @@ const generatePDF = (name, course) => {
 
   //  Mail
   const output = `
-      <h2>Congratulations on completing the course: COURSENAME</h2>
-    <p>Your assignment was verified by the user. Please find your Certificate of completion below.</p>
+      <h2>Congratulations on completing the course: ${course}</h2>
+    <p>Your assignment was verified by the instructor. Please find your Certificate of completion below.</p>
     <h3>Your Account Details:</h3>
     <ul>
-      <li>Name : HEEEE</li>
-      <li>Email : EELLLLO</li>
-      <li>Course Completed : LLLOOOOOO</li>
+      <li>Name : ${name}</li>
+      <li>Email : ${email}</li>
+      <li>Course Completed : ${course}</li>
     </ul>
     <p>Happy Learning!</p>
     <p></p>
@@ -301,29 +301,30 @@ const generatePDF = (name, course) => {
   let mailOptions = {
     // from: '"Nodemailer Testing" <raj.sanghavi1@svkmmumbai.onmicrosoft.com>', // sender address
     from: "Team Full Stack Simplified",
-    to: `rajsanghavi9@gmail.com`, // list of receivers
-    subject: "Registration Successful ✔", // Subject line
+    to: email, // list of receivers
+    subject: "Course completed Successful ✔", // Subject line
     // text: "Hello world?", // plain text body
     // html: "<b>Hello world?</b>", // html body
     html: output,
     attachments: [
       {
-        path: "/home/ubuntu/MYFOLDER/TSEC Hackathon/backend/CertificateOfCompletion.pdf",
+        path: "./CertificateOfCompletion.pdf",
       },
     ],
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      res.json(error);
+      console.log(error);
+      // res.json(error);
     } else {
       console.log("Message sent: %s", info.messageId);
       console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-      res.status(200).json({
-        success: true,
-        emailSuccess: true,
-        data: user,
-      });
+      // res.status(200).json({
+      //   success: true,
+      //   emailSuccess: true,
+      //   data: user,
+      // });
     }
   });
 };
