@@ -7,6 +7,11 @@ const assignmentSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
+    instructorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
     courseId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,

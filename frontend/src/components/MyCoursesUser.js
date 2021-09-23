@@ -89,7 +89,7 @@ function MyCoursesUser() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  const userLogin = useSelector((state) => state.userLogin);
+  // const userLogin = useSelector((state) => state.userLogin);
   // const { userInfo } = userLogin;
 
   const allUserCourses = useSelector((state) => state.allUserCourses);

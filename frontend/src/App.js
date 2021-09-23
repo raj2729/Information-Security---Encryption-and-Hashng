@@ -19,7 +19,7 @@ import ProfilePage from "./components/ProfilePage";
 import EditProfilePage from "./components/EditProfile";
 import Quiz from "./components/quiz/Quiz";
 import DiscussionForum from "./components/DiscussionForum";
-
+import InstructorAssignmentPage from "./components/InstructorAssignmentPage";
 
 function App() {
   return (
@@ -41,11 +41,20 @@ function App() {
         component={MyCoursesInstr}
         exact
       ></Route>
+      <Route
+        path="/instructorAssignments/:id"
+        component={InstructorAssignmentPage}
+        exact
+      ></Route>
       {/* <Route path="/instructorcourses/:id" component={MyCoursesInstr} exact></Route> */}
       <Route path="/createCourse" component={CreateCourse} exact></Route>
       <Route path="/createChapter/:id" component={CreateChapter} exact></Route>
       <Route path="/quiz/:courseId" component={Quiz} exact></Route>
-      <Route path="/discuss/:courseId" component={DiscussionForum} exact></Route>
+      <Route
+        path="/discuss/:courseId"
+        component={DiscussionForum}
+        exact
+      ></Route>
     </BrowserRouter>
   );
 }

@@ -13,7 +13,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import HomeIcon from "@material-ui/icons/Home";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import IconButton from "@material-ui/core/IconButton";
-import BusinessCenterIcon from '@material-ui/icons/BusinessCenter';
+import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
 // import Card from "@material-ui/core/Card";
 // import CardActions from "@material-ui/core/CardActions";
 // import CardContent from "@material-ui/core/CardContent";
@@ -25,7 +25,7 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Menu from "@material-ui/core/Menu";
-import PermPhoneMsgIcon from '@material-ui/icons/PermPhoneMsg';
+import PermPhoneMsgIcon from "@material-ui/icons/PermPhoneMsg";
 // import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
@@ -188,7 +188,7 @@ const Header = () => {
   return (
     <div>
       <AppBar
-        color= ""
+        color=""
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: openslider,
@@ -271,10 +271,17 @@ const Header = () => {
             //     </Link>
 
             //     <Divider />
-                <Button variant='contained' color='primary' className={classes.button} onClick={handleLogout}>Logout</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              onClick={handleLogout}
+            >
+              Logout
+            </Button>
+          ) : (
             //   </Menu>
             // </div>
-          ) : (
             <div>
               <Link
                 to={"/signup"}
@@ -331,19 +338,35 @@ const Header = () => {
           </List>
         </Link>
         {userInfo ? (
-          <Link
-            to={`/mycourses/${userInfo.data._id}`}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <List>
-              <ListItem button disabled={userInfo === null} key="My Courses">
-                <ListItemIcon>
-                  <CastForEducationIcon />
-                </ListItemIcon>
-                <ListItemText primary="My Courses" />
-              </ListItem>
-            </List>
-          </Link>
+          userInfo.data.isInstructor === true ? (
+            <Link
+              to={`/instructorcourses/${userInfo.data._id}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <List>
+                <ListItem button disabled={userInfo === null} key="My Courses">
+                  <ListItemIcon>
+                    <CastForEducationIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="My Courses" />
+                </ListItem>
+              </List>
+            </Link>
+          ) : (
+            <Link
+              to={`/mycourses/${userInfo.data._id}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <List>
+                <ListItem button disabled={userInfo === null} key="My Courses">
+                  <ListItemIcon>
+                    <CastForEducationIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="My Courses" />
+                </ListItem>
+              </List>
+            </Link>
+          )
         ) : (
           <List>
             <ListItem button disabled={userInfo === null} key="My Courses">
@@ -355,28 +378,44 @@ const Header = () => {
           </List>
         )}
         {userInfo ? (
-          <Link
-            to={`/assignments/${userInfo.data._id}`}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            <List>
-              <ListItem
-                button
-                disabled={userInfo === null}
-                key="My Assignments"
-              >
-                <ListItemIcon>
-                  <CastForEducationIcon />
-                </ListItemIcon>
-                <ListItemText primary="My Assignments" />
-              </ListItem>
-            </List>
-          </Link>
+          userInfo.data.isInstructor === true ? (
+            <Link
+              to={`/instructorAssignments/${userInfo.data._id}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <List>
+                <ListItem
+                  button
+                  disabled={userInfo === null}
+                  key="My Assignments"
+                >
+                  <ListItemIcon>
+                    <CastForEducationIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="My Assignments" />
+                </ListItem>
+              </List>
+            </Link>
+          ) : (
+            <Link
+              to={`/assignments/${userInfo.data._id}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <List>
+                <ListItem
+                  button
+                  disabled={userInfo === null}
+                  key="My Assignments"
+                >
+                  <ListItemIcon>
+                    <CastForEducationIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="My Assignments" />
+                </ListItem>
+              </List>
+            </Link>
+          )
         ) : (
-          // <Link
-          //   to={`/assignments`}
-          //   style={{ textDecoration: "none", color: "black" }}
-          // >
           <List>
             <ListItem button disabled={userInfo === null} key="My Assignments">
               <ListItemIcon>
