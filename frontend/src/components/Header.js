@@ -382,7 +382,6 @@ const Header = () => {
           </List>
           // </Link>
         )}
-
         <Link
           to={"/myProfile"}
           style={{ textDecoration: "none", color: "black" }}
