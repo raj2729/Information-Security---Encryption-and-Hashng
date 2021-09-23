@@ -142,24 +142,49 @@ const Assignments = ({ history, match }) => {
   ) => {
     e.preventDefault();
     console.log(assignmentUserName, assignmentCourse, assignmentUserEmail);
-    fetch(
-      `http://localhost:8080/getCertificate/${assignmentUserName}/${assignmentCourse}`,
-      {
-        method: "POST",
-      }
-    )
-      .then((response) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: assignmentUserName,
+        email: assignmentUserEmail,
+        course: assignmentCourse,
+      }),
+    };
+    // await fetch(`http://localhost:8080/getCertificate`, requestOptions)
+    //   .then((response) => response.json())
+    //   .then((response) => {
+    //     console.log(response);
+    //     alert("Course certificate has been emailed to you");
+    //   });
+    fetch(`http://localhost:8080/getCertificate`, requestOptions)
+      .then((response) =>
         // console.log(response);
-        // return response;
-        console.log(response);
-        // response.json();
-      })
+        response.json()
+      )
       .then((response) => {
-        // setAssignments(response);
-        // setLoaded(true);
-        // return response;
         console.log(response);
+        alert("Course certificate has been emailed to you");
       });
+
+    // fetch(
+    //   `http://localhost:8080/getCertificate/${assignmentUserName}/${assignmentCourse}`,
+    //   {
+    //     method: "POST",
+    //   }
+    // )
+    //   .then((response) => {
+    //     // console.log(response);
+    //     // return response;
+    //     console.log(response);
+    //     // response.json();
+    //   })
+    //   .then((response) => {
+    //     // setAssignments(response);
+    //     // setLoaded(true);
+    //     // return response;
+    //     console.log(response);
+    //   });
     // axios.post("/", { name: "Raj Sanghavi", course: "DJ SANGHVI" });
 
     // generatePDF(assignmentUserName, assignmentCourse);
@@ -187,7 +212,7 @@ const Assignments = ({ history, match }) => {
                 <h1>Status</h1>
               </TableCell>
               <TableCell align="center">
-                <h1>Download Certificate</h1>
+                <h1>Get Certificate</h1>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -239,7 +264,7 @@ const Assignments = ({ history, match }) => {
                           )
                         }
                       >
-                        DOWNLOAD <GetAppIcon />
+                        Get Certificate <GetAppIcon />
                       </Button>
                       {row.isCertified === false ? (
                         <p style={{ color: "red" }}>
