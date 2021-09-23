@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const orderSchema = mongoose.Schema(
+const InstructorPaymentSchema = mongoose.Schema(
   {
     instructorId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -29,6 +29,6 @@ const orderSchema = mongoose.Schema(
   }
 );
 
-const Order = mongoose.model("Order", orderSchema);
+const InstructorPayment = mongoose.model("InstructorPayment", InstructorPaymentSchema);
 
-module.exports = Order;
+module.exports = InstructorPayment;
