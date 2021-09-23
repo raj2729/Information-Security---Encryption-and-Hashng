@@ -40,12 +40,8 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     backgroundImage:
-      "url(https://media.istockphoto.com/vectors/online-education-vector-id960268208)",
+      "url(https://elearningindustry.com/wp-content/uploads/2019/07/top-6-eLearning-trends-of-2019.jpg)",
     backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
     backgroundSize: "cover",
     backgroundPosition: "center",
     // height: "100%",
@@ -101,9 +97,6 @@ function SignUp({ history }) {
 
   return (
     <>
-      <ThemeProvider theme={homePageTheme}>
-        <Header />
-      </ThemeProvider>
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -137,7 +130,6 @@ function SignUp({ history }) {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                autoFocus
                 onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
@@ -156,13 +148,6 @@ function SignUp({ history }) {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             /> */}
-              <Grid item>
-                Already a user?&nbsp;
-                <Link to={"/signin"}>Sign In</Link>
-                {/* <Link href="#" variant="body2">
-                  
-                </Link> */}
-              </Grid>
               <Button
                 type="submit"
                 fullWidth
@@ -170,8 +155,15 @@ function SignUp({ history }) {
                 color="primary"
                 className={classes.submit}
               >
-                Sign In
+                Sign Up
               </Button>
+              <Grid item>
+                Already a user?&nbsp;
+                <Link to={"/signin"}>Login</Link>
+                {/* <Link href="#" variant="body2">
+                  
+                </Link> */}
+              </Grid>
             </form>
           </div>
         </Grid>

@@ -151,26 +151,49 @@ const getUserDetails = asyncHandler(async (req, res) => {
 
 // User updates his/her own details - Protected Route
 const updateUserDetails = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
+  const user = await User.findById(req.params.id);
 
   if (user) {
-    if (req.body.name) {
+    if (req.body.name !== user.name) {
       user.name = req.body.name;
     }
-    if (req.body.email) {
-      user.email = req.body.email;
-    }
+    // if (req.body.email) {
+    //   user.email = req.body.email;
+    // }
     if (req.body.password) {
       user.password = req.body.password;
     }
+    if (
+      req.body.profilePicture !== user.profilePicture &&
+      req.body.profilePicture !== ""
+    ) {
+      user.profilePicture = req.body.profilePicture;
+    }
+    if (req.body.githubLink !== user.githubLink) {
+      user.githubLink = req.body.githubLink;
+    }
+    if (req.body.linkedInLink !== user.linkedInLink) {
+      user.linkedInLink = req.body.linkedInLink;
+    }
+    if (req.body.mobileNumber !== user.mobileNumber) {
+      user.mobileNumber = req.body.mobileNumber;
+    }
+    if (req.body.domains !== user.domains) {
+      user.domains = req.body.domains;
+    }
+    if (req.body.description !== user.description) {
+      user.description = req.body.description;
+    }
+
     const updatedUser = await user.save();
     res.status(200).json({
       success: true,
       data: updatedUser,
     });
   } else {
-    res.status(404);
-    throw new Error("User not Found");
+    res.status(404).json({
+      success: false,
+    });
   }
 });
 

@@ -46,13 +46,10 @@ const userSchema = mongoose.Schema(
       // required: true,
       default: 0,
     },
-    domains: [
-      {
-        skillName: {
-          type: String,
-        },
-      },
-    ],
+    domains: {
+      type: String,
+      default: "",
+    },
     description: {
       type: String,
       required: true,
@@ -67,10 +64,21 @@ const userSchema = mongoose.Schema(
 userSchema.methods.matchPassword = async function (enterredPassword) {
   return await bcrypt.compare(enterredPassword, this.password);
 };
-
+// Middleware for password
+// pre => before saving the user
+// userSchema.pre("save", async function (next) {
+//   if (!this.isModified("password")) {
+//     next();
+//   }
+//   const salt = await bcrypt.genSalt(10);
+//   this.password = await bcrypt.hash(this.password, salt);
+// });
 // Middleware for hashing password
 // pre => before saving the user in the database
-userSchema.pre("save", async function () {
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
   const salt = await bcrypt.genSalt(5);
   this.password = await bcrypt.hash(this.password, salt);
 });

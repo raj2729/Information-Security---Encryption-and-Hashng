@@ -1,7 +1,6 @@
 // import logo from './logo.svg';
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "../App.css";
 import { Button, ButtonGroup, Grid, Input, Paper } from "@material-ui/core";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import HeadsetMicIcon from "@material-ui/icons/HeadsetMic";
@@ -21,13 +20,13 @@ import Alert from "@material-ui/lab/Alert";
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
 import CloseIcon from "@material-ui/icons/Close";
-
 import TextField from "@material-ui/core/TextField";
 
 //
 import { Box } from "@material-ui/core";
 
 import quiz from "../assets/quiz.png";
+import discussion from '../assets/discussion.png'
 import Carousel from "react-material-ui-carousel";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import { Link } from "react-router-dom";
@@ -46,8 +45,6 @@ import {
 // Loader
 import { CircularProgress } from "@material-ui/core";
 import axios from "axios";
-
-import { createTheme, ThemeProvider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 // Importing Header
@@ -56,73 +53,76 @@ import { isUserEnrolled } from "../actions/userActions";
 import { createAssignment } from "../actions/assignmentActions";
 // import PlayLecture from "./PlayLecture";
 
-const homePageTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#809FFF",
-    },
-    secondary: {
-      main: "#000000",
-    },
-    text: {
-      primary: "#000000",
-      secondary: "#FEFFFF",
-    },
-  },
-});
-
 const useStyles = makeStyles((theme) => ({
-  root: {
-    height: "100vh",
+  app: {
+    textAlign: 'center',
   },
-  image: {
-    backgroundImage:
-      "url(https://media.istockphoto.com/vectors/online-education-vector-id960268208)",
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
-    backgroundSize: "cover",
-    backgroundPosition: "",
+  bigBox: {
+    width: '80%',
+    height: '400px',
+    backgroundColor: '#FFB830',
+    margin: 'auto',
+    borderRadius: '30px',
+    marginTop: '30px',
   },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+  bigText: {
+    paddingTop: '40px',
+    paddingLeft: '40px',
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+  smallText: {
+    color: 'white',
+    paddingLeft: '40px',
   },
-  form: {
-    width: "60%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+  bigBtn: {
+    height: '70px',
+    padding: '40px !important',
+    color: '#C8C6C6',
+    paddingBottom: '10px'
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
+  enroll: {
+    width: '300px',
+    backgroundColor: '#FF2442 !important',
+    borderRadius: '999px !important',
   },
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
+  enrollText: {
+    color: 'white'
   },
-  //  ---------- MODAL
-  modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+  halfDiv: {
+    paddingTop: '10px',
+    margin: 'auto',
+    width: '60%',
+    backgroundColor: 'lightgrey',
+    borderRadius: '30px',
+    position: 'relative',
+    bottom: '50px',
   },
-  details: {
-    alignItems: "center",
+  halfDivText: {
+    paddingRight: '10px',
+    textAlign: 'center',
+    paddingBottom: '15px',
   },
-  detailStudyMaterial: {
-    alignItems: "left",
+  icons: {
+    color: 'blue',
+    opacity: '0.5',
+    padding: '5px',
+    position: 'relative',
+    top: '10px',
   },
-  column2: {
-    flexBasis: "100%",
+  teacher: {
+    backgroundColor: '#FFB830',
+  },
+  teacherImg: {
+    width: '200px',
+    borderRadius: '999px',
+    display: 'flex',
+    padding: '30px',
+    float: 'left',
+  },
+  courseItem: {
+    border: '2px solid #C8C6C6',
+    padding: '10px !important',
+    margin: '10px',
+    borderRadius: '10px',
   },
   column1: {
     flexBasis: "80%",
@@ -130,23 +130,10 @@ const useStyles = makeStyles((theme) => ({
   column: {
     flexBasis: "20%",
   },
-  helper: {
-    borderLeft: `2px solid ${theme.palette.divider}`,
-    padding: theme.spacing(1, 2),
+  column2: {
+    flexBasis: "100%",
   },
-  //  ----------
-}));
-
-// Button to add chapter
-const useStyles1 = makeStyles((theme) => ({
-  field: {
-    marginTop: 20,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 20,
-    display: "block",
-  },
-  root: {
+  root1: {
     background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 100%)",
     borderRadius: 3,
     border: 0,
@@ -158,9 +145,101 @@ const useStyles1 = makeStyles((theme) => ({
   label: {
     textTransform: "capitalize",
   },
-  detailTitle: {
-    textDecoration: "underline",
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
+  button: {
+    width: '200px',
+    height: '50px',
+    borderRadius: '999px',
+  },
+  uploadBtn: {
+    width: '300px',
+    height: '50px',
+    margin: '10px !important',
+  },
+  uploadIcon: {
+    fontSize: "100px",
+    color: '#000000',
+    padding: '5px',
+    paddingRight: '10px',
+  },
+  img: {
+    marginTop: '20px',
+    width: '40%',
+  },
+  root2: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: "25ch",
+    },
+  },
+  reviewCard: {
+    padding: '20px',
+    width: '60%',
+    boxShadow: '5px 5px 15px 5px #8f8f8f !important',
+    justifyContent: 'center',
+    alignItems: 'center',
+    justifySelf: 'center',
+    alignSelf: 'center',
+    margin: '50px auto',
+  },
+  manImg: {
+    width: '200px',
+    borderRadius: '999px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    justifySelf: 'center',
+    alignSelf: 'center',
+    margin: '30px auto',
+    padding: '20px',
+  }
+  // image: {
+  //   backgroundImage:
+  //     "url(https://media.istockphoto.com/vectors/online-education-vector-id960268208)",
+  //   backgroundRepeat: "no-repeat",
+  //   backgroundColor:
+  //     theme.palette.type === "light"
+  //       ? theme.palette.grey[50]
+  //       : theme.palette.grey[900],
+  //   backgroundSize: "cover",
+  //   backgroundPosition: "",
+  // },
+  // paper: {
+  //   margin: theme.spacing(8, 4),
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   alignItems: "center",
+  // },
+  // avatar: {
+  //   margin: theme.spacing(1),
+  //   backgroundColor: theme.palette.secondary.main,
+  // },
+  // form: {
+  //   width: "60%", // Fix IE 11 issue.
+  //   marginTop: theme.spacing(1),
+  // },
+  // submit: {
+  //   margin: theme.spacing(3, 0, 2),
+  // },
+  // //  ---------- MODAL
+
+  // details: {
+  //   alignItems: "center",
+  // },
+  // detailStudyMaterial: {
+  //   alignItems: "left",
+  // },
+
+
+  // helper: {
+  //   borderLeft: `2px solid ${theme.palette.divider}`,
+  //   padding: theme.spacing(1, 2),
+  // },
+  //  ----------
 }));
 
 const loadRazorPay = async () => {
@@ -192,9 +271,6 @@ function CoursePage({ history, match }) {
   };
   // ------------
   const classes = useStyles();
-
-  // Add chapter button
-  const classes1 = useStyles1();
 
   const dispatch = useDispatch();
   // const [isEnrolled, setIsEnrolled] = useState(false);
@@ -350,32 +426,29 @@ function CoursePage({ history, match }) {
 
   return loading === false ? (
     <>
-      <ThemeProvider theme={homePageTheme}>
-        <Header />
-      </ThemeProvider>
-      <div className="App" style={{ marginTop: "100px" }}>
-        <div className="big-box">
-          <h1 className="big-text">
+      <Header />
+      <div className={classes.app} style={{ marginTop: "100px" }}>
+        <div className={classes.bigBox}>
+          <h1 className={classes.bigText}>
             {/* Web Development <br /> MERN Stack */}
             {course.data.name}
             <br />- {course.data.tagline}
           </h1>
           <br />
-          <p className="small-text">
+          <p className={classes.smallText}>
             {/* The Complete Web Development Course - Mastering MongoDB, ExpressJS,
           ReactJS, NodeJS */}
             {course.data.description}
           </p>
           <br />
-
-          <span className="big-btn">
+          <span className={classes.bigBtn}>
             {isEnrolled && isEnrolled.success === true ? (
               <Collapse in={open}>
                 <Alert
                   action={
                     <IconButton
                       aria-label="close"
-                      color="inherit"
+                      color="#664E88"
                       size="small"
                       onClick={() => {
                         setOpen(false);
@@ -411,11 +484,11 @@ function CoursePage({ history, match }) {
               </Collapse>
             ) : userInfo ? (
               <Button
-                className="btnbtn"
+                className={classes.enroll}
                 variant="contained"
                 onClick={displayRazorPay}
               >
-                <span className="btn-text">
+                <span className={classes.enrollText}>
                   Enroll Now
                   <br />
                   for Rs.{course.data.price}
@@ -424,72 +497,68 @@ function CoursePage({ history, match }) {
               </Button>
             ) : (
               <Link to={"/signin"} style={{ textDecoration: "none" }}>
-                <Button className="btnbtn" variant="contained">
-                  <span className="btn-text">Login to enroll course</span>
+                <Button className={classes.enroll} variant="contained">
+                  <span className={classes.enrollText}>Login to enroll course</span>
                 </Button>
               </Link>
             )}
           </span>
         </div>
-        <div className="half-div">
+        <div className={classes.halfDiv}>
           <Grid container spacing={3}>
             <Grid item xs={6} sm={4}>
-              <p className="half-div-text">
-                <VideocamIcon className="icons" />
+              <div className={classes.halfDivText}>
+                <VideocamIcon className={classes.icons} />
                 Premium Course
-              </p>
+              </div>
             </Grid>
             <Grid item xs={6} sm={4}>
-              <p className="half-div-text">
-                <HeadsetMicIcon className="icons" />
+              <div className={classes.halfDivText}>
+                <HeadsetMicIcon className={classes.icons} />
                 Live Doubt Solving
-              </p>
+              </div>
             </Grid>
             <Grid item xs={6} sm={4}>
-              <p className="half-div-text">
-                <VerifiedUserIcon className="icons" />
+              <div className={classes.halfDivText}>
+                <VerifiedUserIcon className={classes.icons} />
                 Certificate
-              </p>
+              </div>
             </Grid>
             <Grid item xs={6} sm={4}>
-              <p className="half-div-text">
-                <DateRangeIcon className="icons" />
+              <div className={classes.halfDivText}>
+                <DateRangeIcon className={classes.icons} />
                 Lifetime Access
-              </p>
+              </div>
             </Grid>
             <Grid item xs={6} sm={4}>
-              <p className="half-div-text">
-                <GroupIcon className="icons" />
+              <div className={classes.halfDivText}>
+                <GroupIcon className={classes.icons} />
                 Mentorship
-              </p>
+              </div>
             </Grid>
             <Grid item xs={6} sm={4}>
-              <p className="half-div-text">
-                <TimerIcon className="icons" />
+              <div className={classes.halfDivText}>
+                <TimerIcon className={classes.icons} />
                 Self-Paced
-              </p>
+              </div>
             </Grid>
           </Grid>
         </div>
-
-        <br />
-
-        <div style={{ padding: "80px 0px" }} className="teacher-div">
-          <h1>Meet your Teacher</h1>
+        <div style={{ padding: "80px 0px" }} className={classes.teacher}>
           <Grid>
             <Grid xs={12} sm={12}>
               <img
                 src="https://cdn.shopify.com/s/files/1/0045/5104/9304/t/27/assets/AC_ECOM_SITE_2020_REFRESH_1_INDEX_M2_THUMBS-V2-1.jpg?v=8913815134086573859"
                 alt="pic"
-                className="teacher-img"
+                className={classes.teacherImg}
               />
             </Grid>
           </Grid>
-
           <Grid xs={12} sm={12} style={{ padding: "30px" }}>
-            <h3>Sahil&nbsp;Raj</h3>
+            <h1>Meet your Teacher</h1>
+            <h3>Sahil Raj</h3>
             <p>
-              A&nbsp;professional teacher with 10+ years of experience in the
+              A professional teacher with 10+ years of experience in the
               teaching field. A professional teacher with 10+ years of
               experience in the teaching field.A professional teacher with 10+
               years of experience in the teaching field.A professional teacher
@@ -499,27 +568,19 @@ function CoursePage({ history, match }) {
         </div>
         <div style={{ paddingLeft: "10%", paddingRight: "10%" }}>
           <h1>Curriculum</h1>
-          <p>✔19sections ✔ 242ectures ✔ 55h 23m total length</p>
+          <p>19sections • 242ectures • 55h 23m total length</p>
           <br />
           <Grid container spacing={2}>
             {course.data.chapters.map((chapter) => (
-              <Grid
-                item
-                xs={15}
-                sm={15}
-                className="course-item"
-                style={{ width: "100%" }}
-              >
+              <Grid item xs={15} sm={15} className={classes.courseItem} style={{ width: "100%" }}>
                 <Accordion style={{ boxShadow: "none" }}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
                     id="panel1a-header"
                   >
-                    {chapter.chapterNumber}.&nbsp;
-                    {chapter.chapterName}
+                    {chapter.chapterNumber}. {chapter.chapterName}
                   </AccordionSummary>
-
                   <AccordionDetails className={classes.details}>
                     <div className={classes.column1}>
                       <strong>Description:</strong>{" "}
@@ -528,28 +589,13 @@ function CoursePage({ history, match }) {
                     <div className={classes.column}>
                       <Button
                         disabled={
-                          userInfo === null ||
-                          isUserEnrolledInCourseFromAllCourses === false
+                          userInfo === null || isUserEnrolledInCourseFromAllCourses === false
                         }
-                        style={
-                          userInfo === null ||
-                          isUserEnrolledInCourseFromAllCourses === false
-                            ? {
-                                color: "black",
-                                backgroundColor: "grey",
-                              }
-                            : {
-                                color: "#631c98",
-                                backgroundColor: "rgb(225 225 255)",
-                              }
-                        }
+                        color='primary'
                         variant="contained"
                         onClick={handleOpen}
                       >
-                        {userInfo === null ||
-                        isUserEnrolledInCourseFromAllCourses === false
-                          ? "Enroll course first"
-                          : "View Chapter"}
+                        {userInfo === null || isUserEnrolledInCourseFromAllCourses === false ? "Enroll course first" : "View Chapter"}
                       </Button>
                       <Modal
                         className={classes.modal}
@@ -577,8 +623,7 @@ function CoursePage({ history, match }) {
           </Grid>
           <Box m={2} pt={3} />
           {userInfo ? (
-            userInfo.data.isInstructor === true &&
-            userInfo.data._id === course.data.instructorId ? (
+            userInfo.data.isInstructor === true && userInfo.data._id === course.data.instructorId ? (
               <Link
                 to={`/createChapter/${course.data._id}`}
                 style={{ textDecoration: "none" }}
@@ -587,8 +632,8 @@ function CoursePage({ history, match }) {
                   type="submit"
                   size="large"
                   classes={{
-                    root: classes1.root,
-                    label: classes1.label,
+                    root: classes.root1,
+                    label: classes.label,
                   }}
                   startIcon={<AddCircleIcon />}
                 >
@@ -602,65 +647,47 @@ function CoursePage({ history, match }) {
             <p></p>
           )}
         </div>
-        <br />
-        <br />
-        <br />
         <div>
-          <Grid>
-            <Grid xs={12} lg={6}>
-              <h1>Take a Quiz and test your skills!</h1>
-
-              <Link to={`#`} style={{ textDecoration: "none" }}>
-                <Button
-                  disabled={
-                    userInfo === null ||
-                    isUserEnrolledInCourseFromAllCourses === false
-                  }
-                  className="quiz-btn"
-                  variant="contained"
-                  color="primary"
-                >
-                  <span> Start Quiz </span>
-                </Button>
-              </Link>
-              {userInfo === null ? (
-                <p style={{ color: "red" }}>Login to access Quiz</p>
-              ) : isUserEnrolledInCourseFromAllCourses === false ? (
-                <p style={{ color: "red" }}>Enroll the course to access Quiz</p>
-              ) : (
-                <p></p>
-              )}
-            </Grid>
-            <Grid xs={12} lg={6}>
-              <img src={quiz} className="quiz-image" alt="student" />
-            </Grid>
-          </Grid>
+          <h1>Take a Quiz and test your skills!</h1>
+          <Link to={`#`} style={{ textDecoration: "none" }}>
+            <Button
+              disabled={
+                userInfo === null ||
+                isUserEnrolledInCourseFromAllCourses === false
+              }
+              className={classes.button}
+              variant="contained"
+              color="primary"
+            >
+              <span> Start Quiz </span>
+            </Button>
+          </Link>
+          {userInfo === null ? (
+            <p style={{ color: "red" }}>Login to access Quiz</p>
+          ) : isUserEnrolledInCourseFromAllCourses === false ? (
+            <p style={{ color: "red" }}>Enroll the course to access Quiz</p>
+          ) : (
+            <p></p>
+          )}
+          <img src={quiz} className={classes.img} alt="student" />
         </div>
-        {/* <div style={{padding: "7%", backgroundColor:"rgb(203, 203, 255)"}}>
-            <h1>Take a Quiz and test your skills!</h1>
-            <Button className="quiz-btn" variant="contained" color="primary"><span> Start Quiz </span></Button>
-            <img src={quiz} className="quiz-image" alt="student" />
-          </div> */}
-        <div style={{ padding: "5%", paddingLeft: "10%" }}>
+        <div>
           <h1>Assignment Submission</h1>
-          {/* <Link to={`#`} style={{ textDecoration: "none" }}> */}
           <Input
             disabled={
-              userInfo === null ||
-              isUserEnrolledInCourseFromAllCourses === false
+              userInfo === null || isUserEnrolledInCourseFromAllCourses === false
             }
             onChange={(event) => {
               setImageSelected(event.target.files[0]);
             }}
-            className="upload-btn"
+            className={classes.uploadBtn}
             variant="contained"
             color="primary"
             type="file"
           >
-            <CloudUploadIcon className="upload-icon" />
+            <CloudUploadIcon className={classes.uploadIcon} />
             <span> Upload Assignment </span>
           </Input>
-          {/* </Link> */}
           {userInfo === null ? (
             <p style={{ color: "red" }}>Login to upload Assignment</p>
           ) : isUserEnrolledInCourseFromAllCourses === false ? (
@@ -670,7 +697,7 @@ function CoursePage({ history, match }) {
           ) : (
             <p></p>
           )}
-          <form className={classes.root} noValidate autoComplete="off">
+          <form className={classes.root2} noValidate autoComplete="off">
             {userInfo === null ? (
               <TextField
                 disabled
@@ -712,7 +739,8 @@ function CoursePage({ history, match }) {
                 userInfo === null ||
                 isUserEnrolledInCourseFromAllCourses === false
               }
-              className="submit-btn"
+              className={classes.button}
+              color='primary'
               variant="contained"
               onClick={submitAssignmentHandler}
             >
@@ -720,59 +748,51 @@ function CoursePage({ history, match }) {
             </Button>
           </Link>
         </div>
-
-        <br />
+        <div>
+          <h1>Solve Your Doubts Here!!</h1>
+          <img src={discussion} className={classes.img} alt="student" />
+          <br/>
+          <Button
+            disabled={
+              userInfo === null ||
+              isUserEnrolledInCourseFromAllCourses === false
+            }
+            className={classes.button}
+            variant='contained'
+            color='primary'
+          >
+            Discussion Forum
+          </Button>
+          {userInfo === null ? (
+            <p style={{ color: "red" }}>Login to upload Assignment</p>
+          ) : isUserEnrolledInCourseFromAllCourses === false ? (
+            <p style={{ color: "red" }}>
+              Enroll the course to join the Discussion
+            </p>
+          ) : (
+            <p></p>
+          )}
+        </div>
         <div
           style={{
             paddingLeft: "10%",
             paddingRight: "10%",
-            backgroundColor: "rgb(203, 203, 255)",
+            backgroundColor: '#CBCBE1',
           }}
         >
           <h1 style={{ paddingTop: "70px" }}>Course Advantages</h1>
           <Grid container spacing={2}>
-            <ul>
-              {course.data.advantages.map((advantage) => (
-                <Grid item xs={12} sm={12}>
-                  <li>
-                    <p className="">{advantage.advantageName}</p>
-                  </li>
-                </Grid>
-              ))}
-
-              {/* <Grid item xs={12} sm={12}>
-              <li>
-                <p className="">Be able to build ANY website you want.</p>
-              </li>
-            </Grid>
-            <Grid item xs={12} sm={12}>
-              <li>
-                <p className="">
-                  Become a front-end and Back-end developer - Complete Full
-                  Stack Developer
-                </p>
-              </li>
-            </Grid>
-            <Grid item xs={12} sm={12}>
-              <li>
-                <p className="">
-                  Build fully-fledged websites and web apps for your startup or
-                  business.
-                </p>
-              </li>
-            </Grid>
-            <Grid item xs={12} sm={12}>
-              <li>
-                <p className="">Work as a freelance web developer.</p>
-              </li>
-            </Grid> */}
-            </ul>
+            {course.data.advantages.map((advantage) => (
+              <Grid item xs={12} sm={6} md={4}>
+                <p className="">• {advantage.advantageName}</p>
+              </Grid>
+            ))}
           </Grid>
-          <img src={Developer} className="developer-image" alt="pic" />
+          <img src={Developer} className={classes.img} alt="pic" />
         </div>
         <div style={{ paddingLeft: "10%", paddingRight: "10%" }}>
           <h1 style={{ paddingTop: "70px" }}>About this Course</h1>
-          <ul>
+          <ul style={{ textAlign: 'left' }}>
             <li style={{ lineHeight: 3 }}>
               This course doesn't cut any corners, tens of real-world projects
               which you will get to build.
@@ -791,14 +811,14 @@ function CoursePage({ history, match }) {
               projects and modules determined by students - that's you!
             </li>
           </ul>
-          <img src={student} className="student-image" alt="student" />
+          <img src={student} className={classes.img} alt="student" />
         </div>
         <div
           style={{
             paddingLeft: "10%",
             paddingRight: "10%",
             paddingBottom: "10%",
-            backgroundColor: "rgb(203, 203, 255)",
+            backgroundColor: '#CBCBE1',
           }}
         >
           <h1 style={{ paddingTop: "70px" }}>Have some query?</h1>
@@ -887,13 +907,13 @@ function CoursePage({ history, match }) {
           </Accordion>
         </div>
         <div className="reviews-div">
-          <h1 style={{ paddingLeft: "10%" }}>Reviews</h1>
+          <h1>Reviews</h1>
           <Carousel>
-            <Card className="review-card">
+            <Card className={classes.reviewCard}>
               <img
                 src="https://cdn.shopify.com/s/files/1/0045/5104/9304/t/27/assets/AC_ECOM_SITE_2020_REFRESH_1_INDEX_M2_THUMBS-V2-1.jpg?v=8913815134086573859"
                 alt="pic"
-                className="man-img"
+                className={classes.manImg}
               />
               <h2 style={{ textAlign: "center" }}>Hasan Rajan</h2>
               <p style={{ textAlign: "center", color: "blue" }}>
@@ -907,11 +927,11 @@ function CoursePage({ history, match }) {
               </p>
             </Card>
 
-            <Card className="review-card">
+            <Card className={classes.reviewCard}>
               <img
                 src="https://cdn.shopify.com/s/files/1/0045/5104/9304/t/27/assets/AC_ECOM_SITE_2020_REFRESH_1_INDEX_M2_THUMBS-V2-1.jpg?v=8913815134086573859"
                 alt="pic"
-                className="man-img"
+                className={classes.manImg}
               />
               <h2 style={{ textAlign: "center" }}>Hasan Rajan</h2>
               <p style={{ textAlign: "center", color: "blue" }}>
@@ -925,11 +945,11 @@ function CoursePage({ history, match }) {
               </p>
             </Card>
 
-            <Card className="review-card">
+            <Card className={classes.reviewCard}>
               <img
                 src="https://cdn.shopify.com/s/files/1/0045/5104/9304/t/27/assets/AC_ECOM_SITE_2020_REFRESH_1_INDEX_M2_THUMBS-V2-1.jpg?v=8913815134086573859"
                 alt="pic"
-                className="man-img"
+                className={classes.manImg}
               />
               <h2 style={{ textAlign: "center" }}>Hasan Rajan</h2>
               <p style={{ textAlign: "center", color: "blue" }}>
@@ -942,12 +962,11 @@ function CoursePage({ history, match }) {
                 four dollar toast everyday carry
               </p>
             </Card>
-
-            <Card className="review-card">
+            <Card className={classes.reviewCard}>
               <img
                 src="https://cdn.shopify.com/s/files/1/0045/5104/9304/t/27/assets/AC_ECOM_SITE_2020_REFRESH_1_INDEX_M2_THUMBS-V2-1.jpg?v=8913815134086573859"
                 alt="pic"
-                className="man-img"
+                className={classes.manImg}
               />
               <h2 style={{ textAlign: "center" }}>Hasan Rajan</h2>
               <p style={{ textAlign: "center", color: "blue" }}>
@@ -965,7 +984,9 @@ function CoursePage({ history, match }) {
       </div>
     </>
   ) : (
-    <CircularProgress />
+    <Box className={classes.load}>
+      <CircularProgress />
+    </Box>
   );
 }
 

@@ -165,7 +165,7 @@ const getAllOtherCourses = asyncHandler(async (req, res) => {
 
 // Get details of course by ID
 const getCourseById = asyncHandler(async (req, res) => {
-  const course = await Course.findById(req.params.id);
+  const course = await Course.findById(req.params.id).populate("instructorId");
   if (course) {
     res.status(200).json({
       success: true,
@@ -335,32 +335,34 @@ const createChapter = asyncHandler(async (req, res) => {
   }
 });
 
-
 // Create a new quiz
 const createQuiz = asyncHandler(async (req, res) => {
-  const {
-    question,
-    correct,
-    incorrect
-  } = req.body;
+  const { question, correct, incorrect } = req.body;
 
-  if(!question || !correct || !incorrect || question==="" || correct==="" || incorrect.length===0) {
+  if (
+    !question ||
+    !correct ||
+    !incorrect ||
+    question === "" ||
+    correct === "" ||
+    incorrect.length === 0
+  ) {
     res.status(400).json({
       success: false,
       error: "Send proper data",
     });
   }
-  
+
   let errorFound = false;
 
-  for(const each of incorrect) {
-    if(each==="" || each===correct) {
+  for (const each of incorrect) {
+    if (each === "" || each === correct) {
       errorFound = true;
       break;
     }
   }
 
-  if(errorFound) {
+  if (errorFound) {
     res.status(400).json({
       success: false,
       error: "Either some option is empty or correct ans is set as incorrect",
@@ -376,14 +378,14 @@ const createQuiz = asyncHandler(async (req, res) => {
           {
             question,
             correct,
-            incorrect
+            incorrect,
           },
         ];
       } else {
         course.quiz.push({
           question,
           correct,
-          incorrect
+          incorrect,
         });
       }
     } else {
@@ -391,7 +393,7 @@ const createQuiz = asyncHandler(async (req, res) => {
         {
           question,
           correct,
-          incorrect
+          incorrect,
         },
       ];
     }
@@ -408,18 +410,16 @@ const createQuiz = asyncHandler(async (req, res) => {
   }
 });
 
-
-const getQuizByCourse = asyncHandler(async(req,res)=> {
-  const {courseId} = req.params
-  const course = await Course.findById(courseId)
+const getQuizByCourse = asyncHandler(async (req, res) => {
+  const { courseId } = req.params;
+  const course = await Course.findById(courseId);
   // console.log(courseId, course)
-  const quiz = course.quiz
+  const quiz = course.quiz;
   res.status(200).json({
     success: true,
-    data: quiz
-  })
-})
-
+    data: quiz,
+  });
+});
 
 module.exports = {
   createCourse,
@@ -436,5 +436,5 @@ module.exports = {
   payUsingRazorpay,
   createChapter,
   createQuiz,
-  getQuizByCourse
+  getQuizByCourse,
 };

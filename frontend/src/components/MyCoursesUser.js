@@ -7,6 +7,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid"
 import { Button } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -105,7 +106,6 @@ function MyCoursesUser() {
 
   const userLogin = useSelector((state) => state.userLogin);
   // const { userInfo } = userLogin;
-  
 
   const allUserCourses = useSelector((state) => state.allUserCourses);
   const { courses } = allUserCourses;
@@ -113,48 +113,47 @@ function MyCoursesUser() {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <ThemeProvider theme={homePageTheme}>
-        <Header />
-      </ThemeProvider>
+      <Header />
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >
         <div className={classes.drawerHeader} />
-        {courses.data.map((course) => (
-          <Card className={classes.card}>
-            {/* <CardActionArea> */}
-            <CardContent>
-              <CardMedia
-                className={classes.media}
-                image={course.courseId.image}
-                title="MERN stack"
-              />
-            </CardContent>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
-                {course.courseId.name}
-              </Typography>
-            </CardContent>
-            <CardContent>
-              <Typography variant="body2" component="p">
-                {course.courseId.description}
-              </Typography>
-            </CardContent>
-            {/* </CardActionArea> */}
-            <CardActions>
-              <Link
-                to={`/course/${course.courseId._id}`}
-                style={{ textDecoration: "none" }}
-              >
-                <Button size="large" color="primary">
-                  Start Course
-                </Button>
-              </Link>
-            </CardActions>
-          </Card>
-        ))}
+        <Grid container spacing={8}>
+          {courses.data.map((course, index) => (
+            <Grid item key={index} xs={12} sm={6} md={3}>
+              <Card className={classes.card}>
+                <CardMedia
+                  className={classes.media}
+                  image={course.courseId.image}
+                  title="MERN stack"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {course.courseId.name}
+                  </Typography>
+                </CardContent>
+                <CardContent>
+                  <Typography variant="body2" component="p">
+                    {course.courseId.description}
+                  </Typography>
+                </CardContent>
+                {/* </CardActionArea> */}
+                <CardActions>
+                  <Link
+                    to={`/course/${course.courseId._id}`}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Button size="large" color="primary">
+                      Start Course
+                    </Button>
+                  </Link>
+                </CardActions>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       </main>
     </div>
   );
