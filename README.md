@@ -22,6 +22,7 @@
 - User Interface developed using MaterialUI
 - Payments integration using Razorpay
 - Nodemailer used for sending emails to users
+- Sending SMS for mobile number verification using Twilio
 - File uploading using Cloudinary
 - Certificate of Completion using "pdfkit" npm package
 
