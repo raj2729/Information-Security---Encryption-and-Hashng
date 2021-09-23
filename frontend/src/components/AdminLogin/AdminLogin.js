@@ -7,9 +7,42 @@ import "./adminlogin.css"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button";
 
+const styles = makeStyles({
+  login: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loginDiv: {
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    boxShadow: '5px 5px 25px 5px gray',
+    padding: '30px',
+    borderRadius: '30px',
+    margin: '30px auto',
+  },
+  // @media only screen and (maxWidth: '600px') {
+  //   loginDiv: {
+  //     width: '70%',
+  //   }
+  // }
+  logo: {
+    width: '100px',
+  },
+  loginButton: {
+    width: '170px',
+    display: 'flex !important',
+    justifyContent: 'center !important',
+    alignItems: 'center !important',
+    margin: '5px auto !important',
+    borderRadius: '999px !important',
+  }
+})
 
 const Login = () => {
-
+  const classes = styles()
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
@@ -32,9 +65,9 @@ const Login = () => {
   
   return (
     
-    <div className="login">
-      <div className="loginDiv">
-        <div className="left">
+    <div className={classes.login}>
+      <div className={classes.loginDiv}>
+        <div>
         <div style={{display:"flex"}}>
           <img src={"https://www.kindpng.com/picc/m/699-6997452_administrator-network-icons-system-avatar-computer-transparent-admin.png"} alt="logo" className="logo" />
           <h1 style={{marginLeft:"5%"}}>Welcome, Admin!</h1>

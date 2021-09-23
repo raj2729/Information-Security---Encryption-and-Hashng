@@ -11,9 +11,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import cover from "../assets/cover.jpg";
-// import feature1 from "../assets/feature_1.png";
-// import feature2 from "../assets/feature_2.png";
-// import feature3 from "../assets/feature_3.png";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
@@ -214,35 +211,29 @@ function Home({ history }) {
               <Grid container spacing={8}>
                 {course.data.map((particularCourse, index) => (
                   <Grid item key={index} xs={12} sm={6} md={3}>
-                    <Card className={classes.card}>
-                      <CardMedia
-                        className={classes.cardMedia}
-                        image={particularCourse.image}
-                        title="Image title"
-                      />
-                      <CardContent className={classes.cardContent}>
-                        <Typography gutterBottom variant="h" component="h2">
-                          {/* Heading */}
-                          {particularCourse.name}
-                        </Typography>
-                        <Typography>
-                          {particularCourse.description}
-                          {/* This is a media card. You can use this section to
+                    <Link
+                      to={`/course/${particularCourse._id}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Card className={classes.card}>
+                        <CardMedia
+                          className={classes.cardMedia}
+                          image={particularCourse.image}
+                          title="Image title"
+                        />
+                        <CardContent className={classes.cardContent}>
+                          <Typography gutterBottom variant="h" component="h2">
+                            {/* Heading */}
+                            {particularCourse.name}
+                          </Typography>
+                          <Typography>
+                            {particularCourse.description}
+                            {/* This is a media card. You can use this section to
                             describe the content. */}
-                        </Typography>
-                      </CardContent>
-                      <CardActions>
-                        <Link
-                          to={`/course/${particularCourse._id}`}
-                          style={{ textDecoration: "none" }}
-                        >
-                          <Button variant="outlined" color="white">
-                            View Course
-                            <ArrowRightAltIcon />
-                          </Button>
-                        </Link>
-                      </CardActions>
-                    </Card>
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Link>
                   </Grid>
                 ))}
               </Grid>

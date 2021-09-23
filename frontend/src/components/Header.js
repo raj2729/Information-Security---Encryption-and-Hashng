@@ -188,7 +188,7 @@ const Header = () => {
   return (
     <div>
       <AppBar
-        color= ""
+        style={{background: '#F3FAFF'}}
         position="fixed"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: openslider,
@@ -196,7 +196,7 @@ const Header = () => {
       >
         <Toolbar>
           <IconButton
-            color="inherit"
+            style={{color: 'black'}}
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
@@ -297,7 +297,6 @@ const Header = () => {
           )}
         </Toolbar>
       </AppBar>
-
       <Drawer
         className={classes.drawer}
         variant="persistent"
@@ -309,11 +308,7 @@ const Header = () => {
       >
         <div className={classes.drawerHeader}>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
           </IconButton>
         </div>
         <Divider />
