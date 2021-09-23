@@ -9,7 +9,7 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 
 const styles = makeStyles((theme) => ({
   footer: {
-    backgroundColor: '#F3FAFF',
+    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 100%)",
     padding: theme.spacing(6),
   },
   icon: {

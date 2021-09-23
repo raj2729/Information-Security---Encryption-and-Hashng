@@ -8,9 +8,12 @@ import SearchIcon from '@material-ui/icons/Search';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router';
 import axios from 'axios'
-import { useSelector  } from "react-redux";
+import { useSelector } from "react-redux";
 
 const styles = makeStyles((theme) => ({
+    bar: {
+        background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 100%)"
+    },
     root: {
         flexGrow: 1,
     },
@@ -60,7 +63,10 @@ const styles = makeStyles((theme) => ({
         }
     },
     card: {
-        marginBottom: '10px'
+        border: "2px solid #C8C6C6",
+        padding: "10px !important",
+        margin: "20px 100px 0px 100px",
+        borderRadius: "10px",
     },
     add: {
         position: "fixed",
@@ -94,7 +100,7 @@ function DiscussionForum() {
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
     const [questionId, setQuestionId] = useState(null)
-    
+
     // const questions = [{ 'profile': { 'profilePicture': 'https://res.cloudinary.com/dizvyn9b5/image/upload/v1632215752/mtxpeyrrjcbmmuygtj5z.jpg', 'name': 'Riya Singh' }, 'datePosted': 'September 21, 2021', 'question': 'When will I get it back?', 'answers': [{ 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }, { 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }] },
     // { 'profile': { 'profilePicture': 'https://res.cloudinary.com/dizvyn9b5/image/upload/v1632215752/mtxpeyrrjcbmmuygtj5z.jpg', 'name': 'Riya Singh' }, 'datePosted': 'September 21, 2021', 'question': 'How do i do the assignment?', 'answers': [{ 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }, { 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }] },
     // { 'profile': { 'profilePicture': 'https://res.cloudinary.com/dizvyn9b5/image/upload/v1632215752/mtxpeyrrjcbmmuygtj5z.jpg', 'name': 'Riya Singh' }, 'datePosted': 'September 21, 2021', 'question': 'How do i do the assignment? When will I get it backvuirnuienruincuw wjnbciuwbi uwefbyb iuwbefub', 'answers': [{ 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }, { 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }] }]
@@ -104,13 +110,13 @@ function DiscussionForum() {
         setExpanded(expanded === i ? -1 : i);
     };
 
-    const fetchQueries = async()=> {
-        try{
-            const headers = {authorization: `Bearer ${userInfo.token}`}
-            const  {data} = await axios.get(`/discuss/getAllQuestionsAnswers/${courseId}`,{headers});
+    const fetchQueries = async () => {
+        try {
+            const headers = { authorization: `Bearer ${userInfo.token}` }
+            const { data } = await axios.get(`/discuss/getAllQuestionsAnswers/${courseId}`, { headers });
             let allQuestions = data.data
             let arr = []
-            for(const each of allQuestions) {
+            for (const each of allQuestions) {
                 let obj = {}
                 obj.qId = each._id
                 let profile = {}
@@ -121,7 +127,7 @@ function DiscussionForum() {
                 obj.question = each.question
                 let ans = []
                 let answers = each.answers
-                for(const eachanswer of answers) {
+                for (const eachanswer of answers) {
                     let ansObj = {}
                     ansObj.name = eachanswer.userId.name
                     ansObj.datePosted = new Date(eachanswer.datePosted).toLocaleDateString()
@@ -130,15 +136,15 @@ function DiscussionForum() {
                 }
                 obj.answers = ans
                 arr.push(obj)
-            } 
+            }
             setQuestions(arr.reverse());
             // console.log(questions)
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
 
-    const submitQuestion = async()=> {
+    const submitQuestion = async () => {
         try {
             const headers = {
                 "Content-Type": "application/json",
@@ -148,39 +154,39 @@ function DiscussionForum() {
                 courseId,
                 question
             }
-            await axios.post(`/discuss/askQuestion`, body, {headers})
+            await axios.post(`/discuss/askQuestion`, body, { headers })
             alert("Question submitted")
             await fetchQueries()
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
         handleClose2()
     }
 
-    const handlePostAnswer = async() => {
+    const handlePostAnswer = async () => {
         try {
             const headers = {
                 "Content-Type": "application/json",
                 "authorization": `Bearer ${userInfo.token}`
             }
             const body = {
-                id:questionId,
+                id: questionId,
                 courseId,
                 answer
             }
-            await axios.post(`/discuss/answerQuestion`, body, {headers})
+            await axios.post(`/discuss/answerQuestion`, body, { headers })
             alert("Thanks for your answer.")
             await fetchQueries()
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
         setQuestionId(null)
         handleClose1()
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         fetchQueries()
-    },[questions])
+    }, [questions])
 
     const [filter, setFilter] = useState('')
 
@@ -198,7 +204,7 @@ function DiscussionForum() {
 
     return (
         <Container>
-            <AppBar position="static">
+            <AppBar position="static" className={classes.bar}>
                 <Toolbar>
                     <Typography className={classes.title} variant='h4'>Discussion Forum</Typography>
                     <div className={classes.search}>
@@ -230,30 +236,30 @@ function DiscussionForum() {
                                 title={profile.name}
                                 subheader={question.datePosted}
                             />
-                            <CardContent>
+                            <CardContent style={{padding: '0px', paddingLeft: '10px'}}>
                                 <Grid container spacing={2}>
-                                    <Grid item xs={10}>
+                                    <Grid item xs={9} md={9}>
                                         <Typography variant="h6" color="textSecondary">
                                             {question.question}
                                         </Typography>
                                     </Grid>
-                                    <Grid item xs={2} md={2}>
+                                    <Grid item xs={4} md={3}>
                                         <CardActions disableSpacing>
                                             <IconButton
                                                 onClick={() => handleExpandClick(index)}
                                                 aria-expanded={expanded === index}
                                                 aria-label="show more"
                                             >
-                                                <Typography>Answers</Typography>
+                                                <Typography>Replies</Typography>
                                                 {expanded === index ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                                             </IconButton>
                                             <IconButton
-                                                onClick={()=>{
+                                                onClick={() => {
                                                     setQuestionId(question.qId)
                                                     handleOpen1()
-                                                    }}
-                                                >
-                                                <Typography>Answer</Typography>
+                                                }}
+                                            >
+                                                <Typography>Reply</Typography>
                                                 <ReplyIcon />
                                             </IconButton>
                                         </CardActions>
@@ -310,9 +316,9 @@ function DiscussionForum() {
                         variant='contained'
                         color='primary'
                         className={classes.post}
-                        onClick={()=>{
+                        onClick={() => {
                             handlePostAnswer()
-                        } }
+                        }}
                     >
                         Post Answer
                     </Button>
@@ -339,7 +345,7 @@ function DiscussionForum() {
                         variant='contained'
                         color='primary'
                         className={classes.post}
-                        onClick={()=>handlePostQuestion()}
+                        onClick={() => handlePostQuestion()}
                     >
                         Post Question
                     </Button>

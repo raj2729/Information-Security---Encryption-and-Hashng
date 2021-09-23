@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   bigBox: {
     width: "80%",
     height: "400px",
-    backgroundColor: "#FFB830",
+    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 100%)",
     margin: "auto",
     borderRadius: "30px",
     marginTop: "30px",
@@ -80,9 +80,10 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "10px",
   },
   enroll: {
+    background: "brown",
     width: "300px",
-    backgroundColor: "#FF2442 !important",
-    borderRadius: "999px !important",
+    borderRadius: "999px !important"
+    
   },
   enrollText: {
     color: "white",
@@ -107,9 +108,6 @@ const useStyles = makeStyles((theme) => ({
     padding: "5px",
     position: "relative",
     top: "10px",
-  },
-  teacher: {
-    backgroundColor: "#FFB830",
   },
   teacherImg: {
     width: "200px",
@@ -509,45 +507,44 @@ function CoursePage({ history, match }) {
           <Grid container spacing={3}>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <VideocamIcon className={classes.icons} />
+                <VideocamIcon className={classes.icons} fontSize='large' />
                 Premium Course
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <HeadsetMicIcon className={classes.icons} />
+                <HeadsetMicIcon className={classes.icons} fontSize='large' />
                 Live Doubt Solving
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <VerifiedUserIcon className={classes.icons} />
+                <VerifiedUserIcon className={classes.icons} fontSize='large' />
                 Certificate
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <DateRangeIcon className={classes.icons} />
+                <DateRangeIcon className={classes.icons} fontSize='large' />
                 Lifetime Access
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <GroupIcon className={classes.icons} />
+                <GroupIcon className={classes.icons} fontSize='large' />
                 Mentorship
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <TimerIcon className={classes.icons} />
+                <TimerIcon className={classes.icons} fontSize='large' />
                 Self-Paced
               </div>
             </Grid>
           </Grid>
         </div>
         <div
-          style={{ padding: "50px 0px 50px 0px" }}
-          className={classes.teacher}
+          style={{ padding: "50px 0px 50px 0px", background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)" }}
         >
           <Grid>
             <Grid xs={12} sm={12}>
@@ -601,7 +598,7 @@ function CoursePage({ history, match }) {
                         onClick={handleOpen}
                       >
                         {userInfo === null ||
-                        isUserEnrolledInCourseFromAllCourses === false
+                          isUserEnrolledInCourseFromAllCourses === false
                           ? "Enroll course first"
                           : "View Chapter"}
                       </Button>
@@ -632,7 +629,7 @@ function CoursePage({ history, match }) {
           <Box m={2} pt={3} />
           {userInfo ? (
             userInfo.data.isInstructor === true &&
-            userInfo.data._id === course.data.instructorId ? (
+              userInfo.data._id === course.data.instructorId ? (
               <Link
                 to={`/createChapter/${course.data._id}`}
                 style={{ textDecoration: "none" }}
@@ -668,7 +665,7 @@ function CoursePage({ history, match }) {
             color="primary"
             onClick={() => history.push(`/quiz/${match.params.id}`)}
           >
-            <span> Start Quiz </span>
+            <span> Take a Quiz </span>
           </Button>
           {userInfo === null ? (
             <p style={{ color: "red" }}>Login to access Quiz</p>
@@ -799,7 +796,7 @@ function CoursePage({ history, match }) {
           style={{
             paddingLeft: "10%",
             paddingRight: "10%",
-            backgroundColor: "#CBCBE1",
+            background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)"
           }}
         >
           <h1 style={{ paddingTop: "70px" }}>Course Advantages</h1>
@@ -840,7 +837,7 @@ function CoursePage({ history, match }) {
             paddingLeft: "10%",
             paddingRight: "10%",
             paddingBottom: "10%",
-            backgroundColor: "#CBCBE1",
+            background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)"
           }}
         >
           <h1 style={{ paddingTop: "70px" }}>Have some query?</h1>
@@ -1006,9 +1003,18 @@ function CoursePage({ history, match }) {
       </div>
     </>
   ) : (
-    <Box className={classes.load}>
-      <CircularProgress />
-    </Box>
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justify="center"
+      style={{ minHeight: '100vh' }}
+    >
+      <Grid item xs={3}>
+        <CircularProgress />
+      </Grid>
+    </Grid>
   );
 }
 
