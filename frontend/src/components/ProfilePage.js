@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-// import "./profilepage.css"
 import Grid from "@material-ui/core/Grid";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -14,29 +13,10 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import coursesEnrolled from "../assets/courses-enrolled.svg";
 import coursesCompleted from "../assets/courses-completed.svg";
-// import { Box } from "@material-ui/core";
-
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-// Importing Header
 import Header from "./Header";
-
-const homePageTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#809FFF",
-    },
-    secondary: {
-      main: "#000000",
-    },
-    text: {
-      primary: "#000000",
-      secondary: "#FEFFFF",
-    },
-  },
-});
 
 const useStyles = makeStyles({
   profileCard: {
@@ -46,8 +26,8 @@ const useStyles = makeStyles({
     justifyContent: "center !important",
     alignItems: "center !important",
     margin: "30px auto !important",
-    margin: "2% !important",
-    boxShadow: "5px 5px 25px 5px gray !important",
+    // margin: "2% !important",
+    boxShadow: "5px 5px 5px 5px lightgrey !important",
     borderRadius: "30px !important",
     zIndex: "0",
     marginLeft: "8% !important",
@@ -80,7 +60,7 @@ const useStyles = makeStyles({
     width: "70% !important",
     padding: "4% !important",
     /* margin: 5%; */
-    boxShadow: "5px 5px 25px 5px gray !important",
+    boxShadow: "5px 5px 5px 5px lightgrey !important",
     borderRadius: "30px !important",
     display: "flex !important",
     /* justify-content: center !important; */
@@ -106,7 +86,7 @@ const useStyles = makeStyles({
     justifyContent: "center !important",
     alignItems: "center !important",
     margin: "10px auto !important",
-    boxShadow: " 5px 5px 25px 5px gray !important",
+    boxShadow: " 5px 5px 5px 5px lightgrey !important",
     borderRadius: "30px !important",
     padding: "3%",
     height: "50%",
@@ -201,9 +181,7 @@ function ProfilePage({ history }) {
 
   return (
     <>
-      <ThemeProvider theme={homePageTheme}>
-        <Header />
-      </ThemeProvider>
+      <Header />
       <Box m={2} pt={9} />
       <Card className={classes.profileCard}>
         <Grid container>

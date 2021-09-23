@@ -29,21 +29,6 @@ import Header from "./Header";
 import { login } from "../actions/userActions";
 import { USER_LOGIN_SUCCESS } from "../constants/userConstants";
 
-const homePageTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#809FFF",
-    },
-    secondary: {
-      main: "#000000",
-    },
-    text: {
-      primary: "#000000",
-      secondary: "#FEFFFF",
-    },
-  },
-});
-
 const useStyles = makeStyles({
   profileCard: {
     width: "85% !important",
@@ -53,7 +38,7 @@ const useStyles = makeStyles({
     alignItems: "center !important",
     margin: "30px auto !important",
     margin: "2% !important",
-    boxShadow: "5px 5px 25px 5px gray !important",
+    boxShadow: "5px 5px 5px 5px lightgrey !important",
     borderRadius: "30px !important",
     zIndex: "0",
     marginLeft: "8% !important",
@@ -86,7 +71,7 @@ const useStyles = makeStyles({
     width: "70% !important",
     padding: "4% !important",
     /* margin: 5%; */
-    boxShadow: "5px 5px 25px 5px gray !important",
+    boxShadow: "5px 5px 5px 5px lightgrey !important",
     borderRadius: "30px !important",
     display: "flex !important",
     /* justify-content: center !important; */
@@ -112,7 +97,7 @@ const useStyles = makeStyles({
     justifyContent: "center !important",
     alignItems: "center !important",
     margin: "10px auto !important",
-    boxShadow: " 5px 5px 25px 5px gray !important",
+    boxShadow: " 5px 5px 5px 5px lightgrey !important",
     borderRadius: "30px !important",
     padding: "3%",
     height: "50%",
@@ -398,9 +383,7 @@ function EditProfilePage({ history }) {
 
   return (
     <>
-      <ThemeProvider theme={homePageTheme}>
         <Header />
-      </ThemeProvider>
       <Box m={2} pt={9} />
       <Card className={classes.profileCard}>
         <Grid container>
@@ -441,24 +424,6 @@ function EditProfilePage({ history }) {
           </Grid>
         </Grid>
       </Card>
-      {/* <Grid container>
-                <Grid item xs={12} sm={6}>
-                    <Card className={classes.smallCard}>
-                        <h3 style={{color:"gray"}}>Courses Enrolled</h3>
-                        <br />
-                        <p className={classes.numOfCourses}>13</p>
-                        <img src={coursesEnrolled} className={classes.smallCardImg} />
-                    </Card>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <Card className={classes.smallCard}>
-                        <h3 style={{color:"gray"}}>Courses Completed</h3>
-                        <br />
-                        <p className={classes.numOfCourses}>7</p>
-                        <img src={coursesCompleted} className={classes.smallCardImg} />
-                </Card>
-                </Grid>
-            </Grid> */}
     </>
   );
 }

@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import { Box } from "@material-ui/core";
+import { Box, Card, CardContent, Grid } from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -22,30 +22,9 @@ import { createTheme, ThemeProvider } from "@material-ui/core";
 // Importing Header
 import Header from "./Header";
 
-import axios from "axios";
-import { createCourse } from "../actions/courseActions";
-
-const homePageTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#809FFF",
-    },
-    secondary: {
-      main: "#000000",
-    },
-    text: {
-      primary: "#000000",
-      secondary: "#FEFFFF",
-    },
-  },
-});
-
 const useStyles = makeStyles({
   field: {
-    marginTop: 20,
-    marginLeft: 10,
-    marginRight: 10,
-    marginBottom: 20,
+    margin: '20px 10px',
     display: "block",
   },
   root: {
@@ -180,154 +159,160 @@ const CareerForm = ({ history, match }) => {
 
   return (
     <>
-      <ThemeProvider theme={homePageTheme}>
-        <Header />
-      </ThemeProvider>
-      <Container>
-        <Box m={2} pt={9} />
-        <Typography
-          variant="h5"
-          gutterBottom
-          color="textPrimaryary"
-          marginTop="20"
-          align="center"
-          component="h2"
+      <Header />
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        style={{ margin: '80px 0px 10px' }}
+      >
+        <Card
+          style={{
+            width: 800,
+            padding: "25px",
+            margin: "0 auto",
+            boxShadow: '5px 5px 5px 5px lightgrey'
+          }}
         >
-          Career Opportunities{" "}
-        </Typography>
-
-        <form noValidate autoComplete="off" onSubmit={handleSubmit}>
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Job Type</FormLabel>
-            <RadioGroup
-              row
-              aria-label="jobType"
-              name="row-radio-buttons-group"
-              onChange={(event) => setjobType(event.target.value)}
-              error={jobTypeError}
-            >
-              <FormControlLabel
-                value="internship"
-                control={<Radio />}
-                label="Internship"
-              />
-              <FormControlLabel value="job" control={<Radio />} label="Job" />
-            </RadioGroup>
-          </FormControl>
-          <TextField
-            onChange={(e) => setName(e.target.value)}
-            className={classes.field}
-            label="Full Name"
-            variant="outlined"
-            colour="secondary"
-            fullWidth
-            required
-            error={nameError}
-          />
-          <TextField
-            onChange={(e) => setMobileNumber(e.target.value)}
-            className={classes.field}
-            label="Mobile Number"
-            variant="outlined"
-            colour="secondary"
-            fullWidth
-            required
-            error={mobileNumberError}
-          />
-          <TextField
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            className={classes.field}
-            label="Email"
-            variant="outlined"
-            colour="secondary"
-            fullWidth
-            required
-            error={emailError}
-          />
-          <TextField
-            id="standard-select-currency"
-            className={classes.field}
-            select
-            variant='outlined'
-            label="Select"
-            value={jobList}
-            fullWidth
-            onChange={handleChange}
-          >
-            {jobsList.map((option, index) => (
-              <MenuItem key={index} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            onChange={(e) => setDescription(e.target.value)}
-            className={classes.field}
-            label="Tell us something about yourself"
-            variant="outlined"
-            colour="secondary"
-            multiline
-            rows={15}
-            fullWidth
-            required
-            error={descriptionError}
-          />
-          <TextField
-            onChange={(e) => setYSelected(e.target.value)}
-            className={classes.field}
-            label="Why do you think you should be selected"
-            variant="outlined"
-            colour="secondary"
-            multiline
-            rows={15}
-            fullWidth
-            required
-            error={ySelectedError}
-          />
-          <TextField
-            onChange={(e) => setlinkedInProfile(e.target.value)}
-            className={classes.field}
-            label="LinkedIn Profile"
-            variant="outlined"
-            colour="secondary"
-            fullWidth
-            required
-            error={linkedInProfileError}
-          />
-          <TextField
-            onChange={(e) => setgithubProfile(e.target.value)}
-            className={classes.field}
-            label="Github Profile"
-            variant="outlined"
-            colour="secondary"
-            fullWidth
-          />
-          <TextField
-            onChange={(e) => setResumeLink(e.target.value)}
-            className={classes.field}
-            label="Resume Link"
-            variant="outlined"
-            colour="secondary"
-            required
-            fullWidth
-            error={resumeLinkError}
-          />
-          <Button
-            type="submit"
-            size="large"
-            classes={{
-              root: classes.root,
-              label: classes.label,
-            }}
-            style={{ marginBottom: "100px" }}
-            startIcon={<AddCircleIcon />}
-            onClick={careerSubmitHandler}
-          >
-            Submit
-          </Button>
-        </form>
-      </Container>
+          <CardContent>
+            <Typography gutterBottom variant="h5" align="center">
+              Career Form
+            </Typography>
+            <FormControl component="fieldset" className={classes.field} >
+              <FormLabel component="legend">Job Type</FormLabel>
+              <RadioGroup
+                row
+                aria-label="jobType"
+                name="row-radio-buttons-group"
+                onChange={(event) => setjobType(event.target.value)}
+                error={jobTypeError}
+              >
+                <FormControlLabel value="internship" control={<Radio />} label="Internship" />
+                <FormControlLabel value="job" control={<Radio />} label="Job" />
+                <FormControlLabel value="instructor" control={<Radio />} label="Instructor" />
+              </RadioGroup>
+            </FormControl>
+            {jobType === 'instructor' ? <h3 className={classes.field}>Complete your Profile</h3> : (
+              <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+                <TextField
+                  onChange={(e) => setName(e.target.value)}
+                  className={classes.field}
+                  label="Full Name"
+                  variant="outlined"
+                  colour="secondary"
+                  fullWidth
+                  required
+                  error={nameError}
+                />
+                <TextField
+                  onChange={(e) => setMobileNumber(e.target.value)}
+                  className={classes.field}
+                  label="Mobile Number"
+                  variant="outlined"
+                  colour="secondary"
+                  fullWidth
+                  required
+                  error={mobileNumberError}
+                />
+                <TextField
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                  className={classes.field}
+                  label="Email"
+                  variant="outlined"
+                  colour="secondary"
+                  fullWidth
+                  required
+                  error={emailError}
+                />
+                <TextField
+                  id="standard-select-currency"
+                  className={classes.field}
+                  select
+                  variant='outlined'
+                  label="Select"
+                  value={jobList}
+                  fullWidth
+                  onChange={handleChange}
+                >
+                  {jobsList.map((option, index) => (
+                    <MenuItem key={index} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  onChange={(e) => setDescription(e.target.value)}
+                  className={classes.field}
+                  label="Tell us something about yourself"
+                  variant="outlined"
+                  colour="secondary"
+                  multiline
+                  rows={15}
+                  fullWidth
+                  required
+                  error={descriptionError}
+                />
+                <TextField
+                  onChange={(e) => setYSelected(e.target.value)}
+                  className={classes.field}
+                  label="Why do you think you should be selected"
+                  variant="outlined"
+                  colour="secondary"
+                  multiline
+                  rows={15}
+                  fullWidth
+                  required
+                  error={ySelectedError}
+                />
+                <TextField
+                  onChange={(e) => setlinkedInProfile(e.target.value)}
+                  className={classes.field}
+                  label="LinkedIn Profile"
+                  variant="outlined"
+                  colour="secondary"
+                  fullWidth
+                  required
+                  error={linkedInProfileError}
+                />
+                <TextField
+                  onChange={(e) => setgithubProfile(e.target.value)}
+                  className={classes.field}
+                  label="Github Profile"
+                  variant="outlined"
+                  colour="secondary"
+                  fullWidth
+                />
+                <TextField
+                  onChange={(e) => setResumeLink(e.target.value)}
+                  className={classes.field}
+                  label="Resume Link"
+                  variant="outlined"
+                  colour="secondary"
+                  required
+                  fullWidth
+                  error={resumeLinkError}
+                />
+                <Button
+                  type="submit"
+                  size="large"
+                  classes={{
+                    root: classes.root,
+                    label: classes.label,
+                  }}
+                  style={{ marginBottom: "100px" }}
+                  startIcon={<AddCircleIcon />}
+                  onClick={careerSubmitHandler}
+                >
+                  Submit
+                </Button>
+              </form>
+            )}
+          </CardContent>
+        </Card>
+      </Grid>
     </>
   );
 };

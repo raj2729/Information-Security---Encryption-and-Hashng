@@ -80,10 +80,12 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: "10px",
   },
   enroll: {
-    background: "brown",
+    background: "#212121",
     width: "300px",
-    borderRadius: "999px !important"
-    
+    borderRadius: "999px !important",
+    '&:hover': {
+      backgroundColor: '#616161'
+    }
   },
   enrollText: {
     color: "white",
@@ -92,7 +94,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "10px",
     margin: "auto",
     width: "60%",
-    backgroundColor: "lightgrey",
+    backgroundColor: "#FFEDED",
     borderRadius: "30px",
     position: "relative",
     bottom: "50px",

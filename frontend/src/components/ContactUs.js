@@ -15,21 +15,6 @@ import { createTheme, ThemeProvider } from "@material-ui/core";
 // Importing Header
 import Header from "./Header";
 
-const homePageTheme = createTheme({
-  palette: {
-    primary: {
-      main: "#809FFF",
-    },
-    secondary: {
-      main: "#000000",
-    },
-    text: {
-      primary: "#000000",
-      secondary: "#FEFFFF",
-    },
-  },
-});
-
 const useStyles = makeStyles({
   field: {
     marginTop: 20,
@@ -86,22 +71,21 @@ function ContactForm() {
 
   return (
     <>
-      <ThemeProvider theme={homePageTheme}>
-        <Header />
-      </ThemeProvider>
+      <Header />
       <Grid
         container
         spacing={0}
         direction="column"
         alignItems="center"
         justify="center"
-        style={{ minHeight: "100vh" }}
+        style={{margin: '80px 0px 10px' }}
       >
         <Card
           style={{
             maxWidth: 450,
-            padding: "20px 5px",
+            padding: "5px",
             margin: "0 auto",
+            boxShadow: '5px 5px 5px 5px lightgrey'
           }}
         >
           <CardContent>
@@ -146,7 +130,7 @@ function ContactForm() {
                   <TextField
                     label="Message"
                     multiline
-                    rows={10}
+                    rows={6}
                     placeholder="Type your message here"
                     variant="outlined"
                     fullWidth
