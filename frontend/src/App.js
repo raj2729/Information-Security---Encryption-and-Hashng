@@ -7,7 +7,7 @@ import SignUp from "./components/SignUp";
 import Home from "./components/Home";
 import CoursePage from "./components/CoursePage";
 import Assignments from "./components/Assignments";
-import AdminLogin from "./components/AdminLogin";
+import AdminLogin from "./components/AdminLogin/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
 import MyCoursesUser from "./components/MyCoursesUser";
 import ContactForm from "./components/ContactUs";
