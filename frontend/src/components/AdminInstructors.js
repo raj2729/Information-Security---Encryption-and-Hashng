@@ -5,6 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import { useSelector  } from "react-redux";
+import { Button } from "@material-ui/core";
 
 const InstructorTable = () => {
 
@@ -15,7 +16,11 @@ const InstructorTable = () => {
   useEffect(()=> {
     setFilteredInstructors(allInstructors)
   },[allInstructors])
-   
+  
+  const handlePayment = ()=> {
+    alert("Raj tu hi jeeta sakta hai hame ye hackathon")
+  }
+
   const onChange = (value) => {
     const searchVal = value.toLowerCase();
     let regex = new RegExp(searchVal, "g");
@@ -50,11 +55,17 @@ const InstructorTable = () => {
       selector: (row) => row.count
     },
     {
-      name: "Courses Taught",
+      name: "Details",
       cell: (row) => (
         <Link to={`/instructor/:instructorId`}>View</Link>
       ),
     },
+    {
+      name: "Details",
+      cell: (row) => (
+        <Button variant="contained" onClick={()=>handlePayment()} style={{backgroundColor: '#7CFC00'}}> Pay</Button>
+      ),
+    }
   ];
 
   return (
