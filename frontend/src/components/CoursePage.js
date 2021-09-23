@@ -649,7 +649,6 @@ function CoursePage({ history, match }) {
         </div>
         <div>
           <h1>Take a Quiz and test your skills!</h1>
-          <Link to={`#`} style={{ textDecoration: "none" }}>
             <Button
               disabled={
                 userInfo === null ||
@@ -658,10 +657,10 @@ function CoursePage({ history, match }) {
               className={classes.button}
               variant="contained"
               color="primary"
+              onClick={()=>history.push(`/quiz/${match.params.id}`)}
             >
               <span> Start Quiz </span>
             </Button>
-          </Link>
           {userInfo === null ? (
             <p style={{ color: "red" }}>Login to access Quiz</p>
           ) : isUserEnrolledInCourseFromAllCourses === false ? (
@@ -752,17 +751,18 @@ function CoursePage({ history, match }) {
           <h1>Solve Your Doubts Here!!</h1>
           <img src={discussion} className={classes.img} alt="student" />
           <br/>
-          <Button
-            disabled={
-              userInfo === null ||
-              isUserEnrolledInCourseFromAllCourses === false
-            }
-            className={classes.button}
-            variant='contained'
-            color='primary'
-          >
-            Discussion Forum
-          </Button>
+            <Button
+              disabled={
+                userInfo === null ||
+                isUserEnrolledInCourseFromAllCourses === false
+              }
+              className={classes.button}
+              variant='contained'
+              color='primary'
+              onClick={()=>history.push(`/discuss/${match.params.id}`)}
+            >
+              Discussion Forum
+            </Button>
           {userInfo === null ? (
             <p style={{ color: "red" }}>Login to upload Assignment</p>
           ) : isUserEnrolledInCourseFromAllCourses === false ? (

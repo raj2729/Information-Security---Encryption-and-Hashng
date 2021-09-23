@@ -6,7 +6,7 @@ const Order = require("../models/orderModel");
 LIST OF CONTROLLERS
 1. Ask a question.
 2. Answer a question
-3. Get all questions of a Chapter
+3. Get all questions of a Course
 */
 
 // 1. Ask a question - Logged in users
@@ -86,7 +86,8 @@ const getAllQuestionsAnswers = asyncHandler(async (req,res)=> {
       error: "No such course"
     })
   }
-
+  // console.log("user",req.user)
+  // console.log("ci",courseId)
   const order = await Order.find({courseId,userId:req.user._id})
   if(!order.length) {
     return res.status(400).json({
@@ -95,7 +96,7 @@ const getAllQuestionsAnswers = asyncHandler(async (req,res)=> {
     })
   }
 
-  const questionsAnswers = await Discuss.find({courseId}).populate('answers.userId')
+  const questionsAnswers = await Discuss.find({courseId}).populate('userId answers.userId')
   if(!questionsAnswers) {
     return res.status(400).json({
       success: false,
