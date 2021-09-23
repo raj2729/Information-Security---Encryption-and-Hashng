@@ -6,17 +6,17 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { Box } from "@material-ui/core";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import Autocomplete from "@mui/material/Autocomplete";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+// import Autocomplete from "@mui/material/Autocomplete";
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
 // import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import Select from "@material-ui/core/Select";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 
 // Importing Header
@@ -157,13 +157,7 @@ const CareerForm = ({ history, match }) => {
     setSuccess(true);
   };
 
-  const jobsList = [
-    { jobName: "Backend Developer" },
-    { jobName: "Frontend Developer" },
-    { jobName: "UI/UX Developer" },
-    { jobName: "Sales and Marketing" },
-    { jobName: "Content Writing" },
-  ];
+  const jobsList = ["Backend Developer", "Frontend Developer", "UI/UX Developer", "Sales and Marketing", "Content Writing"];
   const handleChange = (event) => {
     const {
       target: { value },
@@ -251,34 +245,22 @@ const CareerForm = ({ history, match }) => {
             required
             error={emailError}
           />
-          <FormControl sx={{ m: 1, width: 800 }}>
-            <InputLabel id="demo-multiple-name-label">
-              Select all positions you want to apply for
-            </InputLabel>
-            <Select
-              labelId="demo-multiple-name-label"
-              id="demo-multiple-name"
-              multiple
-              fullWidth
-              value={jobList}
-              onChange={handleChange}
-              input={
-                <OutlinedInput label="Select all positions you want to apply for" />
-              }
-              MenuProps={MenuProps}
-            >
-              {jobsList.map((name) => (
-                <MenuItem
-                  key={name.jobName}
-                  value={name.jobName}
-                  //   style={getStyles(name, personName, theme)}
-                >
-                  {name.jobName}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
+          <TextField
+            id="standard-select-currency"
+            className={classes.field}
+            select
+            variant='outlined'
+            label="Select"
+            value={jobList}
+            fullWidth
+            onChange={handleChange}
+          >
+            {jobsList.map((option, index) => (
+              <MenuItem key={index} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
           <TextField
             onChange={(e) => setDescription(e.target.value)}
             className={classes.field}
