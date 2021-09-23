@@ -12,6 +12,7 @@ const protect = asyncHandler(async (req, res, next) => {
     try {
       token = req.headers.authorization.split(" ")[1];
       const decode = jwt.verify(token, process.env.JWT_KEY);
+      // console.log("decode",decode)
       // console.log(decode);
       // decode has _id and creation time of the user whose this token is
 
