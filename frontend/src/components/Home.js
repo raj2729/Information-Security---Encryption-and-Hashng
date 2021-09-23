@@ -11,9 +11,9 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import cover from "../assets/cover.jpg";
-import feature1 from "../assets/feature_1.png"
-import feature2 from "../assets/feature_2.png"
-import feature3 from "../assets/feature_3.png"
+import feature1 from "../assets/feature_1.png";
+import feature2 from "../assets/feature_2.png";
+import feature3 from "../assets/feature_3.png";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   card: {
     backgroundColor: "white",
     height: "100%",
-    boxShadow: '5px 5px 5px 5px lightgrey',
+    boxShadow: "5px 5px 5px 5px lightgrey",
     display: "flex",
     flexDirection: "column",
   },
@@ -139,14 +139,22 @@ function Home({ history }) {
               <Card className={classes.card}>
                 <CardMedia
                   className={classes.cardMedia}
-                  image={feature1}
+                  // image={feature1}
+                  // image="https://jana-sa.com/image/about-us/e762bf4b8cbc5ee9e70e7e087f99e5c3.gif"
+                  image="https://cdn.dribbble.com/users/2514124/screenshots/5439070/girl_3.gif"
                   title="Image title"
                 />
                 <CardContent className={classes.cardContent}>
                   <Typography gutterBottom variant="h" component="h2">
                     Life Time Access
                   </Typography>
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                  Lorem Ipsum is simply dummy text of the printing and
+                  typesetting industry. Lorem Ipsum has been the industry's
+                  standard dummy text ever since the 1500s, when an unknown
+                  printer took a galley of type and scrambled it to make a type
+                  specimen book. It has survived not only five centuries, but
+                  also the leap into electronic typesetting, remaining
+                  essentially unchanged.
                 </CardContent>
               </Card>
             </Grid>
@@ -154,14 +162,19 @@ function Home({ history }) {
               <Card className={classes.card}>
                 <CardMedia
                   className={classes.cardMedia}
-                  image={feature2}
+                  // image={feature2}
+                  image="https://i.pinimg.com/originals/16/9c/11/169c11293f5c08a325ee1bbc8a0d4cb8.gif"
                   title="Image title"
                 />
                 <CardContent className={classes.cardContent}>
                   <Typography gutterBottom variant="h" component="h2">
                     Low Cost
                   </Typography>
-                  It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
+                  It is a long established fact that a reader will be distracted
+                  by the readable content of a page when looking at its layout.
+                  The point of using Lorem Ipsum is that it has a more-or-less
+                  normal distribution of letters, as opposed to using 'Content
+                  here, content here', making it look like readable English.
                 </CardContent>
               </Card>
             </Grid>
@@ -169,14 +182,21 @@ function Home({ history }) {
               <Card className={classes.card}>
                 <CardMedia
                   className={classes.cardMedia}
-                  image={feature3}
+                  // image={feature3}
+                  // image="https://mintbook.com/assetsNew/img/university.gif"
+                  image="https://www.excelsisdeo.com/images/AlphaTestersAnimation_60.gif"
                   title="Image title"
                 />
                 <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="h" component="h2">
+                  <Typography gutterBottom variant="h" component="h2">
                     Learning at your Finger Tips
                   </Typography>
-                  There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
+                  There are many variations of passages of Lorem Ipsum
+                  available, but the majority have suffered alteration in some
+                  form, by injected humour, or randomised words which don't look
+                  even slightly believable. If you are going to use a passage of
+                  Lorem Ipsum, you need to be sure there isn't anything
+                  embarrassing hidden in the middle of text.
                 </CardContent>
               </Card>
             </Grid>
@@ -216,7 +236,7 @@ function Home({ history }) {
                           to={`/course/${particularCourse._id}`}
                           style={{ textDecoration: "none" }}
                         >
-                          <Button variant='outlined' color="white">
+                          <Button variant="outlined" color="white">
                             View Course
                             <ArrowRightAltIcon />
                           </Button>

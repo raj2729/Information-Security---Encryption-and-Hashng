@@ -51,36 +51,37 @@ export const logout = () => (dispatch) => {
   });
 };
 
-export const register = (name, email, password) => async (dispatch) => {
-  try {
-    dispatch({ type: USER_REGISTER_REQUEST });
+export const register =
+  (name, email, password, mobileNumber) => async (dispatch) => {
+    try {
+      dispatch({ type: USER_REGISTER_REQUEST });
 
-    // to handle headers
-    const config = { headers: { "Content-Type": "application/json" } };
-    const { data } = await axios.post(
-      "/user/userRegister",
-      { name, email, password },
-      config
-    );
-    dispatch({
-      type: USER_REGISTER_SUCCESS,
-      payload: data,
-    });
-    // dispatch({
-    //   type: USER_LOGIN_SUCCESS,
-    //   payload: data,
-    // });
-    localStorage.setItem("userInfo", JSON.stringify(data));
-  } catch (error) {
-    dispatch({
-      type: USER_REGISTER_FAILS,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      // to handle headers
+      const config = { headers: { "Content-Type": "application/json" } };
+      const { data } = await axios.post(
+        "/user/userRegister",
+        { name, email, password, mobileNumber },
+        config
+      );
+      dispatch({
+        type: USER_REGISTER_SUCCESS,
+        payload: data,
+      });
+      // dispatch({
+      //   type: USER_LOGIN_SUCCESS,
+      //   payload: data,
+      // });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+    } catch (error) {
+      dispatch({
+        type: USER_REGISTER_FAILS,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const isUserEnrolled = (courseId, userId) => async (dispatch) => {
   try {
