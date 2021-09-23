@@ -1,7 +1,5 @@
 import React from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-
-// Pages
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Home from "./components/Home";
@@ -36,17 +34,22 @@ function App() {
       <Route path="/careerForm" component={CareerForm} exact></Route>
       <Route path="/myProfile" component={ProfilePage} exact></Route>
       <Route path="/editProfile" component={EditProfilePage} exact></Route>
-      <Route
+      {/* <Route
         path="/instructorcourses/:id"
         component={MyCoursesInstr}
         exact
-      ></Route>
+      ></Route> */}
       <Route
         path="/instructorAssignments/:id"
         component={InstructorAssignmentPage}
         exact
       ></Route>
       {/* <Route path="/instructorcourses/:id" component={MyCoursesInstr} exact></Route> */}
+      <Route
+        path="/instructorcourses/:id"
+        component={MyCoursesInstr}
+        exact
+      ></Route>
       <Route path="/createCourse" component={CreateCourse} exact></Route>
       <Route path="/createChapter/:id" component={CreateChapter} exact></Route>
       <Route path="/quiz/:courseId" component={Quiz} exact></Route>

@@ -115,7 +115,7 @@ const Quiz = () => {
             variant="contained"
             color="primary"
           >
-            Start the Quiz
+            Start Quiz
           </Button>
         </form>
       ) : (

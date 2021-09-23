@@ -263,7 +263,6 @@ function SignUp({ history }) {
                 label="Enter Mobile Number"
                 name="mobileNumber"
                 autoComplete="mobileNumber"
-                autoFocus
                 onChange={(e) => setMobileNumber(e.target.value)}
               />
               {showMobileSendOtpButton === true ? (
@@ -306,7 +305,6 @@ function SignUp({ history }) {
                     label="Enter OTP"
                     name="enteredOtp"
                     autoComplete="enteredOtp"
-                    autoFocus
                     onChange={(e) => setenteredMobileOtp(e.target.value)}
                   />
                   <Button
@@ -333,7 +331,6 @@ function SignUp({ history }) {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  autoFocus
                   onChange={(e) => setEmail(e.target.value)}
                 />
               ) : (
@@ -380,7 +377,6 @@ function SignUp({ history }) {
                     label="Enter OTP"
                     name="enteredOtp"
                     autoComplete="enteredOtp"
-                    autoFocus
                     onChange={(e) => setEnteredOtp(e.target.value)}
                   />
                   <Button
