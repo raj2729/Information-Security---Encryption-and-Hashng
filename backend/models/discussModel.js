@@ -16,6 +16,10 @@ const discussSchema = mongoose.Schema(
         type: String,
         required: true
     },
+    datePosted: {
+        type: Date,
+        default: new Date()
+    },
     answers: [
         {
             userId: {
@@ -26,6 +30,10 @@ const discussSchema = mongoose.Schema(
             answer: {
                 type: String,
                 required: true
+            },
+            datePosted: {
+                type: Date,
+                default: new Date()
             }
         }
     ]

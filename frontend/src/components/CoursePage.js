@@ -752,17 +752,18 @@ function CoursePage({ history, match }) {
           <h1>Solve Your Doubts Here!!</h1>
           <img src={discussion} className={classes.img} alt="student" />
           <br/>
-          <Button
-            disabled={
-              userInfo === null ||
-              isUserEnrolledInCourseFromAllCourses === false
-            }
-            className={classes.button}
-            variant='contained'
-            color='primary'
-          >
-            Discussion Forum
-          </Button>
+            <Button
+              disabled={
+                userInfo === null ||
+                isUserEnrolledInCourseFromAllCourses === false
+              }
+              className={classes.button}
+              variant='contained'
+              color='primary'
+              onClick={()=>history.push(`/discuss/${match.params.id}`)}
+            >
+              Discussion Forum
+            </Button>
           {userInfo === null ? (
             <p style={{ color: "red" }}>Login to upload Assignment</p>
           ) : isUserEnrolledInCourseFromAllCourses === false ? (

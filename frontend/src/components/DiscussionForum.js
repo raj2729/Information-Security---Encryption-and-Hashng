@@ -5,7 +5,10 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ReplyIcon from '@material-ui/icons/Reply';
 import AddIcon from '@material-ui/icons/Add';
 import SearchIcon from '@material-ui/icons/Search';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router';
+import axios from 'axios'
+import { useSelector  } from "react-redux";
 
 const styles = makeStyles((theme) => ({
     root: {
@@ -81,15 +84,103 @@ const styles = makeStyles((theme) => ({
 }))
 
 function DiscussionForum() {
+    // console.log("in discuss forummm")
     const classes = styles()
-    const queries = [{ 'profile': { 'profile_pic': 'https://res.cloudinary.com/dizvyn9b5/image/upload/v1632215752/mtxpeyrrjcbmmuygtj5z.jpg', 'name': 'Riya Singh' }, 'date_posted': 'September 21, 2021', 'query': 'When will I get it back?', 'replies': [{ 'name': 'Rohit', 'date_posted': 'September 22, 2021', 'reply': 'By typing it' }, { 'name': 'Rohit', 'date_posted': 'September 22, 2021', 'reply': 'By typing it' }] },
-    { 'profile': { 'profile_pic': 'https://res.cloudinary.com/dizvyn9b5/image/upload/v1632215752/mtxpeyrrjcbmmuygtj5z.jpg', 'name': 'Riya Singh' }, 'date_posted': 'September 21, 2021', 'query': 'How do i do the assignment?', 'replies': [{ 'name': 'Rohit', 'date_posted': 'September 22, 2021', 'reply': 'By typing it' }, { 'name': 'Rohit', 'date_posted': 'September 22, 2021', 'reply': 'By typing it' }] },
-    { 'profile': { 'profile_pic': 'https://res.cloudinary.com/dizvyn9b5/image/upload/v1632215752/mtxpeyrrjcbmmuygtj5z.jpg', 'name': 'Riya Singh' }, 'date_posted': 'September 21, 2021', 'query': 'How do i do the assignment? When will I get it backvuirnuienruincuw wjnbciuwbi uwefbyb iuwbefub', 'replies': [{ 'name': 'Rohit', 'date_posted': 'September 22, 2021', 'reply': 'By typing it' }, { 'name': 'Rohit', 'date_posted': 'September 22, 2021', 'reply': 'By typing it' }] }]
+    const { courseId } = useParams();
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+    // console.log("userInfo",userLogin)
+    const [questions, setQuestions] = useState([])
+    const [question, setQuestion] = useState('')
+    const [answer, setAnswer] = useState('')
+    const [questionId, setQuestionId] = useState(null)
+    
+    // const questions = [{ 'profile': { 'profilePicture': 'https://res.cloudinary.com/dizvyn9b5/image/upload/v1632215752/mtxpeyrrjcbmmuygtj5z.jpg', 'name': 'Riya Singh' }, 'datePosted': 'September 21, 2021', 'question': 'When will I get it back?', 'answers': [{ 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }, { 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }] },
+    // { 'profile': { 'profilePicture': 'https://res.cloudinary.com/dizvyn9b5/image/upload/v1632215752/mtxpeyrrjcbmmuygtj5z.jpg', 'name': 'Riya Singh' }, 'datePosted': 'September 21, 2021', 'question': 'How do i do the assignment?', 'answers': [{ 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }, { 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }] },
+    // { 'profile': { 'profilePicture': 'https://res.cloudinary.com/dizvyn9b5/image/upload/v1632215752/mtxpeyrrjcbmmuygtj5z.jpg', 'name': 'Riya Singh' }, 'datePosted': 'September 21, 2021', 'question': 'How do i do the assignment? When will I get it backvuirnuienruincuw wjnbciuwbi uwefbyb iuwbefub', 'answers': [{ 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }, { 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }] }]
     const [expanded, setExpanded] = React.useState(-1);
 
     const handleExpandClick = (i) => {
         setExpanded(expanded === i ? -1 : i);
     };
+
+    const fetchQueries = async()=> {
+        try{
+            const headers = {authorization: `Bearer ${userInfo.token}`}
+            const  {data} = await axios.get(`/discuss/getAllQuestionsAnswers/${courseId}`,{headers});
+            let allQuestions = data.data
+            let arr = []
+            for(const each of allQuestions) {
+                let obj = {}
+                obj.qId = each._id
+                let profile = {}
+                profile.profilePicture = each.userId.profilePicture
+                profile.name = each.userId.name
+                obj.profile = profile
+                obj.datePosted = new Date(each.createdAt).toLocaleDateString()
+                obj.question = each.question
+                let ans = []
+                let answers = each.answers
+                for(const eachanswer of answers) {
+                    let ansObj = {}
+                    ansObj.name = eachanswer.userId.name
+                    ansObj.datePosted = new Date(eachanswer.datePosted).toLocaleDateString()
+                    ansObj.answer = eachanswer.answer
+                    ans.push(ansObj)
+                }
+                obj.answers = ans
+                arr.push(obj)
+            } 
+            setQuestions(arr.reverse());
+            // console.log(questions)
+        } catch(err) {
+            console.log(err)
+        }
+    }
+
+    const submitQuestion = async()=> {
+        try {
+            const headers = {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${userInfo.token}`
+            }
+            const body = {
+                courseId,
+                question
+            }
+            await axios.post(`/discuss/askQuestion`, body, {headers})
+            alert("Question submitted")
+            await fetchQueries()
+        } catch(err) {
+            console.log(err)
+        }
+        handleClose2()
+    }
+
+    const handlePostAnswer = async() => {
+        try {
+            const headers = {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${userInfo.token}`
+            }
+            const body = {
+                id:questionId,
+                courseId,
+                answer
+            }
+            await axios.post(`/discuss/answerQuestion`, body, {headers})
+            alert("Thanks for your answer.")
+            await fetchQueries()
+        } catch(err) {
+            console.log(err)
+        }
+        setQuestionId(null)
+        handleClose1()
+    }
+
+    useEffect(()=> {
+        fetchQueries()
+    },[questions])
 
     const [filter, setFilter] = useState('')
 
@@ -101,16 +192,8 @@ function DiscussionForum() {
     const handleOpen2 = () => setOpen2(true);
     const handleClose2 = () => setOpen2(false);
 
-    const [reply, setReply] = useState('')
-    const handlePostReply = () => {
-        console.log(reply)
-        handleClose1()
-    }
-
-    const [query, setQuery] = useState('')
-    const handlePostQuery = () => {
-        console.log(query)
-        handleClose2()
+    const handlePostQuestion = () => {
+        submitQuestion()
     }
 
     return (
@@ -135,23 +218,23 @@ function DiscussionForum() {
                 </Toolbar>
             </AppBar>
             <br />
-            {queries.map((query, index) => {
-                const profile = query.profile
-                if (query.query.includes(filter)) {
+            {questions.map((question, index) => {
+                const profile = question.profile
+                if (question.question.includes(filter)) {
                     return (
                         <Card key={index} className={classes.card}>
                             <CardHeader
                                 avatar={
-                                    <Avatar src={profile.profile_pic} />
+                                    <Avatar src={profile.profilePicture} />
                                 }
                                 title={profile.name}
-                                subheader={query.date_posted}
+                                subheader={question.datePosted}
                             />
                             <CardContent>
                                 <Grid container spacing={2}>
                                     <Grid item xs={10}>
                                         <Typography variant="h6" color="textSecondary">
-                                            {query.query}
+                                            {question.question}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={2} md={2}>
@@ -161,13 +244,16 @@ function DiscussionForum() {
                                                 aria-expanded={expanded === index}
                                                 aria-label="show more"
                                             >
-                                                <Typography>Replies</Typography>
+                                                <Typography>Answers</Typography>
                                                 {expanded === index ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                                             </IconButton>
                                             <IconButton
-                                                onClick={handleOpen1}
-                                            >
-                                                <Typography>Reply</Typography>
+                                                onClick={()=>{
+                                                    setQuestionId(question.qId)
+                                                    handleOpen1()
+                                                    }}
+                                                >
+                                                <Typography>Answer</Typography>
                                                 <ReplyIcon />
                                             </IconButton>
                                         </CardActions>
@@ -175,15 +261,15 @@ function DiscussionForum() {
                                 </Grid>
                             </CardContent>
                             <Collapse in={expanded === index} timeout="auto" unmountOnExit>
-                                {query.replies.map((reply, index) => {
+                                {question.answers.map((answer, index) => {
                                     return (
                                         <Container key={index}>
-                                            <Typography variant='h5'>{reply.name}</Typography>
+                                            <Typography variant='h5'>{answer.name}</Typography>
                                             <Typography variant='caption'>
-                                                {reply.date_posted}
+                                                {answer.datePosted}
                                             </Typography>
                                             <Typography paragraph>
-                                                {reply.reply}
+                                                {answer.answer}
                                             </Typography>
                                         </Container>
                                     )
@@ -201,7 +287,7 @@ function DiscussionForum() {
                 className={classes.add}
                 onClick={handleOpen2}
             >
-                Ask Query
+                Ask Question
             </Button>
             <Modal
                 className={classes.modal}
@@ -213,20 +299,22 @@ function DiscussionForum() {
                 <Paper className={classes.paper}>
                     <TextField
                         variant='outlined'
-                        label='Enter your Reply'
+                        label='Enter your Answer'
                         multiline
                         maxRows={20}
                         fullWidth
                         className={classes.text}
-                        onChange={(e) => setReply(e.target.value)}
+                        onChange={(e) => setAnswer(e.target.value)}
                     />
                     <Button
                         variant='contained'
                         color='primary'
                         className={classes.post}
-                        onClick={handlePostReply}
+                        onClick={()=>{
+                            handlePostAnswer()
+                        } }
                     >
-                        Post Reply
+                        Post Answer
                     </Button>
                 </Paper>
             </Modal>
@@ -240,20 +328,20 @@ function DiscussionForum() {
                 <Paper className={classes.paper}>
                     <TextField
                         variant='outlined'
-                        label='Enter your Query'
+                        label='Enter your Question'
                         multiline
                         maxRows={20}
                         fullWidth
                         className={classes.text}
-                        onChange={(e) => setQuery(e.target.value)}
+                        onChange={(e) => setQuestion(e.target.value)}
                     />
                     <Button
                         variant='contained'
                         color='primary'
                         className={classes.post}
-                        onClick={handlePostQuery}
+                        onClick={()=>handlePostQuestion()}
                     >
-                        Post Query
+                        Post Question
                     </Button>
                 </Paper>
             </Modal>
