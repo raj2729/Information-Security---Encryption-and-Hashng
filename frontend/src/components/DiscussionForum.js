@@ -84,13 +84,16 @@ const styles = makeStyles((theme) => ({
 }))
 
 function DiscussionForum() {
-    console.log("in discuss forummm")
+    // console.log("in discuss forummm")
     const classes = styles()
     const { courseId } = useParams();
     const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
     // console.log("userInfo",userLogin)
     const [questions, setQuestions] = useState([])
+    const [question, setQuestion] = useState('')
+    const [answer, setAnswer] = useState('')
+    const [questionId, setQuestionId] = useState(null)
     
     // const questions = [{ 'profile': { 'profilePicture': 'https://res.cloudinary.com/dizvyn9b5/image/upload/v1632215752/mtxpeyrrjcbmmuygtj5z.jpg', 'name': 'Riya Singh' }, 'datePosted': 'September 21, 2021', 'question': 'When will I get it back?', 'answers': [{ 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }, { 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }] },
     // { 'profile': { 'profilePicture': 'https://res.cloudinary.com/dizvyn9b5/image/upload/v1632215752/mtxpeyrrjcbmmuygtj5z.jpg', 'name': 'Riya Singh' }, 'datePosted': 'September 21, 2021', 'question': 'How do i do the assignment?', 'answers': [{ 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }, { 'name': 'Rohit', 'datePosted': 'September 22, 2021', 'answer': 'By typing it' }] },
@@ -109,6 +112,7 @@ function DiscussionForum() {
             let arr = []
             for(const each of allQuestions) {
                 let obj = {}
+                obj.qId = each._id
                 let profile = {}
                 profile.profilePicture = each.userId.profilePicture
                 profile.name = each.userId.name
@@ -127,11 +131,51 @@ function DiscussionForum() {
                 obj.answers = ans
                 arr.push(obj)
             } 
-            setQuestions(arr)
-            console.log(questions)
+            setQuestions(arr.reverse());
+            // console.log(questions)
         } catch(err) {
             console.log(err)
         }
+    }
+
+    const submitQuestion = async()=> {
+        try {
+            const headers = {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${userInfo.token}`
+            }
+            const body = {
+                courseId,
+                question
+            }
+            await axios.post(`/discuss/askQuestion`, body, {headers})
+            alert("Question submitted")
+            await fetchQueries()
+        } catch(err) {
+            console.log(err)
+        }
+        handleClose2()
+    }
+
+    const handlePostAnswer = async() => {
+        try {
+            const headers = {
+                "Content-Type": "application/json",
+                "authorization": `Bearer ${userInfo.token}`
+            }
+            const body = {
+                id:questionId,
+                courseId,
+                answer
+            }
+            await axios.post(`/discuss/answerQuestion`, body, {headers})
+            alert("Thanks for your answer.")
+            await fetchQueries()
+        } catch(err) {
+            console.log(err)
+        }
+        setQuestionId(null)
+        handleClose1()
     }
 
     useEffect(()=> {
@@ -148,16 +192,8 @@ function DiscussionForum() {
     const handleOpen2 = () => setOpen2(true);
     const handleClose2 = () => setOpen2(false);
 
-    const [answer, setAnswer] = useState('')
-    const handlePostAnswer = () => {
-        console.log(answer)
-        handleClose1()
-    }
-
-    const [question, setQuestion] = useState('')
     const handlePostQuestion = () => {
-        console.log(question)
-        handleClose2()
+        submitQuestion()
     }
 
     return (
@@ -212,8 +248,11 @@ function DiscussionForum() {
                                                 {expanded === index ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                                             </IconButton>
                                             <IconButton
-                                                onClick={handleOpen1}
-                                            >
+                                                onClick={()=>{
+                                                    setQuestionId(question.qId)
+                                                    handleOpen1()
+                                                    }}
+                                                >
                                                 <Typography>Answer</Typography>
                                                 <ReplyIcon />
                                             </IconButton>
@@ -271,7 +310,9 @@ function DiscussionForum() {
                         variant='contained'
                         color='primary'
                         className={classes.post}
-                        onClick={handlePostAnswer}
+                        onClick={()=>{
+                            handlePostAnswer()
+                        } }
                     >
                         Post Answer
                     </Button>
@@ -298,7 +339,7 @@ function DiscussionForum() {
                         variant='contained'
                         color='primary'
                         className={classes.post}
-                        onClick={handlePostQuestion}
+                        onClick={()=>handlePostQuestion()}
                     >
                         Post Question
                     </Button>
