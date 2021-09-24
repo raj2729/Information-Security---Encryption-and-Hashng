@@ -5,7 +5,8 @@ import {
     ADMIN_USERS,
     ADMIN_INSTRUCTORS,
     ADMIN_COURSES,
-    ADMIN_ORDERS
+    ADMIN_ORDERS,
+    ADMIN_PAYMENTS
   } from "../constants/adminConstants";
   
   const initialState = {
@@ -15,7 +16,8 @@ import {
       allUsers: [],
       allInstructors: [],
       allCourses: [],
-      allOrders: []
+      allOrders: [],
+      allPayments: []
   }
 
   export const adminReducer = (state = initialState, action) => {
@@ -34,6 +36,8 @@ import {
         return {...state, adminLoading: false, allCourses: action.payload}
       case ADMIN_ORDERS:
         return {...state, adminLoading: false, allOrders:action.payload}
+      case ADMIN_PAYMENTS:
+        return {...state, adminLoading: false, allPayments:action.payload}
       default:
         return state;
     }
