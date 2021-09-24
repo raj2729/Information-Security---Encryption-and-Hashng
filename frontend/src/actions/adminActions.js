@@ -6,7 +6,8 @@ import {
     ADMIN_USERS,
     ADMIN_INSTRUCTORS,
     ADMIN_COURSES,
-    ADMIN_ORDERS
+    ADMIN_ORDERS,
+    ADMIN_PAYMENTS
 } from "../constants/adminConstants";
 
 export const adminLogin = (email,password) => async (dispatch) => {
@@ -123,5 +124,27 @@ export const getAllOrders = ()=> async(dispatch, getState)=> {
       type: ADMIN_ERROR,
       payload: err
     })
+  }
+}
+
+export const getAllPayments = ()=> async(dispatch, getState)=> {
+  try{
+    dispatch({type:ADMIN_LOADING,payload:{}})
+    const token = getState().admin.adminDetails.token
+    const headers = {authorization: `Bearer ${token}`}
+    const  {data} = await axios.get('/instructorPayments/paymentsToInstructors',{headers});
+    if(data.data) {
+      dispatch({
+        type: ADMIN_PAYMENTS,
+        payload: data.data
+      })
+    } else {
+      console.log("Error in getAllPayments")
+    }
+  } catch(err) {
+    dispatch({
+      type: ADMIN_ERROR,
+      payload: err
+    })  
   }
 }

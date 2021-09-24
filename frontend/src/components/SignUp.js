@@ -422,6 +422,10 @@ function SignUp({ history }) {
                   
                 </Link> */}
               </Grid>
+              <Grid item>
+                Are you Admin?&nbsp;
+                <Link to={"/admin/login"}>Admin Login</Link>
+              </Grid>
               {showPassword === true ? (
                 <Button
                   type="submit"
