@@ -5,7 +5,7 @@ const {
     performPayment
 } = require("../controllers/instructorPaymentControllers");
 
-const { protect } = require("../middlewares/protectedRoutes");
+const { protect, adminProtect } = require("../middlewares/protectedRoutes");
 
 const router = express.Router();
 
@@ -13,8 +13,6 @@ const router = express.Router();
 router.route("/paymentsToInstructors").get(paymentsToInstructors);
 
 // Perform a payment
-router.route("/performPayment").post(performPayment);
-
-
+router.route("/performPayment").post(adminProtect,performPayment);
 
 module.exports = router;
