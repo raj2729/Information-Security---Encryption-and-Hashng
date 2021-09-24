@@ -3,28 +3,23 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import { Box, Card, CardContent, Grid } from "@material-ui/core";
+import { Card, CardContent, Grid } from "@material-ui/core";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 // import Autocomplete from "@mui/material/Autocomplete";
-import OutlinedInput from "@material-ui/core/OutlinedInput";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 // import FormControl from "@mui/material/FormControl";
-import Select from "@material-ui/core/Select";
-import { createTheme, ThemeProvider } from "@material-ui/core";
 
 // Importing Header
 import Header from "./Header";
 
 const useStyles = makeStyles({
   field: {
-    margin: '20px 10px',
+    margin: "20px 10px",
     display: "block",
   },
   root: {
@@ -85,14 +80,14 @@ const CareerForm = ({ history, match }) => {
     setResumeLinkError(false);
     setEmailError(false);
 
-    if (jobType == "") setjobTypeError(true);
-    if (name == "") setnameError(true);
-    if (mobileNumber == 0) setMobileNumberError(true);
-    if (description == "") setDescriptionError(true);
-    if (ySelected == "") setYSelectedError(true);
-    if (linkedInProfile == "") setlinkedInProfileError(true);
-    if (resumeLink == "") setResumeLinkError(true);
-    if (email == "") setEmailError(true);
+    if (jobType === "") setjobTypeError(true);
+    if (name === "") setnameError(true);
+    if (mobileNumber === 0) setMobileNumberError(true);
+    if (description === "") setDescriptionError(true);
+    if (ySelected === "") setYSelectedError(true);
+    if (linkedInProfile === "") setlinkedInProfileError(true);
+    if (resumeLink === "") setResumeLinkError(true);
+    if (email === "") setEmailError(true);
   };
 
   const careerSubmitHandler = async () => {
@@ -136,7 +131,13 @@ const CareerForm = ({ history, match }) => {
     setSuccess(true);
   };
 
-  const jobsList = ["Backend Developer", "Frontend Developer", "UI/UX Developer", "Sales and Marketing", "Content Writing"];
+  const jobsList = [
+    "Backend Developer",
+    "Frontend Developer",
+    "UI/UX Developer",
+    "Sales and Marketing",
+    "Content Writing",
+  ];
   const handleChange = (event) => {
     const {
       target: { value },
@@ -145,16 +146,6 @@ const CareerForm = ({ history, match }) => {
       // On autofill we get a the stringified value.
       typeof value === "string" ? value.split(",") : value
     );
-  };
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
   };
 
   return (
@@ -166,21 +157,25 @@ const CareerForm = ({ history, match }) => {
         direction="column"
         alignItems="center"
         justify="center"
-        style={{ margin: '80px 0px 10px' }}
+        style={{ margin: "80px 0px 10px" }}
       >
         <Card
           style={{
             width: 800,
             padding: "25px",
             margin: "0 auto",
-            boxShadow: '5px 5px 5px 5px lightgrey'
+            boxShadow: "5px 5px 5px 5px lightgrey",
           }}
         >
           <CardContent>
             <Typography gutterBottom variant="h5" align="center">
               Career Form
             </Typography>
-            <FormControl component="fieldset" className={classes.field} >
+<<<<<<< HEAD
+            <FormControl noValidate autoComplete="off" component="fieldset" className={classes.field} >
+=======
+            <FormControl component="fieldset" className={classes.field}>
+>>>>>>> master
               <FormLabel component="legend">Job Type</FormLabel>
               <RadioGroup
                 row
@@ -189,12 +184,22 @@ const CareerForm = ({ history, match }) => {
                 onChange={(event) => setjobType(event.target.value)}
                 error={jobTypeError}
               >
-                <FormControlLabel value="internship" control={<Radio />} label="Internship" />
+                <FormControlLabel
+                  value="internship"
+                  control={<Radio />}
+                  label="Internship"
+                />
                 <FormControlLabel value="job" control={<Radio />} label="Job" />
-                <FormControlLabel value="instructor" control={<Radio />} label="Instructor" />
+                <FormControlLabel
+                  value="instructor"
+                  control={<Radio />}
+                  label="Instructor"
+                />
               </RadioGroup>
             </FormControl>
-            {jobType === 'instructor' ? <h3 className={classes.field}>Complete your Profile</h3> : (
+            {jobType === "instructor" ? (
+              <h3 className={classes.field}>Complete your Profile</h3>
+            ) : (
               <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <TextField
                   onChange={(e) => setName(e.target.value)}
@@ -231,7 +236,7 @@ const CareerForm = ({ history, match }) => {
                   id="standard-select-currency"
                   className={classes.field}
                   select
-                  variant='outlined'
+                  variant="outlined"
                   label="Select"
                   value={jobList}
                   fullWidth

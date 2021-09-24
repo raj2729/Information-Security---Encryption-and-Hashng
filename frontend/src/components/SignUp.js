@@ -15,8 +15,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { register } from "../actions/userActions";
 
 // Importing Header, Footer and Copyright
-import Header from "./Header";
 import { IconButton } from "@material-ui/core";
+// // Importing Header, Footer and Copyright
+// import Header from "./Header";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -228,6 +229,7 @@ function SignUp({ history }) {
 
   return (
     <>
+      {/* <Header /> */}
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
@@ -426,6 +428,10 @@ function SignUp({ history }) {
                 {/* <Link href="#" variant="body2">
                   
                 </Link> */}
+              </Grid>
+              <Grid item>
+                Are you Admin?&nbsp;
+                <Link to={"/admin/login"}>Admin Login</Link>
               </Grid>
               {showPassword === true ? (
                 <Button

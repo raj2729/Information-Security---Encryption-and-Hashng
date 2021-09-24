@@ -1,3 +1,4 @@
+
 import React,  { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Button from '@material-ui/core/Button';
@@ -15,7 +16,7 @@ import "./admindashboard.css"
 import GroupIcon from '@material-ui/icons/Group';
 import ComputerIcon from '@material-ui/icons/Computer';
 // actions
-import { getAllUsers, getAllInstructors, getCoursesSummary, getAllOrders } from "../actions/adminActions";
+import { getAllUsers, getAllInstructors, getCoursesSummary, getAllOrders, getAllPayments } from "../actions/adminActions";
 import CourseTable from "./AdminCourses";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -26,6 +27,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 // var Component = React.Component;
 import CanvasJSReact from './canvasjs.react';
+import PaymentsTable from "./AdminPayments";
 var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -49,6 +51,7 @@ function AdminDashboard() {
       dispatch(getAllInstructors())
       dispatch(getCoursesSummary())
       dispatch(getAllOrders())
+      dispatch(getAllPayments())
     }, [])
     const [mode, setMode] = useState("dashboard")
 
@@ -60,6 +63,7 @@ function AdminDashboard() {
             <ListItem><Button onClick = {()=>setMode("users")}><h4><i className="fa fa-users"></i> Students</h4></Button></ListItem>
             <ListItem><Button onClick = {()=>setMode("instructors")}><h4><i className="fa fa-bar-chart"></i> Instructors</h4></Button></ListItem>
             <ListItem><Button onClick = {()=>setMode("orders")}><h4><i className="fa fa-money"></i> Orders</h4></Button></ListItem>
+            <ListItem><Button onClick = {()=>setMode("payments")}><h4><i className="fa fa-money"></i> Payments</h4></Button></ListItem>
           </List>
         </div>
       )
@@ -236,29 +240,12 @@ function AdminDashboard() {
             </Grid>
           
             </div>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             }
             {mode==="courses" && <CourseTable/>}
             {mode==="users" && <UserTable/>}
             {mode==="instructors" && <InstructorTable/>}
             {mode==="orders" && <OrdersTable/>}
+            {mode==="payments" && <PaymentsTable/>}
         </div>
      );
 }

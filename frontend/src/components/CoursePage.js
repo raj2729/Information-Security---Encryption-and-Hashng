@@ -28,24 +28,17 @@ import { Link } from "react-router-dom";
 import VideoPlayer from "react-video-js-player";
 import Modal from "@material-ui/core/Modal";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-
-//
-
 import {
   oneCourseDetails,
   allUserCoursesAction,
 } from "../actions/courseActions";
-// Loader
 import { CircularProgress } from "@material-ui/core";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
-
-// Importing Header
 import Header from "./Header";
 import { isUserEnrolled } from "../actions/userActions";
 import { createAssignment } from "../actions/assignmentActions";
 import QuizAnswers from "./quiz/QuizAnswers";
-// import PlayLecture from "./PlayLecture";
 
 const useStyles = makeStyles((theme) => ({
   app: {
@@ -77,9 +70,9 @@ const useStyles = makeStyles((theme) => ({
     background: "#212121",
     width: "300px",
     borderRadius: "999px !important",
-    '&:hover': {
-      backgroundColor: '#616161'
-    }
+    "&:hover": {
+      backgroundColor: "#616161",
+    },
   },
   enrollText: {
     color: "white",
@@ -265,11 +258,10 @@ function CoursePage({ history, match }) {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  // const [isEnrolled, setIsEnrolled] = useState(false);
   const isEnrolledInCourse = useSelector((state) => state.isEnrolledInCourse);
-  const { loading: isEnrolledLoading, isEnrolled } = isEnrolledInCourse;
+  const { isEnrolled } = isEnrolledInCourse;
   const courseDetails = useSelector((state) => state.courseDetails);
-  const { loading, error, course } = courseDetails;
+  const { loading, course } = courseDetails;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -292,12 +284,11 @@ function CoursePage({ history, match }) {
 
   // CLOUDINARY - UPLOAD IMAGES
   const [imageSelected, setImageSelected] = useState("");
-  const [publicIdd, setPublicIdd] = useState("");
+  // const [publicIdd, setPublicIdd] = useState("");
   const [githubLink, setGithubLink] = useState("");
   // CLOUDINARY - UPLOAD IMAGES
 
   const submitAssignmentHandler = async () => {
-    // console.log(files[0]);
     const formData = new FormData();
     formData.append("file", imageSelected);
     formData.append("upload_preset", "ude8cxll");
@@ -306,7 +297,7 @@ function CoursePage({ history, match }) {
       .post("https://api.cloudinary.com/v1_1/dizvyn9b5/image/upload", formData)
       .then((response) => {
         console.log(response.data.secure_url);
-        setPublicIdd(response.data.secure_url);
+        // setPublicIdd(response.data.secure_url);
         dispatch(
           createAssignment(
             userInfo.data._id,
@@ -338,7 +329,7 @@ function CoursePage({ history, match }) {
 
   useEffect(() => {
     fetchQuiz();
-    
+
   }, [match.params.id]);
 
   const fetchQuizData = () => {
@@ -376,12 +367,8 @@ function CoursePage({ history, match }) {
   };
 
   useEffect(() => {
-    // console.log(allUserCourses.courses.data);
     if (allUserCourses.courses && allUserCourses.courses.data) {
       allUserCourses.courses.data.map((oneCourse) => {
-        // console.log(oneCourse.courseId._id);
-        // console.log(match.params.id);
-
         if (oneCourse.courseId._id === match.params.id) {
           setIsUserEnrolledInCourseFromAllCourses(true);
         }
@@ -418,7 +405,7 @@ function CoursePage({ history, match }) {
         createAssignment(userInfo.data._id, match.params.id, "", "", "unsubmit")
       );
     } else {
-      alert("Error in enrolling course");
+      alert("Could not complete payments");
     }
   };
 
@@ -477,14 +464,11 @@ function CoursePage({ history, match }) {
       <div className={classes.app} style={{ marginTop: "100px" }}>
         <div className={classes.bigBox}>
           <h1 className={classes.bigText}>
-            {/* Web Development <br /> MERN Stack */}
             {course.data.name}
             <br />- {course.data.tagline}
           </h1>
           <br />
           <p className={classes.smallText}>
-            {/* The Complete Web Development Course - Mastering MongoDB, ExpressJS,
-          ReactJS, NodeJS */}
             {course.data.description}
           </p>
           <br />
@@ -556,44 +540,47 @@ function CoursePage({ history, match }) {
           <Grid container spacing={3}>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <VideocamIcon className={classes.icons} fontSize='large' />
+                <VideocamIcon className={classes.icons} fontSize="large" />
                 Premium Course
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <HeadsetMicIcon className={classes.icons} fontSize='large' />
+                <HeadsetMicIcon className={classes.icons} fontSize="large" />
                 Live Doubt Solving
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <VerifiedUserIcon className={classes.icons} fontSize='large' />
+                <VerifiedUserIcon className={classes.icons} fontSize="large" />
                 Certificate
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <DateRangeIcon className={classes.icons} fontSize='large' />
+                <DateRangeIcon className={classes.icons} fontSize="large" />
                 Lifetime Access
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <GroupIcon className={classes.icons} fontSize='large' />
+                <GroupIcon className={classes.icons} fontSize="large" />
                 Mentorship
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <TimerIcon className={classes.icons} fontSize='large' />
+                <TimerIcon className={classes.icons} fontSize="large" />
                 Self-Paced
               </div>
             </Grid>
           </Grid>
         </div>
         <div
-          style={{ padding: "50px 0px 50px 0px", background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)" }}
+          style={{
+            padding: "50px 0px 50px 0px",
+            background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)",
+          }}
         >
           <Grid>
             <Grid xs={12} sm={12}>
@@ -745,11 +732,9 @@ function CoursePage({ history, match }) {
           )}
           <img
             src="https://cdn.dribbble.com/users/4908/screenshots/2787171/invoice-animation-dribbble.gif"
-            // src="https://cdn.dribbble.com/users/4241563/screenshots/11874468/media/7796309c77cf752615a3f9062e6a3b3d.gif"
             className={classes.img}
             alt="student"
           />
-          {/* <img src={quiz} className={classes.img} alt="student" /> */}
         </div>
         <div>
           <h1>Assignment Submission</h1>
@@ -832,12 +817,12 @@ function CoursePage({ history, match }) {
         <div>
           <h1>Solve Your Doubts Here!!</h1>
           <img
-            // src="http://www.rcdspcg.com/images/course/img17.gif"
+
             src="https://content.app-sources.com/s/70633399122816051/uploads/LOGOS/f5340454c0da1eabb125df9efff4b504_1-9593554.gif"
             className={classes.img}
             alt="student"
           />
-          {/* <img src={discussion} className={classes.img} alt="student" /> */}
+
           <br />
           <Button
             disabled={
@@ -865,7 +850,7 @@ function CoursePage({ history, match }) {
           style={{
             paddingLeft: "10%",
             paddingRight: "10%",
-            background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)"
+            background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)",
           }}
         >
           <h1 style={{ paddingTop: "70px" }}>Course Advantages</h1>
@@ -906,7 +891,7 @@ function CoursePage({ history, match }) {
             paddingLeft: "10%",
             paddingRight: "10%",
             paddingBottom: "10%",
-            background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)"
+            background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)",
           }}
         >
           <h1 style={{ paddingTop: "70px" }}>Have some query?</h1>
@@ -1078,7 +1063,7 @@ function CoursePage({ history, match }) {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: '100vh' }}
+      style={{ minHeight: "100vh" }}
     >
       <Grid item xs={3}>
         <CircularProgress />
