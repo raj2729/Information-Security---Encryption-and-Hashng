@@ -7,7 +7,6 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import GetAppIcon from "@material-ui/icons/GetApp";
 import Header from "./Header";
 import { Button } from "@material-ui/core";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
@@ -21,70 +20,7 @@ const useStyles = makeStyles({
   },
 });
 
-// const useStyles = makeStyles((theme) => ({
-
-//   }));
-function createData(courseName, image, githubLink, approved, declined) {
-  return { courseName, image, githubLink, approved, declined };
-}
-
-const CheckCircle = () => {
-  return (
-    <Button variant="contained" color="primary">
-      DOWNLOAD <GetAppIcon />
-    </Button>
-  );
-};
-
-const rows = [
-  createData(
-    <p style={{ paddingLeft: "20%" }}>MERN Development</p>,
-    // <p style={{ paddingRight: "-30px" }}>Pending</p>,
-    <center>Pending</center>,
-    <center>Github</center>,
-    <center>
-      <CheckCircleIcon />
-    </center>,
-    <center>
-      <CancelIcon />
-    </center>
-  ),
-  createData(
-    <p style={{ paddingLeft: "20%" }}>MERN Development</p>,
-    <center>Pending</center>,
-    <center>Github</center>,
-    <center>
-      <CheckCircleIcon />
-    </center>,
-    <center>
-      <CancelIcon />
-    </center>
-  ),
-  createData(
-    <p style={{ paddingLeft: "20%" }}>MERN Development</p>,
-    <center>Pending</center>,
-    <center>Github</center>,
-    <center>
-      <CheckCircleIcon />
-    </center>,
-    <center>
-      <CancelIcon />
-    </center>
-  ),
-  createData(
-    <p style={{ paddingLeft: "20%" }}>MERN Development</p>,
-    <center>Pending</center>,
-    <center>Github</center>,
-    <center>
-      <CheckCircleIcon />
-    </center>,
-    <center>
-      <CancelIcon />
-    </center>
-  ),
-];
-
-const InstructorAssignmentPage = ({ history, match }) => {
+const InstructorAssignmentPage = ({ match }) => {
   const classes = useStyles();
   const [instructorAssignments, setinstructorAssignments] = useState({});
   //   let instructorAssignments = [];
@@ -104,10 +40,6 @@ const InstructorAssignmentPage = ({ history, match }) => {
       .then((response) => {
         // console.log(response);
         setinstructorAssignments(response.data);
-        // console.log(response.data);
-        // instructorAssignments = response.data;
-        // console.log(instructorAssignments);
-        // console.log(instructorAssignments.length);
         setLoaded(true);
         return response;
       });
@@ -141,7 +73,7 @@ const InstructorAssignmentPage = ({ history, match }) => {
             setLoaded(true);
             vary = 3;
             // history.push(`/}`);
-            alert("Assignment has been approved");
+            // alert("Assignment has been approved");
           });
         // console.log(response);
       });
@@ -174,7 +106,7 @@ const InstructorAssignmentPage = ({ history, match }) => {
             setLoaded(true);
             vary = 3;
             // history.push(`/}`);
-            alert("Assignment has been approved");
+            // alert("Assignment has been approved");
           });
         // console.log(response);
       });
@@ -207,9 +139,7 @@ const InstructorAssignmentPage = ({ history, match }) => {
               <CircularProgress />
             ) : instructorAssignments.length === 0 ? (
               <center>
-                <p style={{ color: "red" }}>
-                  You have not enrolled in any course yet
-                </p>
+                <p style={{ color: "red" }}>No assignments left to check</p>
               </center>
             ) : (
               instructorAssignments.map((row) => (

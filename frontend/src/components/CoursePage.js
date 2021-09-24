@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, ButtonGroup, Grid, Input, Paper } from "@material-ui/core";
+import { Button, Grid, Input } from "@material-ui/core";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import HeadsetMicIcon from "@material-ui/icons/HeadsetMic";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
@@ -25,19 +25,14 @@ import TextField from "@material-ui/core/TextField";
 //
 import { Box } from "@material-ui/core";
 
-import quiz from "../assets/quiz.png";
-import discussion from "../assets/discussion.png";
 import Carousel from "react-material-ui-carousel";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import { Link } from "react-router-dom";
 
 import VideoPlayer from "react-video-js-player";
 import Modal from "@material-ui/core/Modal";
-import Container from "@material-ui/core/Container";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-
 //
-
 import {
   oneCourseDetails,
   allUserCoursesAction,
@@ -83,9 +78,9 @@ const useStyles = makeStyles((theme) => ({
     background: "#212121",
     width: "300px",
     borderRadius: "999px !important",
-    '&:hover': {
-      backgroundColor: '#616161'
-    }
+    "&:hover": {
+      backgroundColor: "#616161",
+    },
   },
   enrollText: {
     color: "white",
@@ -274,9 +269,9 @@ function CoursePage({ history, match }) {
   const dispatch = useDispatch();
   // const [isEnrolled, setIsEnrolled] = useState(false);
   const isEnrolledInCourse = useSelector((state) => state.isEnrolledInCourse);
-  const { loading: isEnrolledLoading, isEnrolled } = isEnrolledInCourse;
+  const { isEnrolled } = isEnrolledInCourse;
   const courseDetails = useSelector((state) => state.courseDetails);
-  const { loading, error, course } = courseDetails;
+  const { loading, course } = courseDetails;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -299,7 +294,7 @@ function CoursePage({ history, match }) {
 
   // CLOUDINARY - UPLOAD IMAGES
   const [imageSelected, setImageSelected] = useState("");
-  const [publicIdd, setPublicIdd] = useState("");
+  // const [publicIdd, setPublicIdd] = useState("");
   const [githubLink, setGithubLink] = useState("");
   // CLOUDINARY - UPLOAD IMAGES
 
@@ -313,7 +308,7 @@ function CoursePage({ history, match }) {
       .post("https://api.cloudinary.com/v1_1/dizvyn9b5/image/upload", formData)
       .then((response) => {
         console.log(response.data.secure_url);
-        setPublicIdd(response.data.secure_url);
+        // setPublicIdd(response.data.secure_url);
         dispatch(
           createAssignment(
             userInfo.data._id,
@@ -369,9 +364,9 @@ function CoursePage({ history, match }) {
       dispatch(
         createAssignment(userInfo.data._id, match.params.id, "", "", "unsubmit")
       );
-      alert("Course enrolled successfully");
+      // alert("Course enrolled successfully");
     } else {
-      alert("Error in enrolling course");
+      alert("Could not complete payments");
     }
   };
 
@@ -510,44 +505,47 @@ function CoursePage({ history, match }) {
           <Grid container spacing={3}>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <VideocamIcon className={classes.icons} fontSize='large' />
+                <VideocamIcon className={classes.icons} fontSize="large" />
                 Premium Course
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <HeadsetMicIcon className={classes.icons} fontSize='large' />
+                <HeadsetMicIcon className={classes.icons} fontSize="large" />
                 Live Doubt Solving
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <VerifiedUserIcon className={classes.icons} fontSize='large' />
+                <VerifiedUserIcon className={classes.icons} fontSize="large" />
                 Certificate
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <DateRangeIcon className={classes.icons} fontSize='large' />
+                <DateRangeIcon className={classes.icons} fontSize="large" />
                 Lifetime Access
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <GroupIcon className={classes.icons} fontSize='large' />
+                <GroupIcon className={classes.icons} fontSize="large" />
                 Mentorship
               </div>
             </Grid>
             <Grid item xs={6} sm={4}>
               <div className={classes.halfDivText}>
-                <TimerIcon className={classes.icons} fontSize='large' />
+                <TimerIcon className={classes.icons} fontSize="large" />
                 Self-Paced
               </div>
             </Grid>
           </Grid>
         </div>
         <div
-          style={{ padding: "50px 0px 50px 0px", background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)" }}
+          style={{
+            padding: "50px 0px 50px 0px",
+            background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)",
+          }}
         >
           <Grid>
             <Grid xs={12} sm={12}>
@@ -601,7 +599,7 @@ function CoursePage({ history, match }) {
                         onClick={handleOpen}
                       >
                         {userInfo === null ||
-                          isUserEnrolledInCourseFromAllCourses === false
+                        isUserEnrolledInCourseFromAllCourses === false
                           ? "Enroll course first"
                           : "View Chapter"}
                       </Button>
@@ -632,7 +630,7 @@ function CoursePage({ history, match }) {
           <Box m={2} pt={3} />
           {userInfo ? (
             userInfo.data.isInstructor === true &&
-              userInfo.data._id === course.data.instructorId ? (
+            userInfo.data._id === course.data.instructorId ? (
               <Link
                 to={`/createChapter/${course.data._id}`}
                 style={{ textDecoration: "none" }}
@@ -679,11 +677,9 @@ function CoursePage({ history, match }) {
           )}
           <img
             src="https://cdn.dribbble.com/users/4908/screenshots/2787171/invoice-animation-dribbble.gif"
-            // src="https://cdn.dribbble.com/users/4241563/screenshots/11874468/media/7796309c77cf752615a3f9062e6a3b3d.gif"
             className={classes.img}
             alt="student"
           />
-          {/* <img src={quiz} className={classes.img} alt="student" /> */}
         </div>
         <div>
           <h1>Assignment Submission</h1>
@@ -799,7 +795,7 @@ function CoursePage({ history, match }) {
           style={{
             paddingLeft: "10%",
             paddingRight: "10%",
-            background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)"
+            background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)",
           }}
         >
           <h1 style={{ paddingTop: "70px" }}>Course Advantages</h1>
@@ -840,7 +836,7 @@ function CoursePage({ history, match }) {
             paddingLeft: "10%",
             paddingRight: "10%",
             paddingBottom: "10%",
-            background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)"
+            background: "linear-gradient(45deg, #FE6429 30%, #FFB830 100%)",
           }}
         >
           <h1 style={{ paddingTop: "70px" }}>Have some query?</h1>
@@ -1012,7 +1008,7 @@ function CoursePage({ history, match }) {
       direction="column"
       alignItems="center"
       justify="center"
-      style={{ minHeight: '100vh' }}
+      style={{ minHeight: "100vh" }}
     >
       <Grid item xs={3}>
         <CircularProgress />

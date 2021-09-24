@@ -10,8 +10,6 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { createTheme, ThemeProvider } from "@material-ui/core";
-
 // Importing Header
 import Header from "./Header";
 
@@ -78,14 +76,14 @@ function ContactForm() {
         direction="column"
         alignItems="center"
         justify="center"
-        style={{margin: '80px 0px 10px' }}
+        style={{ margin: "80px 0px 10px" }}
       >
         <Card
           style={{
             maxWidth: 450,
             padding: "5px",
             margin: "0 auto",
-            boxShadow: '5px 5px 5px 5px lightgrey'
+            boxShadow: "5px 5px 5px 5px lightgrey",
           }}
         >
           <CardContent>

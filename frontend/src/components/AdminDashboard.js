@@ -1,3 +1,4 @@
+
 import React,  { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Button from '@material-ui/core/Button';
@@ -239,24 +240,6 @@ function AdminDashboard() {
             </Grid>
           
             </div>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
             }
             {mode==="courses" && <CourseTable/>}
             {mode==="users" && <UserTable/>}
