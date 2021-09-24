@@ -136,15 +136,15 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    margin: '10px 20px',
+    margin: "10px 20px",
   },
   modal2: {
-    overflow: 'auto',
+    overflow: "auto",
   },
   paper: {
-    alignContent: 'center',
-    margin: '3%',
-    padding: '10px 20px'
+    alignContent: "center",
+    margin: "3%",
+    padding: "10px 20px",
   },
   mainTitle: {
     fontSize: "45px",
@@ -313,33 +313,32 @@ function CoursePage({ history, match }) {
 
   const [currentQuizStep, setCurrentQuizStep] = useState("start");
   const [quizData, setQuizData] = useState([]);
-  const [uodate, setUpdate] = useState(true)
-  const [open, setOpen] = useState(false)
+  const [uodate, setUpdate] = useState(true);
+  const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
 
   const fetchQuiz = async () => {
     try {
-      const { data } = await axios.get(`/course/getQuizByCourse/${match.params.id}`);
+      const { data } = await axios.get(
+        `/course/getQuizByCourse/${match.params.id}`
+      );
       setData(data.data);
     } catch (err) {
       console.log(err);
     }
-    setUpdate(true)
+    setUpdate(true);
   };
 
   useEffect(() => {
     fetchQuiz();
-
   }, [match.params.id]);
 
   const fetchQuizData = () => {
     const formattedCategory = data.map((cat) => {
       if (uodate) {
-        setUpdate(false)
+        setUpdate(false);
         const incorrectAnswersIndexes = cat.incorrect.length;
-        const randomIndex = Math.round(
-          Math.random() * (incorrectAnswersIndexes)
-        );
+        const randomIndex = Math.round(Math.random() * incorrectAnswersIndexes);
         cat.incorrect.splice(randomIndex, 0, cat.correct);
       }
       return {
@@ -348,13 +347,13 @@ function CoursePage({ history, match }) {
       };
     });
     setQuizData(formattedCategory);
-    setCurrentQuizStep('results')
+    setCurrentQuizStep("results");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!quizData.length) {
-      fetchQuizData()
+      fetchQuizData();
     }
     setOpen(true);
   };
@@ -456,7 +455,7 @@ function CoursePage({ history, match }) {
   };
 
   // ALERT
-  const [openAlt, setOpenAlt] = useState(true)
+  const [openAlt, setOpenAlt] = useState(true);
 
   return loading === false ? (
     <>
@@ -468,9 +467,7 @@ function CoursePage({ history, match }) {
             <br />- {course.data.tagline}
           </h1>
           <br />
-          <p className={classes.smallText}>
-            {course.data.description}
-          </p>
+          <p className={classes.smallText}>{course.data.description}</p>
           <br />
           <span className={classes.bigBtn}>
             {isEnrolled && isEnrolled.success === true ? (
@@ -634,7 +631,7 @@ function CoursePage({ history, match }) {
                         onClick={handleOpen}
                       >
                         {userInfo === null ||
-                          isUserEnrolledInCourseFromAllCourses === false
+                        isUserEnrolledInCourseFromAllCourses === false
                           ? "Enroll course first"
                           : "View Chapter"}
                       </Button>
@@ -652,12 +649,63 @@ function CoursePage({ history, match }) {
                       </Modal>
                     </div>
                   </AccordionDetails>
-                  <AccordionDetails style={{ alignItems: "left" }}>
+                  <AccordionDetails className={classes.details}>
+                    <div className={classes.column2}>
+                      <Button
+                        disabled={
+                          userInfo === null ||
+                          isUserEnrolledInCourseFromAllCourses === false
+                        }
+                        color="primary"
+                        variant="contained"
+                        // onClick={handleOpen}
+                        style={{ marginRight: "50px" }}
+                      >
+                        {userInfo === null ||
+                        isUserEnrolledInCourseFromAllCourses === false
+                          ? "Enroll course first"
+                          : "Go to quiz"}
+                      </Button>
+                      <Button
+                        disabled={
+                          userInfo === null ||
+                          isUserEnrolledInCourseFromAllCourses === false
+                        }
+                        color="primary"
+                        variant="contained"
+                        // onClick={handleOpen}
+                      >
+                        {userInfo === null ||
+                        isUserEnrolledInCourseFromAllCourses === false
+                          ? "Enroll course first"
+                          : "View Study Materials"}
+                      </Button>
+                    </div>
+                  </AccordionDetails>
+                  {/* <AccordionDetails className={classes.details}>
+                    <div className={classes.column2}>
+                      <Button
+                        disabled={
+                          userInfo === null ||
+                          isUserEnrolledInCourseFromAllCourses === false
+                        }
+                        color="primary"
+                        variant="contained"
+                        // onClick={handleOpen}
+                      >
+                        {userInfo === null ||
+                        isUserEnrolledInCourseFromAllCourses === false
+                          ? "Enroll course first"
+                          : "Got to quiz"}
+                      </Button>
+                    </div>
+                  </AccordionDetails> */}
+                  {/* <AccordionDetails style={{ alignItems: "left" }}>
                     <div className={classes.column2}>
                       <strong>Study Materials:</strong>{" "}
                       {chapter.chapterStudyMaterial}
                     </div>
-                  </AccordionDetails>
+                  </AccordionDetails> */}
                 </Accordion>
               </Grid>
             ))}
@@ -665,7 +713,7 @@ function CoursePage({ history, match }) {
           <Box m={2} pt={3} />
           {userInfo ? (
             userInfo.data.isInstructor === true &&
-              userInfo.data._id === course.data.instructorId ? (
+            userInfo.data._id === course.data.instructorId ? (
               <Link
                 to={`/createChapter/${course.data._id}`}
                 style={{ textDecoration: "none" }}
@@ -707,11 +755,7 @@ function CoursePage({ history, match }) {
               </Button>
             </form>
           ) : (
-            <Modal
-              open={open}
-              onClose={resetQuiz}
-              className={classes.modal2}
-            >
+            <Modal open={open} onClose={resetQuiz} className={classes.modal2}>
               <Paper className={classes.paper}>
                 <QuizAnswers
                   classes={classes}
@@ -738,6 +782,12 @@ function CoursePage({ history, match }) {
         </div>
         <div>
           <h1>Assignment Submission</h1>
+          {userInfo === null ||
+          isUserEnrolledInCourseFromAllCourses === false ? (
+            <p></p>
+          ) : (
+            <h4>Assignment Question: {course.data.assignmentQuestion}</h4>
+          )}
           <Input
             disabled={
               userInfo === null ||
@@ -817,7 +867,6 @@ function CoursePage({ history, match }) {
         <div>
           <h1>Solve Your Doubts Here!!</h1>
           <img
-
             src="https://content.app-sources.com/s/70633399122816051/uploads/LOGOS/f5340454c0da1eabb125df9efff4b504_1-9593554.gif"
             className={classes.img}
             alt="student"
