@@ -13,12 +13,21 @@ import HomeIcon from "@material-ui/icons/Home";
 import IconButton from "@material-ui/core/IconButton";
 import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+<<<<<<< HEAD
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MenuIcon from "@material-ui/icons/Menu";
+import Toolbar from "@material-ui/core/Toolbar";
+import PermPhoneMsgIcon from "@material-ui/icons/PermPhoneMsg";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+=======
 import PermPhoneMsgIcon from "@material-ui/icons/PermPhoneMsg";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import CodeIcon from "@mui/icons-material/Code";
+>>>>>>> master
 
 import { Link } from "react-router-dom";
 
@@ -99,12 +108,6 @@ const Header = () => {
 
   let history = useHistory();
 
-  //   useEffect(() => {
-  // if (userInfo) {
-  //   history.push("/");
-  // }
-  //   }, [userInfo]);
-
   const handleLogout = () => {
     if (userInfo) {
       history.push("/");
@@ -137,67 +140,7 @@ const Header = () => {
             </Link>
           </Typography>
           {userInfo ? (
-            // <div>
-            //   <IconButton
-            //     aria-label="account of current user"
-            //     aria-controls="menu-appbar"
-            //     aria-haspopup="true"
-            //     onClick={handleMenu}
-            //     color="inherit"
-            //   >
-            //     <AccountCircle />
-            //   </IconButton>
-            //   <Menu
-            //     id="menu-appbar"
-            //     anchorEl={anchorEl}
-            //     anchorOrigin={{
-            //       vertical: "top",
-            //       horizontal: "right",
-            //     }}
-            //     keepMounted
-            //     transformOrigin={{
-            //       vertical: "top",
-            //       horizontal: "right",
-            //     }}
-            //     open={open}
-            //     onClose={handleClose}
-            //   >
-            //     <MenuItem onClick={handleClose}>Profile</MenuItem>
-            //     <Divider />
-            //     <MenuItem onClick={handleClose}>My account</MenuItem>
-            //     <Divider />
-            //     <Link
-            //       to={`/assignments/${userInfo.data._id}`}
-            //       style={{ textDecoration: "none", color: "black" }}
-            //     >
-            //       <MenuItem>My Assignments</MenuItem>
-            //     </Link>
-            //     <Divider />
-            //     <Divider />
-            //     {userInfo.data.isInstructor === true ? (
-            //       <Link
-            //         to={`/instructorcourses/${userInfo.data._id}`}
-            //         style={{ textDecoration: "none", color: "black" }}
-            //       >
-            //         <MenuItem>My Courses</MenuItem>
-            //       </Link>
-            //     ) : (
-            //       <Link
-            //         to={`/mycourses/${userInfo.data._id}`}
-            //         style={{ textDecoration: "none", color: "black" }}
-            //       >
-            //         <MenuItem>My Courses</MenuItem>
-            //       </Link>
-            //     )}
-            //     <Divider />
-            //     <Link
-            //       to={`/contactForm`}
-            //       style={{ textDecoration: "none", color: "black" }}
-            //     >
-            //       <MenuItem>Contact us</MenuItem>
-            //     </Link>
-
-            //     <Divider />
+            
             <Button
               variant="contained"
               color="primary"
@@ -207,8 +150,7 @@ const Header = () => {
               Logout
             </Button>
           ) : (
-            //   </Menu>
-            // </div>
+            
             <div>
               <Link
                 to={"/signup"}
@@ -247,9 +189,6 @@ const Header = () => {
         </div>
         <Divider />
         <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
-          {/* <Button variant="contained" color="primary">
-                  Sign Up
-                </Button> */}
           <List>
             <ListItem button key="Home">
               <ListItemIcon>
@@ -346,7 +285,7 @@ const Header = () => {
               <ListItemText primary="My Assignments" />
             </ListItem>
           </List>
-          // </Link>
+         
         )}
         {userInfo ? (
           userInfo.data.isInstructor === true ? (
@@ -357,7 +296,7 @@ const Header = () => {
               <List>
                 <ListItem button disabled={userInfo === null} key="My Profile">
                   <ListItemIcon>
-                    <CastForEducationIcon />
+                   <AccountCircleIcon />
                   </ListItemIcon>
                   <ListItemText primary="My Profile" />
                 </ListItem>
@@ -382,26 +321,14 @@ const Header = () => {
           <List>
             <ListItem button disabled={userInfo === null} key="My Profile">
               <ListItemIcon>
-                <CastForEducationIcon />
+                <AccountCircleIcon />
               </ListItemIcon>
               <ListItemText primary="My Profile" />
             </ListItem>
           </List>
-          // </Link>
+         
         )}
-        {/* <Link
-          to={"/myProfile"}
-          style={{ textDecoration: "none", color: "black" }}
-        >
-          <List>
-            <ListItem button disabled={userInfo === null} key="Profile">
-              <ListItemIcon>
-                <AccountCircleIcon />
-              </ListItemIcon>
-              <ListItemText primary="Profile" />
-            </ListItem>
-          </List>
-        </Link> */}
+     
         <Link
           to={"/codeEditor"}
           style={{ textDecoration: "none", color: "black" }}
@@ -444,15 +371,7 @@ const Header = () => {
         <Divider />
         <Divider />
       </Drawer>
-      {/* <div>
-        <Button variant="outlined" color="primary">
-          Sign Up
-        </Button>
-        &nbsp;
-        <Button variant="contained" color="primary">
-          Log In
-        </Button>
-      </div> */}
+    
     </div>
   );
 };

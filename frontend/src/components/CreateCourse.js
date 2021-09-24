@@ -189,16 +189,13 @@ export default function CreateCourse() {
             type="file"
             classes={{
               root: classes.root,
-              // label: classes.label,
+            
             }}
             onChange={(event) => {
               setImage(event.target.files[0]);
-              // console.log(image);
+            
             }}
-            // disabled={
-            //   userInfo === null ||
-            //   isUserEnrolledInCourseFromAllCourses === false
-            // }
+           
             className="upload-btn"
           >
             Upload Image File
