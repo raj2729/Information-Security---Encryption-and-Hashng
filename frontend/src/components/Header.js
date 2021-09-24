@@ -11,7 +11,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import CastForEducationIcon from "@material-ui/icons/CastForEducation";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import HomeIcon from "@material-ui/icons/Home";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+// import AccountCircle from "@material-ui/icons/AccountCircle";
 import IconButton from "@material-ui/core/IconButton";
 import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
 // import Card from "@material-ui/core/Card";
@@ -21,15 +21,16 @@ import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
 // import CssBaseline from "@material-ui/core/CssBaseline";
 // import Grid from "@material-ui/core/Grid";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+// import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
-import Menu from "@material-ui/core/Menu";
+// import Menu from "@material-ui/core/Menu";
 import PermPhoneMsgIcon from "@material-ui/icons/PermPhoneMsg";
 // import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
-import MenuItem from "@material-ui/core/MenuItem";
+// import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import CodeIcon from '@mui/icons-material/Code';
 // import Container from "@material-ui/core/Container";
 // import Link from "@material-ui/core/Link";
 // import cover from "../assets/Cover.jpg";
@@ -475,6 +476,19 @@ const Header = () => {
             </ListItem>
           </List>
         </Link> */}
+        <Link
+          to={"/codeEditor"}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <List>
+            <ListItem button key="Code Editor">
+              <ListItemIcon>
+                <CodeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Code Editor" />
+            </ListItem>
+          </List>
+        </Link>
         <Link
           to={"/contactForm"}
           style={{ textDecoration: "none", color: "black" }}
