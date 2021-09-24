@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
-import clsx from "clsx";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -74,32 +73,24 @@ function SignIn({ history }) {
 
   useEffect(() => {
     if (userInfo) {
-      // if (userInfo.data.isInstructor === true) {
-      //   history.push("/instructorHomePage");
-      // } else
+    
       history.push("/");
     }
   }, [userInfo, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // if (password !== confirmPassword) {
-    //   setMessage("Passwords do not match");
-    // } else {
-    //   //dispatch
-    //   dispatch(register(name, email, password));
-    // }
+    
     dispatch(login(email, password));
   };
 
   return (
     <>
-      {/* <Header /> */}
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
-        <Grid item xs={6} sm={8} md={7} className={classes.image} />
-        <Grid item xs={6} sm={4} md={5} component={Paper} elevation={6}>
-          <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
+        <Grid item xs={0} sm={0} md={7} className={classes.image} />
+        <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6}>
+          <Link to={'/'} style={{ textDecoration: "none", color: "black" }} >
             <IconButton>
               <ArrowBackIosIcon fontSize="5px" />
               <Typography color="textPrimary">Home</Typography>
@@ -112,12 +103,12 @@ function SignIn({ history }) {
             <Typography component="h1" variant="h5">
               Login
             </Typography>
-            <form className={classes.form} noValidate onSubmit={submitHandler}>
+            <form className={classes.form} noValidate onSubmit={submitHandler} direction={"column"} spacing={5}>
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
-                fullWidth
+             width="90%"
                 id="email"
                 label="Email Address"
                 name="email"
@@ -125,14 +116,10 @@ function SignIn({ history }) {
                 autoFocus
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <FormControl
-                className={clsx(classes.margin, classes.textField)}
-                variant="outlined"
-              >
-                <InputLabel required htmlFor="outlined-adornment-password">
-                  Password
-                </InputLabel>
+              <FormControl style={{width: '100%'}} variant="outlined">
+                <InputLabel required htmlFor="outlined-adornment-password">Password</InputLabel>
                 <OutlinedInput
+                  margin="normal"
                   id="outlined-adornment-password"
                   label="Password"
                   type={show ? "text" : "password"}
@@ -152,10 +139,6 @@ function SignIn({ history }) {
                   }
                 />
               </FormControl>
-              {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
               <Button
                 type="submit"
                 fullWidth
@@ -166,11 +149,6 @@ function SignIn({ history }) {
                 Login
               </Button>
               <Grid container>
-                {/* <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid> */}
                 <Grid item>
                   Don't have an account?&nbsp;
                   <Link to={"/signup"}>Sign Up</Link>
