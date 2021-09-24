@@ -13,21 +13,13 @@ import HomeIcon from "@material-ui/icons/Home";
 import IconButton from "@material-ui/core/IconButton";
 import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-<<<<<<< HEAD
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import MenuIcon from "@material-ui/icons/Menu";
-import Toolbar from "@material-ui/core/Toolbar";
 import PermPhoneMsgIcon from "@material-ui/icons/PermPhoneMsg";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-=======
-import PermPhoneMsgIcon from "@material-ui/icons/PermPhoneMsg";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import CodeIcon from "@mui/icons-material/Code";
->>>>>>> master
 
 import { Link } from "react-router-dom";
 
@@ -140,7 +132,6 @@ const Header = () => {
             </Link>
           </Typography>
           {userInfo ? (
-            
             <Button
               variant="contained"
               color="primary"
@@ -150,7 +141,6 @@ const Header = () => {
               Logout
             </Button>
           ) : (
-            
             <div>
               <Link
                 to={"/signup"}
@@ -285,7 +275,6 @@ const Header = () => {
               <ListItemText primary="My Assignments" />
             </ListItem>
           </List>
-         
         )}
         {userInfo ? (
           userInfo.data.isInstructor === true ? (
@@ -296,7 +285,7 @@ const Header = () => {
               <List>
                 <ListItem button disabled={userInfo === null} key="My Profile">
                   <ListItemIcon>
-                   <AccountCircleIcon />
+                    <AccountCircleIcon />
                   </ListItemIcon>
                   <ListItemText primary="My Profile" />
                 </ListItem>
@@ -326,9 +315,8 @@ const Header = () => {
               <ListItemText primary="My Profile" />
             </ListItem>
           </List>
-         
         )}
-     
+
         <Link
           to={"/codeEditor"}
           style={{ textDecoration: "none", color: "black" }}
@@ -371,7 +359,6 @@ const Header = () => {
         <Divider />
         <Divider />
       </Drawer>
-    
     </div>
   );
 };

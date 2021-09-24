@@ -9,10 +9,6 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 // Importing Header
 import Header from "./Header";
 
@@ -49,8 +45,6 @@ function ContactForm() {
   // const [emailError, setEmailError] = useState("");
   // const [descriptionError, setDescriptionError] = useState("");
 
-
-
   // const handleSubmit = (event) => {
   //   event.preventDefault();
   //  setDescriptionError(false);
@@ -86,9 +80,9 @@ function ContactForm() {
       .then((response) => {
         console.log(response);
       });
-      // alert("Query sent successfully");
+    // alert("Query sent successfully");
   };
-  
+
   return (
     <>
       <Header />
@@ -98,11 +92,7 @@ function ContactForm() {
         direction="column"
         alignItems="center"
         justify="center"
-<<<<<<< HEAD
-        style={{margin: '120px 0px 10px' }}
-=======
         style={{ margin: "80px 0px 10px" }}
->>>>>>> master
       >
         <Card
           style={{
@@ -116,7 +106,7 @@ function ContactForm() {
             <Typography gutterBottom variant="h5" align="center">
               Contact Us
             </Typography>
-            <form >
+            <form>
               <Grid container spacing={1}>
                 <Grid xs={12} item>
                   <TextField
@@ -155,7 +145,7 @@ function ContactForm() {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                  type="description"
+                    type="description"
                     label="Message"
                     multiline
                     rows={6}
@@ -180,7 +170,6 @@ function ContactForm() {
                   >
                     Submit
                   </Button>
-                
                 </Grid>
               </Grid>
             </form>

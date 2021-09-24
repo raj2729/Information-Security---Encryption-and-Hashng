@@ -5,7 +5,6 @@ import pushid from "pushid";
 import axios from "axios";
 import Header from "../Header";
 
-
 import "./codeEditor.css";
 import "codemirror/lib/codemirror.css";
 import "codemirror/theme/material.css";
@@ -21,12 +20,12 @@ class CodeEditor extends Component {
       id: "",
       html: "",
       css: "",
-      js: ""
+      js: "",
     };
 
     this.pusher = new Pusher("18160601861a89d7f8f7", {
       cluster: "eu",
-      forceTLS: true
+      forceTLS: true,
     });
 
     this.channel = this.pusher.subscribe("editor");
@@ -38,17 +37,17 @@ class CodeEditor extends Component {
 
   componentDidMount() {
     this.setState({
-      id: pushid()
+      id: pushid(),
     });
 
-    this.channel.bind("text-update", data => {
+    this.channel.bind("text-update", (data) => {
       const { id } = this.state;
       if (data.id === id) return;
 
       this.setState({
         html: data.html,
         css: data.css,
-        js: data.js
+        js: data.js,
       });
     });
   }
@@ -99,11 +98,11 @@ class CodeEditor extends Component {
       theme: "material",
       lineNumbers: true,
       scrollbarStyle: null,
-      lineWrapping: true
+      lineWrapping: true,
     };
 
     return (
-      <div className="App" >
+      <div className="App">
         <section className="playground">
           <div className="code-editor html-code">
             <div className="editor-header">HTML</div>
@@ -111,7 +110,7 @@ class CodeEditor extends Component {
               value={html}
               options={{
                 mode: "htmlmixed",
-                ...codeMirrorOptions
+                ...codeMirrorOptions,
               }}
               onBeforeChange={(editor, data, html) => {
                 this.setState({ html }, () => this.syncUpdates());
@@ -124,7 +123,7 @@ class CodeEditor extends Component {
               value={css}
               options={{
                 mode: "css",
-                ...codeMirrorOptions
+                ...codeMirrorOptions,
               }}
               onBeforeChange={(editor, data, css) => {
                 this.setState({ css }, () => this.syncUpdates());
@@ -137,7 +136,7 @@ class CodeEditor extends Component {
               value={js}
               options={{
                 mode: "javascript",
-                ...codeMirrorOptions
+                ...codeMirrorOptions,
               }}
               onBeforeChange={(editor, data, js) => {
                 this.setState({ js }, () => this.syncUpdates());
