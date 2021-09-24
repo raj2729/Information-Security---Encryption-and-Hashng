@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import clsx from "clsx";
@@ -13,12 +13,21 @@ import HomeIcon from "@material-ui/icons/Home";
 import IconButton from "@material-ui/core/IconButton";
 import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+<<<<<<< HEAD
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import PermPhoneMsgIcon from "@material-ui/icons/PermPhoneMsg";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+=======
+import PermPhoneMsgIcon from "@material-ui/icons/PermPhoneMsg";
+import { makeStyles } from "@material-ui/core/styles";
+import MenuIcon from "@material-ui/icons/Menu";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import CodeIcon from "@mui/icons-material/Code";
+>>>>>>> master
 
 import { Link } from "react-router-dom";
 
@@ -72,10 +81,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
   const classes = useStyles();
-  const theme = useTheme();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const logined = false;
+  // const [anchorEl, setAnchorEl] = React.useState(null);
+  // const open = Boolean(anchorEl);
   const [openslider, setOpenslider] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -86,16 +93,16 @@ const Header = () => {
     setOpenslider(false);
   };
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleMenu = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const { userInfo } = userLogin;
 
   const dispatch = useDispatch();
 
@@ -322,6 +329,19 @@ const Header = () => {
          
         )}
      
+        <Link
+          to={"/codeEditor"}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <List>
+            <ListItem button key="Code Editor">
+              <ListItemIcon>
+                <CodeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Code Editor" />
+            </ListItem>
+          </List>
+        </Link>
         <Link
           to={"/contactForm"}
           style={{ textDecoration: "none", color: "black" }}
