@@ -421,7 +421,48 @@ const Header = () => {
           </List>
           // </Link>
         )}
-        <Link
+        {userInfo ? (
+          userInfo.data.isInstructor === true ? (
+            <Link
+              to={`/myProfile`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <List>
+                <ListItem button disabled={userInfo === null} key="My Profile">
+                  <ListItemIcon>
+                    <CastForEducationIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="My Profile" />
+                </ListItem>
+              </List>
+            </Link>
+          ) : (
+            <Link
+              to={`/myProfile`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <List>
+                <ListItem button disabled={userInfo === null} key="My Profile">
+                  <ListItemIcon>
+                    <CastForEducationIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="My Profile" />
+                </ListItem>
+              </List>
+            </Link>
+          )
+        ) : (
+          <List>
+            <ListItem button disabled={userInfo === null} key="My Profile">
+              <ListItemIcon>
+                <CastForEducationIcon />
+              </ListItemIcon>
+              <ListItemText primary="My Profile" />
+            </ListItem>
+          </List>
+          // </Link>
+        )}
+        {/* <Link
           to={"/myProfile"}
           style={{ textDecoration: "none", color: "black" }}
         >
@@ -433,7 +474,7 @@ const Header = () => {
               <ListItemText primary="Profile" />
             </ListItem>
           </List>
-        </Link>
+        </Link> */}
         <Link
           to={"/contactForm"}
           style={{ textDecoration: "none", color: "black" }}
