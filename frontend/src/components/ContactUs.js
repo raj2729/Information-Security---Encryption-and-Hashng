@@ -9,15 +9,12 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-
-import { createTheme, ThemeProvider } from "@material-ui/core";
-
 // Importing Header
 import Header from "./Header";
 
 const useStyles = makeStyles({
   field: {
-    marginTop: 20,
+    marginTop: 30,
     marginLeft: 10,
     marginRight: 10,
     marginBottom: 20,
@@ -41,8 +38,27 @@ function ContactForm() {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [number, setNumber] = useState(0);
+  const [number, setNumber] = useState("");
   const [description, setDescription] = useState("");
+  // const [nameError, setNameError] = useState("");
+  // const [numberError, setNumberError] = useState("");
+  // const [emailError, setEmailError] = useState("");
+  // const [descriptionError, setDescriptionError] = useState("");
+
+
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //  setDescriptionError(false);
+  //  setEmailError(false);
+  //  setNameError(false);
+  //  setNumberError(false);
+
+  //   if (name == "") setNameError(true);
+  //   if (email == "") setEmailError(true);
+  //   if (number == "") setNumberError(true);
+  //   if(description=="") setDescriptionError(true);
+  // };
 
   const contacFormSubmitHandler = async () => {
     const requestOptions = {
@@ -66,9 +82,9 @@ function ContactForm() {
       .then((response) => {
         console.log(response);
       });
-    alert("Query sent successfully");
+      // alert("Query sent successfully");
   };
-
+  
   return (
     <>
       <Header />
@@ -78,7 +94,7 @@ function ContactForm() {
         direction="column"
         alignItems="center"
         justify="center"
-        style={{margin: '80px 0px 10px' }}
+        style={{margin: '120px 0px 10px' }}
       >
         <Card
           style={{
@@ -92,7 +108,7 @@ function ContactForm() {
             <Typography gutterBottom variant="h5" align="center">
               Contact Us
             </Typography>
-            <form>
+            <form >
               <Grid container spacing={1}>
                 <Grid xs={12} item>
                   <TextField
@@ -102,6 +118,7 @@ function ContactForm() {
                     fullWidth
                     required
                     onChange={(event) => setName(event.target.value)}
+                    // error={nameError}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -113,6 +130,7 @@ function ContactForm() {
                     fullWidth
                     required
                     onChange={(event) => setEmail(event.target.value)}
+                    // error={emailError}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -124,10 +142,12 @@ function ContactForm() {
                     fullWidth
                     required
                     onChange={(event) => setNumber(event.target.value)}
+                    // error={numberError}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
+                  type="description"
                     label="Message"
                     multiline
                     rows={6}
@@ -136,6 +156,7 @@ function ContactForm() {
                     fullWidth
                     required
                     onChange={(event) => setDescription(event.target.value)}
+                    // error={descriptionError}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -151,14 +172,7 @@ function ContactForm() {
                   >
                     Submit
                   </Button>
-                  {/* <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                  >
-                    Submit
-                  </Button> */}
+                
                 </Grid>
               </Grid>
             </form>

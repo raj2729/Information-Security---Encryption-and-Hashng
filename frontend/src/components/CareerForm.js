@@ -180,7 +180,7 @@ const CareerForm = ({ history, match }) => {
             <Typography gutterBottom variant="h5" align="center">
               Career Form
             </Typography>
-            <FormControl component="fieldset" className={classes.field} >
+            <FormControl noValidate autoComplete="off" component="fieldset" className={classes.field} >
               <FormLabel component="legend">Job Type</FormLabel>
               <RadioGroup
                 row
