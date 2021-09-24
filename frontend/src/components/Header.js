@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import clsx from "clsx";
@@ -9,30 +9,15 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import CastForEducationIcon from "@material-ui/icons/CastForEducation";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import HomeIcon from "@material-ui/icons/Home";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import IconButton from "@material-ui/core/IconButton";
 import BusinessCenterIcon from "@material-ui/icons/BusinessCenter";
-// import Card from "@material-ui/core/Card";
-// import CardActions from "@material-ui/core/CardActions";
-// import CardContent from "@material-ui/core/CardContent";
-// import CardMedia from "@material-ui/core/CardMedia";
-// import CssBaseline from "@material-ui/core/CssBaseline";
-// import Grid from "@material-ui/core/Grid";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
-import Menu from "@material-ui/core/Menu";
 import PermPhoneMsgIcon from "@material-ui/icons/PermPhoneMsg";
-// import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
-import MenuItem from "@material-ui/core/MenuItem";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-// import Container from "@material-ui/core/Container";
-// import Link from "@material-ui/core/Link";
-// import cover from "../assets/Cover.jpg";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { Link } from "react-router-dom";
 
@@ -79,74 +64,15 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: "flex-end",
   },
-  // content: {
-  //   flexGrow: 1,
-  //   padding: theme.spacing(3),
-  //   transition: theme.transitions.create("margin", {
-  //     easing: theme.transitions.easing.sharp,
-  //     duration: theme.transitions.duration.leavingScreen,
-  //   }),
-  //   marginLeft: -drawerWidth,
-  // },
-  // contentShift: {
-  //   transition: theme.transitions.create("margin", {
-  //     easing: theme.transitions.easing.easeOut,
-  //     duration: theme.transitions.duration.enteringScreen,
-  //   }),
-  //   marginLeft: 0,
-  // },
   title: {
     flexGrow: 1,
   },
-  // heroContent: {
-  //   backgroundColor: "#FEFFFF",
-  //   padding: theme.spacing(4, 0, 4),
-  // },
-  // header: {
-  //   height: "60vh",
-  //   backgroundSize: "cover",
-  //   backgroundPosition: "65% 50%",
-  //   backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${cover})`,
-  // },
-  // heroText: {
-  //   margin: "0 10% 0 10%",
-  //   color: "white",
-  // },
-  // cardGrid: {
-  //   backgroundColor: "#FEFFFF",
-  //   paddingBottom: theme.spacing(8),
-  // },
-  // heading: {
-  //   width: "100%",
-  //   fontSize: 25,
-  //   fontWeight: "1000",
-  //   textDecoration: "underline",
-  // },
-  // card: {
-  //   backgroundColor: "#E6E6E6",
-  //   height: "100%",
-  //   display: "flex",
-  //   flexDirection: "column",
-  // },
-  // cardMedia: {
-  //   margin: "2%",
-  //   paddingTop: "56.25%",
-  // },
-  // cardContent: {
-  //   flexGrow: 1,
-  // },
-  // footer: {
-  //   backgroundColor: theme.palette.secondary.main,
-  //   padding: theme.spacing(6),
-  // },
 }));
 
 const Header = () => {
   const classes = useStyles();
-  const theme = useTheme();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const logined = false;
+  // const [anchorEl, setAnchorEl] = React.useState(null);
+  // const open = Boolean(anchorEl);
   const [openslider, setOpenslider] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -157,16 +83,16 @@ const Header = () => {
     setOpenslider(false);
   };
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  // const handleMenu = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const { userInfo } = userLogin;
 
   const dispatch = useDispatch();
 
