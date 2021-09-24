@@ -9,7 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import Header from "./Header";
-import { Button } from "@material-ui/core";
+import { Button, Modal, TextField } from "@material-ui/core";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import { CircularProgress } from "@material-ui/core";
 
@@ -19,6 +19,19 @@ const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    alignContent: 'center',
+    width: '50%',
+    padding: '10px'
+  },
+  post: {
+    marginTop: '10px'
+  }
 });
 
 // const useStyles = makeStyles((theme) => ({
@@ -180,6 +193,10 @@ const InstructorAssignmentPage = ({ history, match }) => {
       });
   };
 
+  const [open, setOpen] = useState(false)
+  const [approved, setApproved] = useState(false)
+  const [comment, setComment] = useState('')
+
   return (
     <div
       style={{
@@ -236,23 +253,55 @@ const InstructorAssignmentPage = ({ history, match }) => {
                     <Button
                       style={{ backgroundColor: "#3be37b" }}
                       onClick={() => {
-                        approvedClickHandler(row._id);
+                        setOpen(true)
+                        setApproved(true)
                       }}
                     >
                       <CheckCircleIcon />
-                      Approved
+                      Approve
                     </Button>
                   </TableCell>
                   <TableCell style={{ paddingLeft: "8%" }}>
                     <Button
                       style={{ backgroundColor: "#e33b46" }}
                       onClick={() => {
-                        discardClickHandler(row._id);
+                        setOpen(true)
+                        setApproved(false)
                       }}
                     >
                       <CancelIcon />
-                      Discard
+                      Disapprove
                     </Button>
+                    <Modal
+                      className={classes.modal}
+                      open={open}
+                      onClose={() => setOpen(false)}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Paper className={classes.paper}>
+                        <TextField
+                          variant='outlined'
+                          label='Enter your Answer'
+                          multiline
+                          maxRows={20}
+                          fullWidth
+                          className={classes.text}
+                          onChange={(e) => setComment(e.target.value)}
+                        />
+                        <Button
+                          variant='contained'
+                          color='primary'
+                          className={classes.post}
+                          onClick={() => {
+                            console.log(comment)
+                            approved ? approvedClickHandler(row._id) : discardClickHandler()
+                          }}
+                        >
+                          Post Comment
+                        </Button>
+                      </Paper>
+                    </Modal>
                   </TableCell>
                 </TableRow>
               ))

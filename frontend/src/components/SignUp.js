@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,6 +16,7 @@ import { register } from "../actions/userActions";
 
 // Importing Header, Footer and Copyright
 import Header from "./Header";
+import { IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     backgroundImage:
-      "url(https://media.istockphoto.com/vectors/online-education-vector-id960268208)",
+      "url(https://elearningindustry.com/wp-content/uploads/2019/07/top-6-eLearning-trends-of-2019.jpg)",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
@@ -55,7 +56,6 @@ const useStyles = makeStyles((theme) => ({
 
 function SignUp({ history }) {
   const classes = useStyles();
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [showEmail, setShowEmail] = useState("");
@@ -228,11 +228,16 @@ function SignUp({ history }) {
 
   return (
     <>
-      <Header />
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6}>
+        <Link to={'/'} style={{ textDecoration: "none", color: "black" }} >
+            <IconButton>
+              <ArrowBackIosIcon fontSize='5px' />
+              <Typography color='textPrimary' >Home</Typography>
+            </IconButton>
+          </Link>
           <div className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
@@ -417,7 +422,7 @@ function SignUp({ history }) {
             /> */}
               <Grid item>
                 Already a user?&nbsp;
-                <Link to={"/signin"}>Sign In</Link>
+                <Link to={"/signin"}>Login</Link>
                 {/* <Link href="#" variant="body2">
                   
                 </Link> */}
