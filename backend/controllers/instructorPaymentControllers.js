@@ -14,8 +14,6 @@ const paymentsToInstructors = asyncHandler(async (req, res) => {
     })
 }); 
 
-
-
 module.exports = {
     paymentsToInstructors
 };
