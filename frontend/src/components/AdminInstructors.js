@@ -42,6 +42,8 @@ const InstructorTable = () => {
   const [textVal, setTextVal] = useState("");
   const [filteredInstructors, setFilteredInstructors] = useState([]);
 
+  const [enteredAmount, setenteredAmount] = useState("");
+
   useEffect(() => {
     setFilteredInstructors(allInstructors);
   }, [allInstructors]);
@@ -82,16 +84,26 @@ const InstructorTable = () => {
       selector: (row) => row.count,
     },
     {
-      name: "Details",
-      cell: (row) => <Link to={`/instructor/:instructorId`}>View</Link>,
-    },
-    {
-      name: "Details",
+      name: "Enter Amount",
       cell: (row) => (
         <Button
           variant="contained"
           // onClick={() => handlePayment()}
-          onClick={() => displayRazorPay(row.teacher._id)}
+          onClick={() => setenteredAmount(prompt("Enter amount"))}
+          style={{ backgroundColor: "#7CFC00" }}
+        >
+          {" "}
+          Enter Amount
+        </Button>
+      ),
+    },
+    {
+      name: "Pay",
+      cell: (row) => (
+        <Button
+          variant="contained"
+          // onClick={() => handlePayment()}
+          onClick={() => displayRazorPay(row.teacher._id, row.count)}
           style={{ backgroundColor: "#7CFC00" }}
         >
           {" "}
@@ -104,28 +116,32 @@ const InstructorTable = () => {
   const handleRazorpayResponse = async (
     razorpay_payment_id,
     razorpay_order_id,
-    razorpay_signature
+    razorpay_signature,
+    id,
+    count
   ) => {
-    const orderData = await axios.post(
-      "/order/createOrder",
+    const paymentToInstructorData = await axios.post(
+      "/instructorPayments/performPayment",
       {
         date: Date.now(),
         razorpay_payment_id,
         razorpay_order_id,
         razorpay_signature,
+        instructorId: id,
+        amount: count,
         // courseId: course.data._id,
       },
       config
     );
-    if (orderData.data.success === true) {
-      alert("Paid successfully successfully");
+    if (paymentToInstructorData.data.success === true) {
+      alert("Paid to instructor successfully");
     } else {
       alert("Could not complete payments");
     }
   };
 
-  const displayRazorPay = async (id) => {
-    console.log(id);
+  const displayRazorPay = async (id, count) => {
+    console.log(enteredAmount);
     const res = await loadRazorPay();
 
     if (!res) {
@@ -133,7 +149,9 @@ const InstructorTable = () => {
       return;
     }
 
-    const { data } = await axios.post("/course/razorpay");
+    const { data } = await axios.post("/instructorPayments/razorpayy", {
+      count: Number(enteredAmount),
+    });
 
     // console.log(data);
 
@@ -151,7 +169,9 @@ const InstructorTable = () => {
         handleRazorpayResponse(
           response.razorpay_payment_id,
           response.razorpay_order_id,
-          response.razorpay_signature
+          response.razorpay_signature,
+          id,
+          count
         );
       },
       prefill: {
