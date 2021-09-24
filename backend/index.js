@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/config");
+const Pusher = require('pusher');
 const generatePDF = require("./generatePdf");
 
 // Routes
@@ -31,8 +32,29 @@ app.use(cors());
 // Body Parser middleware, no need to install body-parser package
 app.use(express.json());
 
+//Port
 const PORT = process.env.PORT;
 
+// Pusher - code editor
+const pusher = new Pusher({
+  appId: process.env.PUSHER_APP_ID,
+  key: process.env.PUSHER_APP_KEY,
+  secret: process.env.PUSHER_APP_SECRET,
+  cluster: process.env.PUSHER_APP_CLUSTER,
+  useTLS: true,
+});
+
+// Pusher
+app.post('/update-editor', (req, res) => {
+  pusher.trigger('editor', 'text-update', {
+   ...req.body,
+  });
+
+  res.status(200).send('OK');
+});
+
+
+// Certificacte
 app.post("/getCertificate", async (req, res) => {
   // res.send("<h1>Welcome to Full Stack Simplified</h1>");
   // res.download("output.pdf");

@@ -18,6 +18,7 @@ import EditProfilePage from "./components/EditProfile";
 import Quiz from "./components/quiz/Quiz";
 import DiscussionForum from "./components/DiscussionForum";
 import InstructorAssignmentPage from "./components/InstructorAssignmentPage";
+import CodeEditor from "./components/codeEditor/codeEditor";
 
 function App() {
   return (
@@ -56,6 +57,11 @@ function App() {
       <Route
         path="/discuss/:courseId"
         component={DiscussionForum}
+        exact
+      ></Route>
+      <Route
+        path="/codeEditor/"
+        component={CodeEditor}
         exact
       ></Route>
     </BrowserRouter>
