@@ -51,7 +51,7 @@ const columns = [
     },
     {
       name: "Amount",
-      selector: (row) => new Date(row.date).toLocaleDateString()
+      selector: (row) => row.amount
     },
 
     {
