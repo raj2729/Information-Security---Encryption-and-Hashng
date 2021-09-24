@@ -14,8 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { register } from "../actions/userActions";
 
-// Importing Header, Footer and Copyright
-import Header from "./Header";
+// // Importing Header, Footer and Copyright
+// import Header from "./Header";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     backgroundImage:
-      "url(https://media.istockphoto.com/vectors/online-education-vector-id960268208)",
+      "url(https://elearningindustry.com/wp-content/uploads/2019/07/top-6-eLearning-trends-of-2019.jpg)",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
@@ -228,7 +228,7 @@ function SignUp({ history }) {
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />

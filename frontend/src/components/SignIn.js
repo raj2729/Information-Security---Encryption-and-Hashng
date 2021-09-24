@@ -74,28 +74,21 @@ function SignIn({ history }) {
 
   useEffect(() => {
     if (userInfo) {
-      // if (userInfo.data.isInstructor === true) {
-      //   history.push("/instructorHomePage");
-      // } else
+    
       history.push("/");
     }
   }, [userInfo, history]);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // if (password !== confirmPassword) {
-    //   setMessage("Passwords do not match");
-    // } else {
-    //   //dispatch
-    //   dispatch(register(name, email, password));
-    // }
+    
     dispatch(login(email, password));
   };
 
   return (
     <>
-      {/* <Header /> */}
-      <Grid container component="main" className={classes.root}>
+   
+      <Grid container component="main" className={classes.root} >
         <CssBaseline />
         <Grid item xs={6} sm={8} md={7} className={classes.image} />
         <Grid item xs={6} sm={4} md={5} component={Paper} elevation={6}>
@@ -112,12 +105,12 @@ function SignIn({ history }) {
             <Typography component="h1" variant="h5">
               Login
             </Typography>
-            <form className={classes.form} noValidate onSubmit={submitHandler}>
+            <form className={classes.form} noValidate onSubmit={submitHandler} direction={"column"} spacing={5}>
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
-                fullWidth
+             width="90%"
                 id="email"
                 label="Email Address"
                 name="email"
@@ -125,14 +118,12 @@ function SignIn({ history }) {
                 autoFocus
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <FormControl
-                className={clsx(classes.margin, classes.textField)}
-                variant="outlined"
-              >
-                <InputLabel required htmlFor="outlined-adornment-password">
-                  Password
-                </InputLabel>
+              
+           
+              <FormControl className={ classes.textField} variant="outlined">
+                <InputLabel required htmlFor="outlined-adornment-password">Password</InputLabel>
                 <OutlinedInput
+                  margin="normal"
                   id="outlined-adornment-password"
                   label="Password"
                   type={show ? "text" : "password"}
@@ -152,10 +143,7 @@ function SignIn({ history }) {
                   }
                 />
               </FormControl>
-              {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
+            
               <Button
                 type="submit"
                 fullWidth
@@ -166,11 +154,7 @@ function SignIn({ history }) {
                 Login
               </Button>
               <Grid container>
-                {/* <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid> */}
+               
                 <Grid item>
                   Don't have an account?&nbsp;
                   <Link to={"/signup"}>Sign Up</Link>

@@ -21,18 +21,22 @@ import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
 import CloseIcon from "@material-ui/icons/Close";
 import TextField from "@material-ui/core/TextField";
-
-//
 import { Box } from "@material-ui/core";
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
 import Carousel from "react-material-ui-carousel";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import { Link } from "react-router-dom";
-
 import VideoPlayer from "react-video-js-player";
 import Modal from "@material-ui/core/Modal";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+<<<<<<< HEAD
+
+=======
 //
+>>>>>>> master
 import {
   oneCourseDetails,
   allUserCoursesAction,
@@ -46,7 +50,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Header from "./Header";
 import { isUserEnrolled } from "../actions/userActions";
 import { createAssignment } from "../actions/assignmentActions";
-// import PlayLecture from "./PlayLecture";
+
 
 const useStyles = makeStyles((theme) => ({
   app: {
@@ -192,48 +196,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "30px auto",
     padding: "20px",
   },
-  // image: {
-  //   backgroundImage:
-  //     "url(https://media.istockphoto.com/vectors/online-education-vector-id960268208)",
-  //   backgroundRepeat: "no-repeat",
-  //   backgroundColor:
-  //     theme.palette.type === "light"
-  //       ? theme.palette.grey[50]
-  //       : theme.palette.grey[900],
-  //   backgroundSize: "cover",
-  //   backgroundPosition: "",
-  // },
-  // paper: {
-  //   margin: theme.spacing(8, 4),
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   alignItems: "center",
-  // },
-  // avatar: {
-  //   margin: theme.spacing(1),
-  //   backgroundColor: theme.palette.secondary.main,
-  // },
-  // form: {
-  //   width: "60%", // Fix IE 11 issue.
-  //   marginTop: theme.spacing(1),
-  // },
-  // submit: {
-  //   margin: theme.spacing(3, 0, 2),
-  // },
-  // //  ---------- MODAL
-
-  // details: {
-  //   alignItems: "center",
-  // },
-  // detailStudyMaterial: {
-  //   alignItems: "left",
-  // },
-
-  // helper: {
-  //   borderLeft: `2px solid ${theme.palette.divider}`,
-  //   padding: theme.spacing(1, 2),
-  // },
-  //  ----------
+  
 }));
 
 const loadRazorPay = async () => {
@@ -267,7 +230,6 @@ function CoursePage({ history, match }) {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  // const [isEnrolled, setIsEnrolled] = useState(false);
   const isEnrolledInCourse = useSelector((state) => state.isEnrolledInCourse);
   const { isEnrolled } = isEnrolledInCourse;
   const courseDetails = useSelector((state) => state.courseDetails);
@@ -299,7 +261,6 @@ function CoursePage({ history, match }) {
   // CLOUDINARY - UPLOAD IMAGES
 
   const submitAssignmentHandler = async () => {
-    // console.log(files[0]);
     const formData = new FormData();
     formData.append("file", imageSelected);
     formData.append("upload_preset", "ude8cxll");
@@ -323,12 +284,8 @@ function CoursePage({ history, match }) {
   };
 
   useEffect(() => {
-    // console.log(allUserCourses.courses.data);
     if (allUserCourses.courses && allUserCourses.courses.data) {
       allUserCourses.courses.data.map((oneCourse) => {
-        // console.log(oneCourse.courseId._id);
-        // console.log(match.params.id);
-
         if (oneCourse.courseId._id === match.params.id) {
           setIsUserEnrolledInCourseFromAllCourses(true);
         }
@@ -425,14 +382,11 @@ function CoursePage({ history, match }) {
       <div className={classes.app} style={{ marginTop: "100px" }}>
         <div className={classes.bigBox}>
           <h1 className={classes.bigText}>
-            {/* Web Development <br /> MERN Stack */}
             {course.data.name}
             <br />- {course.data.tagline}
           </h1>
           <br />
           <p className={classes.smallText}>
-            {/* The Complete Web Development Course - Mastering MongoDB, ExpressJS,
-          ReactJS, NodeJS */}
             {course.data.description}
           </p>
           <br />
@@ -762,12 +716,12 @@ function CoursePage({ history, match }) {
         <div>
           <h1>Solve Your Doubts Here!!</h1>
           <img
-            // src="http://www.rcdspcg.com/images/course/img17.gif"
+        
             src="https://content.app-sources.com/s/70633399122816051/uploads/LOGOS/f5340454c0da1eabb125df9efff4b504_1-9593554.gif"
             className={classes.img}
             alt="student"
           />
-          {/* <img src={discussion} className={classes.img} alt="student" /> */}
+      
           <br />
           <Button
             disabled={
@@ -1002,6 +956,39 @@ function CoursePage({ history, match }) {
       </div>
     </>
   ) : (
+<<<<<<< HEAD
+  
+      <div>
+   <Grid
+  container
+  spacing={0}
+  direction="column"
+  alignItems="center"
+  justify="center"
+  style={{ minHeight: '100vh' }}
+>
+
+<div>
+   <Grid
+  container
+  spacing={0}
+  direction="column"
+  alignItems="center"
+  justify="center"
+  style={{ minHeight: '100vh' }}
+>
+
+  <Grid item xs={3}>
+    <CircularProgress />
+  </Grid>   
+
+</Grid> 
+    </div>
+</Grid> 
+    </div>
+    
+   
+=======
     <Grid
       container
       spacing={0}
@@ -1014,6 +1001,7 @@ function CoursePage({ history, match }) {
         <CircularProgress />
       </Grid>
     </Grid>
+>>>>>>> master
   );
 }
 
