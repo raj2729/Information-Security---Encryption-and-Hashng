@@ -19,18 +19,18 @@ const useStyles = makeStyles({
     minWidth: 650,
   },
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
-    alignContent: 'center',
-    width: '50%',
-    padding: '10px'
+    alignContent: "center",
+    width: "50%",
+    padding: "10px",
   },
   post: {
-    marginTop: '10px'
-  }
+    marginTop: "10px",
+  },
 });
 
 const InstructorAssignmentPage = ({ match }) => {
@@ -59,12 +59,17 @@ const InstructorAssignmentPage = ({ match }) => {
     // console.log(instructorAssignments.data);
   }, [match, vary]);
 
-  const approvedClickHandler = async (id) => {
+  const approvedClickHandler = async (id, emailOfUser, course) => {
     console.log(id);
     // console.log(row._id);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        course: course,
+        emailOfUser: emailOfUser,
+        comment: comment,
+      }),
     };
     // // setPublicIdd(response.data.secure_url);
     await fetch(
@@ -85,6 +90,21 @@ const InstructorAssignmentPage = ({ match }) => {
             setinstructorAssignments(response.data);
             setLoaded(true);
             vary = 3;
+            const requestOptions1 = {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                comment: comment,
+              }),
+            };
+            fetch(
+              `http://localhost:8080/assignment/updateAssignmentComment/${id}`,
+              requestOptions1
+            )
+              .then((response) => response.json())
+              .then((response) => {
+                console.log(response.data);
+              });
             // history.push(`/}`);
             // alert("Assignment has been approved");
           });
@@ -92,23 +112,27 @@ const InstructorAssignmentPage = ({ match }) => {
       });
   };
 
-  const discardClickHandler = async (id) => {
+  const discardClickHandler = async (id, emailOfUser, course) => {
     console.log(id);
     // console.log(row._id);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        course: course,
+        emailOfUser: emailOfUser,
+        comment: comment,
+      }),
     };
     // // setPublicIdd(response.data.secure_url);
     await fetch(
       `http://localhost:8080/assignment/updateToUnSubmit/${id}`,
       requestOptions
     )
-      .then((response) => {
-        response.json();
-      })
+      .then((response) => response.json())
       .then((response) => {
         // setLoaded(false);
+        // console.log(response);
         fetch(
           `http://localhost:8080/assignment/getAllAssignmentsOfInstructor/${match.params.id}`,
           { method: "GET" }
@@ -118,6 +142,21 @@ const InstructorAssignmentPage = ({ match }) => {
             setinstructorAssignments(response.data);
             setLoaded(true);
             vary = 3;
+            const requestOptions1 = {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                comment: comment,
+              }),
+            };
+            fetch(
+              `http://localhost:8080/assignment/updateAssignmentComment/${id}`,
+              requestOptions1
+            )
+              .then((response) => response.json())
+              .then((response) => {
+                console.log(response.data);
+              });
             // history.push(`/}`);
             // alert("Assignment has been approved");
           });
@@ -125,9 +164,9 @@ const InstructorAssignmentPage = ({ match }) => {
       });
   };
 
-  const [open, setOpen] = useState(false)
-  const [approved, setApproved] = useState(false)
-  const [comment, setComment] = useState('')
+  const [open, setOpen] = useState(false);
+  const [approved, setApproved] = useState(false);
+  const [comment, setComment] = useState("");
 
   return (
     <div
@@ -183,8 +222,8 @@ const InstructorAssignmentPage = ({ match }) => {
                     <Button
                       style={{ backgroundColor: "#3be37b" }}
                       onClick={() => {
-                        setOpen(true)
-                        setApproved(true)
+                        setOpen(true);
+                        setApproved(true);
                       }}
                     >
                       <CheckCircleIcon />
@@ -195,8 +234,8 @@ const InstructorAssignmentPage = ({ match }) => {
                     <Button
                       style={{ backgroundColor: "#e33b46" }}
                       onClick={() => {
-                        setOpen(true)
-                        setApproved(false)
+                        setOpen(true);
+                        setApproved(false);
                       }}
                     >
                       <CancelIcon />
@@ -211,8 +250,8 @@ const InstructorAssignmentPage = ({ match }) => {
                     >
                       <Paper className={classes.paper}>
                         <TextField
-                          variant='outlined'
-                          label='Enter your Answer'
+                          variant="outlined"
+                          label="Enter your Answer"
                           multiline
                           maxRows={20}
                           fullWidth
@@ -220,12 +259,22 @@ const InstructorAssignmentPage = ({ match }) => {
                           onChange={(e) => setComment(e.target.value)}
                         />
                         <Button
-                          variant='contained'
-                          color='primary'
+                          variant="contained"
+                          color="primary"
                           className={classes.post}
                           onClick={() => {
-                            console.log(comment)
-                            approved ? approvedClickHandler(row._id) : discardClickHandler()
+                            console.log(comment);
+                            approved
+                              ? approvedClickHandler(
+                                  row._id,
+                                  row.userId.email,
+                                  row.courseId.name
+                                )
+                              : discardClickHandler(
+                                  row._id,
+                                  row.userId.email,
+                                  row.courseId.name
+                                );
                           }}
                         >
                           Post Comment
