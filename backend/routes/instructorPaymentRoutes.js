@@ -1,0 +1,20 @@
+const express = require("express");
+
+const {
+    paymentsToInstructors,
+    performPayment
+} = require("../controllers/instructorPaymentControllers");
+
+const { protect } = require("../middlewares/protectedRoutes");
+
+const router = express.Router();
+
+// get all payments
+router.route("/paymentsToInstructors").get(paymentsToInstructors);
+
+// Perform a payment
+router.route("/performPayment").post(performPayment);
+
+
+
+module.exports = router;
