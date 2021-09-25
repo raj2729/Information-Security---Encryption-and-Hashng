@@ -202,8 +202,14 @@ const updateUserDetails = asyncHandler(async (req, res) => {
 });
 
 const applyForInstructor = asyncHandler(async (req, res) => {
-  const { userId } = req.params;
-  const user = await User.findByIdAndUpdate(userId);
+  console.log("inside")
+  if(!req.user || !req.user._id) {
+    return res.status(200).json({
+      success: false,
+      data: "Log in",
+    });    
+  }
+  const user = await User.findByIdAndUpdate(req.user._id);
   if (user.isInstructor === true || user.appliedForInstructor === true) {
     return res.status(400).json({
       success: false,
@@ -211,7 +217,7 @@ const applyForInstructor = asyncHandler(async (req, res) => {
     });
   } else {
     const updated = await User.findByIdAndUpdate(
-      userId,
+      req.user._id,
       { appliedForInstructor: true },
       { upsert: true, new: true }
     );
@@ -222,4 +228,4 @@ const applyForInstructor = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, userLogin, getUserDetails, updateUserDetails };
+module.exports = { registerUser, userLogin, getUserDetails, updateUserDetails, applyForInstructor };
