@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -99,9 +99,11 @@ function SignUp({ history }) {
     };
     // setPublicIdd(response.data.secure_url);
     fetch(`http://localhost:8080/otp/sendEmail`, requestOptions)
+      .then((response) => response.json())
       .then((response) => {
-        response.json();
-        if (response.status === 200) {
+        // response.json();
+        console.log(response);
+        if (response.success === true) {
           setShowEnterOtp(true);
           setShowSendOtpButton(false);
           setShowResendOtpButton(true);
@@ -109,10 +111,6 @@ function SignUp({ history }) {
         } else {
           alert("Error in sending otp.");
         }
-      })
-      .then((response) => {
-        // response.json();
-        console.log(response);
       });
   };
 
@@ -234,10 +232,10 @@ function SignUp({ history }) {
         <CssBaseline />
         <Grid item xs={false} sm={4} md={7} className={classes.image} />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6}>
-        <Link to={'/'} style={{ textDecoration: "none", color: "black" }} >
+          <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
             <IconButton>
-              <ArrowBackIosIcon fontSize='5px' />
-              <Typography color='textPrimary' >Home</Typography>
+              <ArrowBackIosIcon fontSize="5px" />
+              <Typography color="textPrimary">Home</Typography>
             </IconButton>
           </Link>
           <div className={classes.paper}>
