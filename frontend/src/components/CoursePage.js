@@ -643,7 +643,8 @@ function CoursePage({ history, match }) {
                         aria-describedby="simple-modal-description"
                       >
                         <VideoPlayer
-                          src="https://res.cloudinary.com/dizvyn9b5/video/upload/v1631600691/sgf6ftvyhfrodkgau5lm.mp4"
+                          // src="https://res.cloudinary.com/dizvyn9b5/video/upload/v1631600691/sgf6ftvyhfrodkgau5lm.mp4"
+                          src={chapter.chapterVideoLink}
                           height="500%"
                         />
                       </Modal>
@@ -711,9 +712,17 @@ function CoursePage({ history, match }) {
                         // onClick={handleOpen}
                       >
                         {userInfo === null ||
-                        isUserEnrolledInCourseFromAllCourses === false
-                          ? "Enroll course first"
-                          : "View Study Materials"}
+                        isUserEnrolledInCourseFromAllCourses === false ? (
+                          "Enroll course first"
+                        ) : (
+                          <a
+                            target="_blank"
+                            href="https://www.w3schools.com/html/"
+                            style={{ color: "white", textDecoration: "none" }}
+                          >
+                            Reference Study Material Links
+                          </a>
+                        )}
                       </Button>
                     </span>
                   </AccordionDetails>
