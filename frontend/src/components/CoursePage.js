@@ -650,8 +650,8 @@ function CoursePage({ history, match }) {
                     </div>
                   </AccordionDetails>
                   <AccordionDetails className={classes.details}>
-                    <div className={classes.column2}>
-                      <Button
+                    <span className={classes.column2}>
+                      {/* <Button
                         disabled={
                           userInfo === null ||
                           isUserEnrolledInCourseFromAllCourses === false
@@ -660,12 +660,46 @@ function CoursePage({ history, match }) {
                         variant="contained"
                         // onClick={handleOpen}
                         style={{ marginRight: "50px" }}
-                      >
-                        {userInfo === null ||
-                        isUserEnrolledInCourseFromAllCourses === false
-                          ? "Enroll course first"
-                          : "Go to quiz"}
-                      </Button>
+                      > */}
+                      {userInfo === null ||
+                      isUserEnrolledInCourseFromAllCourses === false ? (
+                        "Enroll course first"
+                      ) : currentQuizStep === "start" ? (
+                        <form
+                          onSubmit={handleSubmit}
+                          className={classes.results}
+                        >
+                          <Button
+                            disabled={
+                              userInfo === null ||
+                              isUserEnrolledInCourseFromAllCourses === false
+                            }
+                            // className={classes.button}
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                          >
+                            Go to Quiz
+                          </Button>
+                        </form>
+                      ) : (
+                        <Modal
+                          open={open}
+                          onClose={resetQuiz}
+                          className={classes.modal2}
+                        >
+                          <Paper className={classes.paper}>
+                            <QuizAnswers
+                              classes={classes}
+                              quizData={quizData}
+                              resetQuiz={resetQuiz}
+                              currentQuizStep={currentQuizStep}
+                              setCurrentQuizStep={setCurrentQuizStep}
+                            />
+                          </Paper>
+                        </Modal>
+                      )}
+                      {/* </Button> */}
                       <Button
                         disabled={
                           userInfo === null ||
@@ -673,6 +707,7 @@ function CoursePage({ history, match }) {
                         }
                         color="primary"
                         variant="contained"
+                        style={{ marginTop: "30px" }}
                         // onClick={handleOpen}
                       >
                         {userInfo === null ||
@@ -680,7 +715,7 @@ function CoursePage({ history, match }) {
                           ? "Enroll course first"
                           : "View Study Materials"}
                       </Button>
-                    </div>
+                    </span>
                   </AccordionDetails>
                   {/* <AccordionDetails className={classes.details}>
                     <div className={classes.column2}>
