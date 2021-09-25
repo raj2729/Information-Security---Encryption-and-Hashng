@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
+  margin:{
+marginRight:"20px"
+  },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
@@ -128,13 +131,29 @@ function MyCoursesInstr({ history, match }) {
       </ThemeProvider>
 
       {loading === true ? (
+         <div>
+         <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        style={{ minHeight: '100vh' }}
+      >
+      
+        <Grid item xs={3}>
         <CircularProgress />
+        </Grid>   
+      
+      </Grid> 
+          </div>
+   
       ) : (
         <main
-        // className={clsx(classes.content, {
-        //   [classes.contentShift]: open,
-        // })}
-        >
+        // // className={clsx(classes.content, {
+        // //   [classes.contentShift]: open,
+        // // })}
+         >
           <div className={classes.drawerHeader} />
           <Box textAlign="center">
             <Link to={`/createCourse`} style={{ textDecoration: "none" }}>
@@ -142,6 +161,7 @@ function MyCoursesInstr({ history, match }) {
                 variant="contained"
                 color="secondary"
                 size="large"
+                justifyContent="center"
                 className={classes.button}
                 startIcon={<AddCircleIcon />}
               >
@@ -151,7 +171,7 @@ function MyCoursesInstr({ history, match }) {
           </Box>
           <Grid container spacing={8}>
             {instructorCourses.data.map((course, index) => (
-              <Grid item key={index} xs={12} sm={6} md={3}>
+              <Grid item key={index} xs={12} sm={6} md={3} className={classes.margin}>
                 <Card className={classes.card}>
                   <CardMedia
                     className={classes.media}
@@ -180,7 +200,8 @@ function MyCoursesInstr({ history, match }) {
               </Grid>
             ))}
           </Grid>
-        </main>
+      
+     </main>
       )}
     </div>
   );

@@ -127,6 +127,9 @@ const Assignments = ({ history, match }) => {
                 <h1>Status</h1>
               </TableCell>
               <TableCell align="center">
+                <h1>Instructor Feedbacks</h1>
+              </TableCell>
+              <TableCell align="center">
                 <h1>Get Certificate</h1>
               </TableCell>
             </TableRow>
@@ -151,9 +154,13 @@ const Assignments = ({ history, match }) => {
                       {row.assignmentStatus === "unsubmit" ? (
                         <div>
                           <p>Pending</p>
-                          <p style={{ color: "red" }}>
-                            Assignment is not submitted yet
-                          </p>
+                          {row.assignmentComment === "" ? (
+                            <p style={{ color: "red" }}>
+                              Assignment is not submitted yet
+                            </p>
+                          ) : (
+                            <p></p>
+                          )}
                         </div>
                       ) : row.assignmentStatus === "submit" ? (
                         "Submitted"
@@ -162,6 +169,17 @@ const Assignments = ({ history, match }) => {
                       )}
                     </center>
                     {/* {row.assignmentStatus} */}
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    {row.assignmentComment === "" ? (
+                      <p style={{ color: "red", paddingLeft: "20%" }}>
+                        No feedbacks yet.
+                      </p>
+                    ) : (
+                      <p style={{ paddingLeft: "20%" }}>
+                        {row.assignmentComment}
+                      </p>
+                    )}
                   </TableCell>
                   <TableCell align="right">
                     <center>

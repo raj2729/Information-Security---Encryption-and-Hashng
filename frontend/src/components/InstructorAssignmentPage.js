@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Header from "./Header";
-import { Button } from "@material-ui/core";
+import { Button, Modal, TextField } from "@material-ui/core";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import { CircularProgress } from "@material-ui/core";
 
@@ -17,6 +17,19 @@ import CancelIcon from "@material-ui/icons/Cancel";
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
+  },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    alignContent: "center",
+    width: "50%",
+    padding: "10px",
+  },
+  post: {
+    marginTop: "10px",
   },
 });
 
@@ -46,12 +59,17 @@ const InstructorAssignmentPage = ({ match }) => {
     // console.log(instructorAssignments.data);
   }, [match, vary]);
 
-  const approvedClickHandler = async (id) => {
+  const approvedClickHandler = async (id, emailOfUser, course) => {
     console.log(id);
     // console.log(row._id);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        course: course,
+        emailOfUser: emailOfUser,
+        comment: comment,
+      }),
     };
     // // setPublicIdd(response.data.secure_url);
     await fetch(
@@ -72,6 +90,21 @@ const InstructorAssignmentPage = ({ match }) => {
             setinstructorAssignments(response.data);
             setLoaded(true);
             vary = 3;
+            const requestOptions1 = {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                comment: comment,
+              }),
+            };
+            fetch(
+              `http://localhost:8080/assignment/updateAssignmentComment/${id}`,
+              requestOptions1
+            )
+              .then((response) => response.json())
+              .then((response) => {
+                console.log(response.data);
+              });
             // history.push(`/}`);
             // alert("Assignment has been approved");
           });
@@ -79,23 +112,27 @@ const InstructorAssignmentPage = ({ match }) => {
       });
   };
 
-  const discardClickHandler = async (id) => {
+  const discardClickHandler = async (id, emailOfUser, course) => {
     console.log(id);
     // console.log(row._id);
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        course: course,
+        emailOfUser: emailOfUser,
+        comment: comment,
+      }),
     };
     // // setPublicIdd(response.data.secure_url);
     await fetch(
       `http://localhost:8080/assignment/updateToUnSubmit/${id}`,
       requestOptions
     )
-      .then((response) => {
-        response.json();
-      })
+      .then((response) => response.json())
       .then((response) => {
         // setLoaded(false);
+        // console.log(response);
         fetch(
           `http://localhost:8080/assignment/getAllAssignmentsOfInstructor/${match.params.id}`,
           { method: "GET" }
@@ -105,12 +142,31 @@ const InstructorAssignmentPage = ({ match }) => {
             setinstructorAssignments(response.data);
             setLoaded(true);
             vary = 3;
+            const requestOptions1 = {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                comment: comment,
+              }),
+            };
+            fetch(
+              `http://localhost:8080/assignment/updateAssignmentComment/${id}`,
+              requestOptions1
+            )
+              .then((response) => response.json())
+              .then((response) => {
+                console.log(response.data);
+              });
             // history.push(`/}`);
             // alert("Assignment has been approved");
           });
         // console.log(response);
       });
   };
+
+  const [open, setOpen] = useState(false);
+  const [approved, setApproved] = useState(false);
+  const [comment, setComment] = useState("");
 
   return (
     <div
@@ -166,23 +222,65 @@ const InstructorAssignmentPage = ({ match }) => {
                     <Button
                       style={{ backgroundColor: "#3be37b" }}
                       onClick={() => {
-                        approvedClickHandler(row._id);
+                        setOpen(true);
+                        setApproved(true);
                       }}
                     >
                       <CheckCircleIcon />
-                      Approved
+                      Approve
                     </Button>
                   </TableCell>
                   <TableCell style={{ paddingLeft: "8%" }}>
                     <Button
                       style={{ backgroundColor: "#e33b46" }}
                       onClick={() => {
-                        discardClickHandler(row._id);
+                        setOpen(true);
+                        setApproved(false);
                       }}
                     >
                       <CancelIcon />
-                      Discard
+                      Disapprove
                     </Button>
+                    <Modal
+                      className={classes.modal}
+                      open={open}
+                      onClose={() => setOpen(false)}
+                      aria-labelledby="modal-modal-title"
+                      aria-describedby="modal-modal-description"
+                    >
+                      <Paper className={classes.paper}>
+                        <TextField
+                          variant="outlined"
+                          label="Enter your Answer"
+                          multiline
+                          maxRows={20}
+                          fullWidth
+                          className={classes.text}
+                          onChange={(e) => setComment(e.target.value)}
+                        />
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          className={classes.post}
+                          onClick={() => {
+                            console.log(comment);
+                            approved
+                              ? approvedClickHandler(
+                                  row._id,
+                                  row.userId.email,
+                                  row.courseId.name
+                                )
+                              : discardClickHandler(
+                                  row._id,
+                                  row.userId.email,
+                                  row.courseId.name
+                                );
+                          }}
+                        >
+                          Post Comment
+                        </Button>
+                      </Paper>
+                    </Modal>
                   </TableCell>
                 </TableRow>
               ))
