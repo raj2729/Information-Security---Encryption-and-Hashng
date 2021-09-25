@@ -13,6 +13,8 @@ import FormLabel from "@material-ui/core/FormLabel";
 // import Autocomplete from "@mui/material/Autocomplete";
 import MenuItem from "@material-ui/core/MenuItem";
 // import FormControl from "@mui/material/FormControl";
+import axios from "axios"
+import { useSelector } from "react-redux";
 
 // Importing Header
 import Header from "./Header";
@@ -65,6 +67,15 @@ const CareerForm = ({ history, match }) => {
     }
   }, [success]);
 
+  const userLogin = useSelector((state) => state.userLogin);
+
+  const [USERINFO, SETUSERINFO] = useState(null)
+
+  useEffect(()=> {
+  
+    SETUSERINFO(userLogin.userInfo)
+  },[userLogin])
+
   useEffect(() => {
     console.log(jobList);
   }, [jobList]);
@@ -91,6 +102,21 @@ const CareerForm = ({ history, match }) => {
   };
 
   const careerSubmitHandler = async () => {
+
+    console.log("in submit")
+    if(!USERINFO) {
+      alert("Log in")
+    } else {
+      console.log(USERINFO)
+      const headers = {"authorization": `Bearer ${USERINFO.token}`}
+      const {data} = await axios.get("user/applyForInstructor",{headers})
+      console.log("data", data)
+      if(!data.success) {
+        alert("Follow Instructions")
+      } else {
+        alert("Thanks for applying, will contact you shortly")
+      }
+    }
     // console.log("hello");
     // console.log(match.params.id);
     // const formData = new FormData();
@@ -101,34 +127,34 @@ const CareerForm = ({ history, match }) => {
     //       .post("https://api.cloudinary.com/v1_1/dizvyn9b5/video/upload", formData)
     //       .then((response) => {
     //         console.log(response.data.secure_url);
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        // courseId: match.params.id,
-        name: name,
-        email: email,
-        mobileNumber: mobileNumber,
-        jobType: jobType,
-        description: description,
-        ySelected: ySelected,
-        linkedInProfile: linkedInProfile,
-        githubProfile: githubProfile,
-        resumeLink: resumeLink,
-        jobList: jobList,
-      }),
-    };
-    // setPublicIdd(response.data.secure_url);
-    fetch(`http://localhost:8080/career/careerForm`, requestOptions)
-      .then((response) => {
-        // console.log(response);
-        response.json();
-      })
-      .then((response) => {
-        console.log(response);
-      });
-    alert("You will be contacted sortly if you are shortlisted");
-    setSuccess(true);
+    // const requestOptions = {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     // courseId: match.params.id,
+    //     name: name,
+    //     email: email,
+    //     mobileNumber: mobileNumber,
+    //     jobType: jobType,
+    //     description: description,
+    //     ySelected: ySelected,
+    //     linkedInProfile: linkedInProfile,
+    //     githubProfile: githubProfile,
+    //     resumeLink: resumeLink,
+    //     jobList: jobList,
+    //   }),
+    // };
+    // // setPublicIdd(response.data.secure_url);
+    // fetch(`http://localhost:8080/career/careerForm`, requestOptions)
+    //   .then((response) => {
+    //     // console.log(response);
+    //     response.json();
+    //   })
+    //   .then((response) => {
+    //     console.log(response);
+    //   });
+    // alert("You will be contacted sortly if you are shortlisted");
+    // setSuccess(true);
   };
 
   const jobsList = [
@@ -194,7 +220,22 @@ const CareerForm = ({ history, match }) => {
               </RadioGroup>
             </FormControl>
             {jobType === "instructor" ? (
-              <h3 className={classes.field}>Complete your Profile</h3>
+              <>
+              <h3 className={classes.field}>Make sure you have completed your profile & Logged In</h3>
+              <Button
+                  type="submit"
+                  size="large"
+                  classes={{
+                    root: classes.root,
+                    label: classes.label,
+                  }}
+                  style={{ marginBottom: "100px" }}
+                  startIcon={<AddCircleIcon />}
+                  onClick={()=>careerSubmitHandler()}
+                >
+                  Submit
+                </Button>
+              </>
             ) : (
               <form noValidate autoComplete="off" onSubmit={handleSubmit}>
                 <TextField

@@ -8,6 +8,7 @@ import UserTable from "./AdminUsers";
 import InstructorTable from "./AdminInstructors";
 import OrdersTable from "./AdminOrders";
 import PaymentsTable from "./AdminPayments";
+import RequestTable from "./AdminRequests";
 import AdminAnalytics from "./AdminAnalytics";
 import Grid from '@material-ui/core/Grid';
 import Card from "@material-ui/core/Card"
@@ -16,7 +17,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import ComputerIcon from '@material-ui/icons/Computer';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 // actions
-import { getAllUsers, getAllInstructors, getCoursesSummary, getAllOrders, getAllPayments } from "../actions/adminActions";
+import { getAllUsers, getAllInstructors, getCoursesSummary, getAllOrders, getAllPayments, getAllRequests } from "../actions/adminActions";
 import CourseTable from "./AdminCourses";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import { useHistory } from "react-router-dom";
@@ -34,6 +35,7 @@ function AdminDashboard() {
       dispatch(getCoursesSummary())
       dispatch(getAllOrders())
       dispatch(getAllPayments())
+      dispatch(getAllRequests())
     }, [])
     const [mode, setMode] = useState("dashboard")
 
@@ -74,6 +76,7 @@ function AdminDashboard() {
             <ListItem><Button onClick = {()=>setMode("instructors")}><h4><i className="fa fa-bar-chart"></i> Instructors</h4></Button></ListItem>
             <ListItem><Button onClick = {()=>setMode("orders")}><h4><i className="fa fa-money"></i> Orders</h4></Button></ListItem>
             <ListItem><Button onClick = {()=>setMode("payments")}><h4><i className="fa fa-money"></i> Payments</h4></Button></ListItem>
+            <ListItem><Button onClick = {()=>setMode("requests")}><h4><i className="fa fa-bar-chart"></i> Requests</h4></Button></ListItem>
             <ListItem><Button onClick = {()=>setMode("analytics")}><h4><i className="fa fa-money"></i> Analytics</h4></Button></ListItem>
            
           </List>
@@ -161,6 +164,7 @@ function AdminDashboard() {
             {mode==="orders" && <OrdersTable/>}
             {mode==="payments" && <PaymentsTable/>}
             {mode==="analytics" && <AdminAnalytics/>}
+            {mode==="requests" && <RequestTable/>}
         </div>
      );
 }

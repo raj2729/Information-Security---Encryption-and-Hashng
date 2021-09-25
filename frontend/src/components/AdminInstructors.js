@@ -49,7 +49,7 @@ const InstructorTable = () => {
   }, [allInstructors]);
 
   const handlePayment = () => {
-    alert("Raj tu hi jeeta sakta hai hame ye hackathon");
+    alert("Payment");
   };
 
   const onChange = (value) => {
