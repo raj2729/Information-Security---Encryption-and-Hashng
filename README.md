@@ -4,14 +4,12 @@
 
 - Frontend Application developed using ReactJS
 - Backend Application developed using NodeJS and ExpressJS
-- User Authentication using JsonWebToken
-- Data stored in MongoDB Atlas
+- Data stored in cloud via MongoDB Atlas
 - User Interface developed using MaterialUI
 - Payments integration using Razorpay
 - Email notification to users using Nodemailer
 - Sending SMS for mobile number verification using Twilio
 - Certificate of Completion using "pdfkit" npm package
-- Detailed analysis of the Quiz
 - Admin Dashboard for analytics
 
 <!-- GETTING STARTED -->
