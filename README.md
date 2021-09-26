@@ -7,6 +7,9 @@
 - Data stored in cloud via MongoDB Atlas
 - User Interface developed using MaterialUI
 - Payments integration using Razorpay
+- Quiz and Discussion Forum
+- Leaderboard
+- Progress Tracker
 - Email notification to users using Nodemailer
 - Sending SMS for mobile number verification using Twilio
 - Certificate of Completion using "pdfkit" npm package
@@ -53,7 +56,9 @@ cd backend
 npm run dev
 ```
 
-## API Endpoints used
+## Demonstration
 
 
-## Screenshots
+https://user-images.githubusercontent.com/68227858/134806952-8db9fa3c-56f3-4351-b6d1-839c557207a4.mp4
+
+
