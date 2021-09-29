@@ -18,6 +18,7 @@ import EditProfilePage from "./components/EditProfile";
 import DiscussionForum from "./components/DiscussionForum";
 import InstructorAssignmentPage from "./components/InstructorAssignmentPage";
 import CodeEditor from "./components/codeEditor/codeEditor";
+import LeaderBoard from "./components/Leaderboard";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <Route path="/signin" component={SignIn} exact></Route>
       <Route path="/signup" component={SignUp} exact></Route>
       <Route path="/course/:id" component={CoursePage} exact></Route>
+      <Route path="/leaderboard" component={LeaderBoard} exact></Route>
       <Route path="/assignments/:id" component={Assignments} exact></Route>
       <Route path="/admin/login" component={AdminLogin} exact></Route>
       <Route path="/admin/access" component={AdminDashboard} exact></Route>
@@ -58,11 +60,7 @@ function App() {
         component={DiscussionForum}
         exact
       ></Route>
-      <Route
-        path="/codeEditor/"
-        component={CodeEditor}
-        exact
-      ></Route>
+      <Route path="/codeEditor/" component={CodeEditor} exact></Route>
     </BrowserRouter>
   );
 }

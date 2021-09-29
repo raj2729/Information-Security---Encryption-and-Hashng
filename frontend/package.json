@@ -25,6 +25,7 @@
     "fs": "^0.0.1-security",
     "pdf-lib": "^1.16.0",
     "pdfkit": "^0.12.3",
+    "prop-types": "^15.7.2",
     "pusher-js": "^4.4.0",
     "pushid": "^1.0.0",
     "react": "^17.0.2",

@@ -40,6 +40,31 @@ import { isUserEnrolled } from "../actions/userActions";
 import { createAssignment } from "../actions/assignmentActions";
 import QuizAnswers from "./quiz/QuizAnswers";
 
+function CircularProgressWithLabel(props) {
+  return (
+    <Box sx={{ position: "relative", display: "inline-flex" }}>
+      <CircularProgress variant="determinate" {...props} />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: "50px",
+        }}
+      >
+        <Typography variant="caption" component="div" color="text.secondary">
+          {`${Math.round(props.value)}%`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+
 const useStyles = makeStyles((theme) => ({
   app: {
     textAlign: "center",
@@ -378,6 +403,13 @@ function CoursePage({ history, match }) {
     dispatch(oneCourseDetails(match.params.id));
   }, [dispatch, match]);
 
+  useEffect(() => {
+    // course.data.chapters
+    if (course && course.data && course.data.chapters) {
+      setTotalChapters(course.data.chapters.length);
+    }
+  }, [course]);
+
   const handleRazorpayResponse = async (
     razorpay_payment_id,
     razorpay_order_id,
@@ -456,6 +488,10 @@ function CoursePage({ history, match }) {
 
   // ALERT
   const [openAlt, setOpenAlt] = useState(true);
+
+  // Progress
+  const [totalChapter, setTotalChapters] = useState(1);
+  const [courseDone, setCourseDone] = useState(0);
 
   return loading === false ? (
     <>
@@ -598,6 +634,12 @@ function CoursePage({ history, match }) {
           <h1>Curriculum</h1>
           <p>19sections • 242ectures • 55h 23m total length</p>
           <br />
+          {/* {course.data.chapters.length}
+
+          <CircularProgressWithLabel
+            value={(courseDone * 100) / course.data.chapters.length}
+          /> */}
+
           <Grid container spacing={2}>
             {course.data.chapters.map((chapter) => (
               <Grid
@@ -644,7 +686,7 @@ function CoursePage({ history, match }) {
                       >
                         <VideoPlayer
                           // src="https://res.cloudinary.com/dizvyn9b5/video/upload/v1631600691/sgf6ftvyhfrodkgau5lm.mp4"
-                          src={chapter.chapterVideoLink}
+                          src="https://res.cloudinary.com/dizvyn9b5/video/upload/v1632553796/videoplayback_1_v0tznt.mp4"
                           height="500%"
                         />
                       </Modal>

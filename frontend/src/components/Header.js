@@ -356,6 +356,19 @@ const Header = () => {
             </ListItem>
           </List>
         </Link>
+        <Link
+          to={"/leaderboard"}
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <List>
+            <ListItem button key="Leaderboard">
+              <ListItemIcon>
+                <BusinessCenterIcon />
+              </ListItemIcon>
+              <ListItemText primary="Leaderboard" />
+            </ListItem>
+          </List>
+        </Link>
         <Divider />
         <Divider />
       </Drawer>
