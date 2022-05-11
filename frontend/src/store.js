@@ -16,21 +16,6 @@ import {
   userLoginReducer,
   userRegisterReducer,
 } from "./reducers/userReducers";
-import {
-  oneCourseDetailsReducer,
-  frontendCourseListReducer,
-  backendCourseListReducer,
-  designingCourseListReducer,
-  databaseCourseListReducer,
-  fullstackCourseListReducer,
-  otherCourseListReducer,
-  allUserCoursesReducer,
-  allInstructorCoursesReducer,
-  createCourseReducer,
-} from "./reducers/courseReducer";
-import { createAssignmentReducer } from "./reducers/assignmentReducers";
-import { adminReducer } from "./reducers/adminReducers";
-
 // import { adminLoginReducer, adminViewOrders } from "./reducers/adminReducer";
 
 // USING REDUX
@@ -67,26 +52,6 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   isEnrolledInCourse: isUserEnrolledReducer,
-  assignment: createAssignmentReducer,
-  createCourse: createCourseReducer,
-  allUserCourses: allUserCoursesReducer,
-  allInstructorCourse: allInstructorCoursesReducer,
-  courseDetails: oneCourseDetailsReducer,
-  frontendCourses: frontendCourseListReducer,
-  backendCourses: backendCourseListReducer,
-  designingCourses: designingCourseListReducer,
-  databaseCourses: databaseCourseListReducer,
-  fullstackCourses: fullstackCourseListReducer,
-  otherCourses: otherCourseListReducer,
-  admin: adminReducer,
-  //   adminLogin: adminLoginReducer,
-  //   orderListAll: adminViewOrders,
-  //   userDetails: userDetailsReducer,
-  //   userUpdateProfile: userUpdateProfileReducer,
-  //   orderCreate: orderCreateReducer,
-  //   orderDetails: orderDetailsReducer,
-  //   orderPay: orderPayReducer,
-  //   orderListMy: orderListMyReducer,
 });
 
 // Initial State

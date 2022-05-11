@@ -12,17 +12,6 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  allInstructorCoursesAction,
-  allUserCoursesAction,
-  backendCourseListAction,
-  databaseCourseListAction,
-  designingCourseListAction,
-  frontendCourseListAction,
-  fullstackCourseListAction,
-  otherCourseListAction,
-} from "../actions/courseActions";
-import { isUserEnrolledReset } from "../actions/userActions";
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -70,33 +59,165 @@ function Home({ history }) {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
-  const frontendCourses = useSelector((state) => state.frontendCourses);
-  const { frontendCourseList } = frontendCourses;
-  const backendCourses = useSelector((state) => state.backendCourses);
-  const { backendCourseList } = backendCourses;
-  const designingCourses = useSelector((state) => state.designingCourses);
-  const { designingCourseList } = designingCourses;
-  const databaseCourses = useSelector((state) => state.databaseCourses);
-  const { databaseCourseList } = databaseCourses;
-  const fullstackCourses = useSelector((state) => state.fullstackCourses);
-  const { fullstackCourseList } = fullstackCourses;
-  const otherCourses = useSelector((state) => state.otherCourses);
-  const { otherCourseList } = otherCourses;
-
   const dispatch = useDispatch();
+  let frontendCourseList = [
+    {
+      name: "HTML",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://cdn.lynda.com/course/170427/170427-636923997581008095-16x9.jpg",
+    },
+    {
+      name: "CSS",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://cdn.mos.cms.futurecdn.net/Vp9WvV7YKdH4k8sKRePcE8-970-80.jpg.webp",
+    },
+    {
+      name: "JavaScript",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://cyberhoot.com/wp-content/uploads/2020/07/Free-Courses-to-learn-JavaScript-768x432.jpg",
+    },
+    {
+      name: "ReactJS",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://res.cloudinary.com/practicaldev/image/fetch/s--50wZvNu6--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/1wwdyw5de8avrdkgtz5n.png",
+    },
+    {
+      name: "ElectronJS",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://res.cloudinary.com/practicaldev/image/fetch/s--dEmfE1jO--/c_imagga_scale,f_auto,fl_progressive,h_420,q_auto,w_1000/https://dev-to-uploads.s3.amazonaws.com/i/s3uitx6rdv7sod1g2acz.png",
+    },
+    {
+      name: "AngularJS",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://nareshit.com/wp-content/uploads/2018/08/angular-JS-online-training-nareshit.jpg",
+    },
+  ];
 
-  useEffect(() => {
-    if (userInfo) dispatch(allUserCoursesAction(userInfo.data._id));
-    dispatch(isUserEnrolledReset());
-    if (userInfo) dispatch(allInstructorCoursesAction(userInfo.data._id));
-    dispatch(frontendCourseListAction());
-    dispatch(backendCourseListAction());
-    dispatch(designingCourseListAction());
-    dispatch(databaseCourseListAction());
-    dispatch(fullstackCourseListAction());
-    dispatch(otherCourseListAction());
-  }, [dispatch, history]);
+  let backendCourseList = [
+    {
+      name: "NodeJS",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://railsware.com/blog/wp-content/uploads/2018/09/2400%D1%851260-rw-blog-node-js-1024x538.png",
+    },
+    {
+      name: "Django",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image: "https://www.edgica.com/wp-content/files/django-logo-big.jpg",
+    },
+    {
+      name: "Flask",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image: "https://miro.medium.com/max/1280/1*XzIRJGujfqAiOV2EIQgR_Q.png",
+    },
+    {
+      name: "Ruby on Rails Course",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image: "https://www.clariontech.com/hubfs/BlogImage-99.png",
+    },
+  ];
+
+  let designingCourseList = [
+    {
+      name: "BootStrap",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://www.k2bindia.com/wp-content/uploads/2013/03/bootstrap-1.jpg",
+    },
+    {
+      name: "Material UI",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://cdn-media-1.freecodecamp.org/images/1*FDNeKIUeUnf0XdqHmi7nsw.png",
+    },
+    {
+      name: "Tailwind CSS",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://laravelnews.imgix.net/images/tailwindcss.png?ixlib=php-3.3.1",
+    },
+  ];
+
+  let databaseCourseList = [
+    {
+      name: "MongoDB",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://www.cloudsavvyit.com/p/uploads/2021/07/f5932bc2.jpg?width=1198&trim=1,1&bg-color=000&pad=1,1",
+    },
+    {
+      name: "MYSQL",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://pbs.twimg.com/profile_images/1255113654049128448/J5Yt92WW_400x400.png",
+    },
+    {
+      name: "PHP",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://www.2440media.com/sites/default/files/assets/images/blog/The%20Best%20Software%20For%20PHP%20Coding.jpg",
+    },
+  ];
+
+  let fullstackCourseList = [
+    {
+      name: "MEAN",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://i1.wp.com/www.goodworklabs.com/wp-content/uploads/2017/08/Mean.jpg",
+    },
+    {
+      name: "MERN",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image:
+        "https://blog.hyperiondev.com/wp-content/uploads/2018/09/Blog-Article-MERN-Stack.jpg",
+    },
+  ];
+
+  let otherCourseList = [
+    {
+      name: "Github",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image: "https://miro.medium.com/max/700/1*JLYlSLSK8-AZo8gt9UdYqA.jpeg",
+    },
+    {
+      name: "Visual Studio Code",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image: "https://i.ytimg.com/vi/zf01EVxxqu4/maxresdefault.jpg",
+    },
+    {
+      name: "Git",
+      description: "Course taught by Jay Sir with 20+ years in IT Industry",
+      tagline: "Beginner to Advance Javascript",
+      image: "https://latesthackingnews.com/wp-content/uploads/2018/09/git.jpg",
+    },
+  ];
 
   let courses = [
     { title: "Frontend Courses", data: frontendCourseList },

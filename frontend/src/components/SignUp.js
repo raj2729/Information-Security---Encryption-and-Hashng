@@ -1,454 +1,235 @@
-import React, { useState, useEffect } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
+import React, { useState } from "react";
+import Swal from "sweetalert2";
+import axios from "axios";
+
+// import "../App.css";
+import {
+  Grid,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  Typography,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+// Importing Header
+import Header from "./Header";
 
-import { register } from "../actions/userActions";
-
-// Importing Header, Footer and Copyright
-import { IconButton } from "@material-ui/core";
-// // Importing Header, Footer and Copyright
-// import Header from "./Header";
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
+  field: {
+    marginTop: 30,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 20,
+    display: "block",
+  },
   root: {
-    height: "100vh",
+    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 100%)",
+    borderRadius: 3,
+    border: 0,
+    color: "white",
+    height: 48,
+    padding: "0 30px",
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
   },
-  image: {
-    backgroundImage:
-      "url(https://elearningindustry.com/wp-content/uploads/2019/07/top-6-eLearning-trends-of-2019.jpg)",
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    // height: "100%",
-    // width: "40%",
+  label: {
+    textTransform: "capitalize",
   },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "60%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+});
 
-function SignUp({ history }) {
+function SignUp() {
   const classes = useStyles();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [showEmail, setShowEmail] = useState("");
+  const [number, setNumber] = useState("");
+  const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [showEnterOtp, setShowEnterOtp] = useState(false);
-  const [showSendOtpButton, setShowSendOtpButton] = useState(true);
-  const [showResendOtpButton, setShowResendOtpButton] = useState(false);
-  const [showVerifyOtpButton, setShowVerifyOtpButton] = useState(true);
-  const [enteredOtp, setEnteredOtp] = useState(0);
-  const [mobileNumber, setMobileNumber] = useState("");
-  const [showMobileSendOtpButton, setshowMobileSendOtpButton] = useState(true);
-  const [showResendMobileOtpButton, setshowResendMobileOtpButton] =
-    useState(false);
-  const [enteredMobileOtp, setenteredMobileOtp] = useState(0);
-  const [showEnterMobileOtp, setshowEnterMobileOtp] = useState(false);
-  const [showVerifyMobileOtpButton, setshowVerifyMobileOtpButton] =
-    useState(false);
 
-  const dispatch = useDispatch();
+  // const [nameError, setNameError] = useState("");
+  // const [numberError, setNumberError] = useState("");
+  // const [emailError, setEmailError] = useState("");
+  // const [descriptionError, setDescriptionError] = useState("");
 
-  const userRegister = useSelector((state) => state.userRegister);
-  const { userRegisterInfo } = userRegister;
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //  setDescriptionError(false);
+  //  setEmailError(false);
+  //  setNameError(false);
+  //  setNumberError(false);
 
-  useEffect(() => {
-    if (userRegisterInfo) {
-      history.push("/signin");
+  //   if (name == "") setNameError(true);
+  //   if (email == "") setEmailError(true);
+  //   if (number == "") setNumberError(true);
+  //   if(description=="") setDescriptionError(true);
+  // };
+
+  const contacFormSubmitHandler = async () => {
+    // Regex to check if a string
+    // contains uppercase, lowercase
+    // special character & numeric value
+    var pattern = new RegExp(
+      "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[-+_!@#$%^&*.,?]).+$"
+    );
+    if (number.length !== 10) {
+      alert("The length of Mobile Number should be 10");
+    } else if (email.includes("@") === false || email.includes(".") === false) {
+      alert("Enter a valid Email ID");
+    } else if (password.length <= 12 || pattern.test(password) === false) {
+      alert(
+        "Enter a valid Password. The length of Password should be minimum 12 characters and the password must contain 1 Uppercase Character, 1 Lowercase Character, 1 Numeric Character and 1 Special Character"
+      );
+    } else {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          // courseId: match.params.id,
+          name: name,
+          email: email,
+          number: Number(number),
+          password: password,
+          address: address,
+        }),
+      };
+      fetch(`http://localhost:8080/user/userRegister`, requestOptions)
+        .then((response) => {
+          console.log(response);
+          response.json();
+        })
+        .then((response) => {
+          console.log(response);
+        });
+      // alert("Query sent successfully");
+      // const config = { headers: { "Content-Type": "application/json" } };
+      // const { data } = await axios.post(
+      //   "/user/userRegister",
+      //   { name, email, number, password, address },
+      //   config
+      // );
+      // if (data.success) {
+      //   alert("Success");
+      // } else {
+      //   alert("Failure");
+      // }
+      // console.log(data);
+      Swal.fire(
+        "User Registration is successful",
+        `Username: ${name}`,
+        "success"
+      );
     }
-  }, [userRegisterInfo, history]);
-
-  const sendOtpClickHandler = () => {
-    // console.log("Hello");
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        // courseId: match.params.id,
-        email: email,
-      }),
-    };
-    // setPublicIdd(response.data.secure_url);
-    fetch(`http://localhost:8080/otp/sendEmail`, requestOptions)
-      .then((response) => response.json())
-      .then((response) => {
-        // response.json();
-        console.log(response);
-        if (response.success === true) {
-          setShowEnterOtp(true);
-          setShowSendOtpButton(false);
-          setShowResendOtpButton(true);
-          alert("Otp has been sent to your email address");
-        } else {
-          alert("Error in sending otp.");
-        }
-      });
-  };
-
-  const verifyOtpClickHandler = () => {
-    console.log(enteredOtp);
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        // courseId: match.params.id,
-        email: email,
-        otpCode: enteredOtp,
-      }),
-    };
-    // setPublicIdd(response.data.secure_url);
-    fetch(`http://localhost:8080/otp/checkOtp`, requestOptions)
-      .then((response) => {
-        // console.log(response.json());
-        response.json();
-        if (response.status === 200) {
-          setShowPassword(true);
-          setShowSendOtpButton(false);
-          setShowVerifyOtpButton(false);
-          setShowResendOtpButton(false);
-          alert("Otp has been verified");
-        } else {
-          alert("Please retry verification of otp.");
-        }
-      })
-      .then((response) => {
-        // response.json();
-        console.log(response);
-      });
-  };
-
-  const sendMobileOtpClickHandler = () => {
-    // console.log(mobileNumber);
-    // setshowResendMobileOtpButton(true);
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        // courseId: match.params.id,
-        mobileNumber: mobileNumber,
-      }),
-    };
-    // setshowEnterMobileOtp(true);
-    // setshowVerifyMobileOtpButton(true);
-    // setshowMobileSendOtpButton(false);
-    // setshowResendMobileOtpButton(true);
-    // alert("Mobile number has been verified");
-    fetch(`http://localhost:8080/otp/sendMobileOtp`, requestOptions)
-      .then((response) => {
-        // console.log(response.json());
-        response.json();
-        if (response.status === 200) {
-          setshowEnterMobileOtp(true);
-          setshowVerifyMobileOtpButton(true);
-          setshowMobileSendOtpButton(false);
-          setshowResendMobileOtpButton(true);
-          alert("Otp has been sent to mobile number");
-        } else {
-          alert("Please retry verification of mobile number.");
-        }
-      })
-      .then((response) => {
-        // response.json();
-        console.log(response);
-      });
-  };
-
-  const verifyMobileOtpClickHandler = () => {
-    console.log(enteredOtp);
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        // courseId: match.params.id,
-        mobileNumber: mobileNumber,
-        otpCode: enteredMobileOtp,
-      }),
-    };
-    // setPublicIdd(response.data.secure_url);
-    fetch(`http://localhost:8080/otp/checkMobileOtp`, requestOptions)
-      .then((response) => {
-        // console.log(response.json());
-        response.json();
-        if (response.status === 200) {
-          setShowEmail(true);
-          setshowEnterMobileOtp(false);
-          setshowVerifyMobileOtpButton(false);
-          setshowResendMobileOtpButton(false);
-          alert("Mobile number has been verified");
-        } else {
-          alert("Please retry verification of mobile number.");
-        }
-      })
-      .then((response) => {
-        // response.json();
-        console.log(response);
-      });
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    // if (password !== confirmPassword) {
-    //   setMessage("Passwords do not match");
-    // } else {
-    //   //dispatch
-    //   dispatch(register(name, email, password));
-    // }
-    dispatch(register(name, email, password, mobileNumber));
   };
 
   return (
     <>
-      {/* <Header /> */}
-      <Grid container component="main" className={classes.root}>
-        <CssBaseline />
-        <Grid item xs={false} sm={4} md={7} className={classes.image} />
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6}>
-          <Link to={"/"} style={{ textDecoration: "none", color: "black" }}>
-            <IconButton>
-              <ArrowBackIosIcon fontSize="5px" />
-              <Typography color="textPrimary">Home</Typography>
-            </IconButton>
-          </Link>
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Sign Up
+      <Header />
+      <div style={{ paddingTop: "50px" }}></div>
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        style={{ margin: "80px 0px 10px" }}
+      >
+        <Card
+          style={{
+            maxWidth: 450,
+            padding: "5px",
+            margin: "0 auto",
+            boxShadow: "5px 5px 5px 5px lightgrey",
+          }}
+        >
+          <CardContent>
+            <Typography gutterBottom variant="h5" align="center">
+              User Register
             </Typography>
-            <form className={classes.form} noValidate onSubmit={submitHandler}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="name"
-                label="Name"
-                name="name"
-                autoComplete="name"
-                autoFocus
-                onChange={(e) => setName(e.target.value)}
-              />
-              <TextField
-                type="text"
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="mobileNumber"
-                label="Enter Mobile Number"
-                name="mobileNumber"
-                autoComplete="mobileNumber"
-                onChange={(e) => setMobileNumber(e.target.value)}
-              />
-              {showMobileSendOtpButton === true ? (
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  onClick={sendMobileOtpClickHandler}
-                >
-                  Send OTP on mobile
-                </Button>
-              ) : (
-                <p></p>
-              )}
-              {showResendMobileOtpButton === true ? (
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  onClick={sendMobileOtpClickHandler}
-                >
-                  Resend OTP on mobile
-                </Button>
-              ) : (
-                <p></p>
-              )}
-              {showEnterMobileOtp === true &&
-              showVerifyMobileOtpButton === true ? (
-                <>
+            <form>
+              <Grid container spacing={1}>
+                <Grid xs={12} item style={{ paddingTop: "30px" }}>
                   <TextField
+                    placeholder="Enter Username"
+                    label="Username"
                     variant="outlined"
-                    margin="normal"
+                    fullWidth
                     required
-                    fullWidth
-                    id="enteredOtp"
-                    label="Enter OTP"
-                    name="enteredOtp"
-                    autoComplete="enteredOtp"
-                    onChange={(e) => setenteredMobileOtp(e.target.value)}
+                    onChange={(event) => setName(event.target.value)}
+                    // error={nameError}
                   />
-                  <Button
-                    type="button"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    onClick={verifyMobileOtpClickHandler}
-                  >
-                    Verify OTP
-                  </Button>
-                </>
-              ) : (
-                <p></p>
-              )}
-              {showEmail === true ? (
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              ) : (
-                <p></p>
-              )}
-
-              {showSendOtpButton === true && showEmail === true ? (
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  onClick={sendOtpClickHandler}
-                >
-                  Send OTP
-                </Button>
-              ) : (
-                <p></p>
-              )}
-              {showResendOtpButton === true ? (
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  onClick={sendOtpClickHandler}
-                >
-                  Resend OTP
-                </Button>
-              ) : (
-                <p></p>
-              )}
-
-              {showEnterOtp === true && showVerifyOtpButton === true ? (
-                <>
+                </Grid>
+                <Grid item xs={12} style={{ paddingTop: "30px" }}>
                   <TextField
+                    // type="email"
+                    placeholder="Enter Address"
+                    label="Enter Address"
                     variant="outlined"
-                    margin="normal"
+                    fullWidth
                     required
-                    fullWidth
-                    id="enteredOtp"
-                    label="Enter OTP"
-                    name="enteredOtp"
-                    autoComplete="enteredOtp"
-                    onChange={(e) => setEnteredOtp(e.target.value)}
+                    onChange={(event) => setAddress(event.target.value)}
+                    // error={emailError}
                   />
-                  <Button
-                    type="button"
+                </Grid>
+                <Grid item xs={12} style={{ paddingTop: "30px" }}>
+                  <TextField
+                    // type="number"
+                    placeholder="Enter mobile number"
+                    label="Enter Mobile Number"
+                    variant="outlined"
                     fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    onClick={verifyOtpClickHandler}
+                    required
+                    onChange={(event) => setNumber(event.target.value)}
+                    // error={numberError}
+                  />
+                </Grid>
+                <Grid item xs={12} style={{ paddingTop: "30px" }}>
+                  <TextField
+                    // type="description"
+                    label="Enter Email ID"
+                    multiline
+                    // rows={6}
+                    placeholder="Enter Email ID"
+                    variant="outlined"
+                    fullWidth
+                    required
+                    onChange={(event) => setEmail(event.target.value)}
+                    // error={descriptionError}
+                  />
+                </Grid>
+                <Grid item xs={12} style={{ paddingTop: "30px" }}>
+                  <TextField
+                    // type="description"
+                    label="Enter Password"
+                    multiline
+                    // rows={6}
+                    placeholder="Enter Password"
+                    variant="outlined"
+                    fullWidth
+                    required
+                    onChange={(event) => setPassword(event.target.value)}
+                    // error={descriptionError}
+                  />
+                </Grid>
+                <Grid item xs={12} style={{ paddingTop: "30px" }}>
+                  <Button
+                    type="submit"
+                    size="large"
+                    classes={{
+                      root: classes.root,
+                      label: classes.label,
+                    }}
+                    fullWidth
+                    onClick={contacFormSubmitHandler}
                   >
-                    Verify OTP
+                    Submit
                   </Button>
-                </>
-              ) : (
-                <p></p>
-              )}
-
-              {showPassword === true ? (
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              ) : (
-                <p></p>
-              )}
-
-              {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
-              <Grid item>
-                Already a user?&nbsp;
-                <Link to={"/signin"}>Login</Link>
-                {/* <Link href="#" variant="body2">
-                  
-                </Link> */}
+                </Grid>
               </Grid>
-              <Grid item>
-                Are you Admin?&nbsp;
-                <Link to={"/admin/login"}>Admin Login</Link>
-              </Grid>
-              {showPassword === true ? (
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                >
-                  Sign In
-                </Button>
-              ) : (
-                <p></p>
-              )}
             </form>
-          </div>
-        </Grid>
+          </CardContent>
+        </Card>
       </Grid>
     </>
   );
 }
+
 export default SignUp;

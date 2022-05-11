@@ -1,168 +1,173 @@
-import React, { useState, useEffect } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { login } from "../actions/userActions";
+import React, { useState } from "react";
+import Swal from "sweetalert2";
+import axios from "axios";
 
+// import "../App.css";
 import {
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
+  Grid,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  Typography,
 } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+// Importing Header
+import Header from "./Header";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
+  field: {
+    marginTop: 30,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 20,
+    display: "block",
+  },
   root: {
-    height: "100vh",
+    background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 100%)",
+    borderRadius: 3,
+    border: 0,
+    color: "white",
+    height: 48,
+    padding: "0 30px",
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
   },
-  image: {
-    backgroundImage:
-      "url(https://elearningindustry.com/wp-content/uploads/2019/07/top-6-eLearning-trends-of-2019.jpg)",
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      theme.palette.type === "light"
-        ? theme.palette.grey[50]
-        : theme.palette.grey[900],
-    backgroundSize: "cover",
-    backgroundPosition: "center",
+  label: {
+    textTransform: "capitalize",
   },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "60%",
-    paddingLeft: "20px",
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+});
 
-function SignIn({ history }) {
+function SignIn() {
   const classes = useStyles();
-
+  // const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  // const [number, setNumber] = useState("");
+  // const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
 
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(!show);
+  const sleep = (milliseconds) => {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  };
 
-  const dispatch = useDispatch();
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
-  useEffect(() => {
-    if (userInfo) {
-    
-      history.push("/");
+  const contacFormSubmitHandler = async () => {
+    if (email.includes("@") === false || email.includes(".") === false) {
+      alert("Enter a valid Email ID");
+    } else {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      };
+      await fetch(`http://localhost:8080/user/userLogin`, requestOptions)
+        .then((response) => {
+          console.log(response);
+          alert(response);
+          response.json();
+        })
+        .then((response) => {
+          alert(response);
+          if (response.success) {
+            Swal.fire("User Login is successful", `Success`, "success");
+          } else {
+            Swal.fire("Cancelled", "Your imaginary file is safe :)", "error");
+          }
+          console.log(response);
+        });
+      // alert("Query sent successfully");
+      // const config = { headers: { "Content-Type": "application/json" } };
+      // const { data } = await axios.post(
+      //   "/user/userRegister",
+      //   { name, email, number, password, address },
+      //   config
+      // );
+      // if (data.success) {
+      //   alert("Success");
+      // } else {
+      //   alert("Failure");
+      // }
+      // console.log(data);
+      await sleep(5000);
     }
-  }, [userInfo, history]);
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    
-    dispatch(login(email, password));
   };
 
   return (
     <>
-      <Grid container component="main" className={classes.root}>
-        <CssBaseline />
-        <Grid item xs={0} sm={0} md={7} className={classes.image} />
-        <Grid item xs={12} sm={12} md={5} component={Paper} elevation={6}>
-          <Link to={'/'} style={{ textDecoration: "none", color: "black" }} >
-            <IconButton>
-              <ArrowBackIosIcon fontSize="5px" />
-              <Typography color="textPrimary">Home</Typography>
-            </IconButton>
-          </Link>
-          <div className={classes.paper}>
-            <Avatar className={classes.avatar}>
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Login
+      <Header />
+      <div style={{ paddingTop: "50px" }}></div>
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        style={{ margin: "80px 0px 10px" }}
+      >
+        <Card
+          style={{
+            maxWidth: 450,
+            padding: "5px",
+            margin: "0 auto",
+            boxShadow: "5px 5px 5px 5px lightgrey",
+          }}
+        >
+          <CardContent>
+            <Typography gutterBottom variant="h5" align="center">
+              User Login
             </Typography>
-            <form className={classes.form} noValidate onSubmit={submitHandler} direction={"column"} spacing={5}>
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-             width="90%"
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <FormControl style={{width: '100%'}} variant="outlined">
-                <InputLabel required htmlFor="outlined-adornment-password">Password</InputLabel>
-                <OutlinedInput
-                  margin="normal"
-                  id="outlined-adornment-password"
-                  label="Password"
-                  type={show ? "text" : "password"}
-                  value={password}
-                  fullWidth
-                  onChange={(e) => setPassword(e.target.value)}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleShow}
-                        edge="end"
-                      >
-                        {show ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-              >
-                Login
-              </Button>
-              <Grid container>
-                <Grid item>
-                  Don't have an account?&nbsp;
-                  <Link to={"/signup"}>Sign Up</Link>
+            <form>
+              <Grid container spacing={1}>
+                <Grid item xs={12} style={{ paddingTop: "30px" }}>
+                  <TextField
+                    // type="description"
+                    label="Enter Email ID"
+                    multiline
+                    // rows={6}
+                    placeholder="Enter Email ID"
+                    variant="outlined"
+                    fullWidth
+                    required
+                    onChange={(event) => setEmail(event.target.value)}
+                    // error={descriptionError}
+                  />
                 </Grid>
-                <Grid item>
-                  Are you Admin?&nbsp;
-                  <Link to={"/admin/login"}>Admin Login</Link>
-              </Grid>
+                <Grid item xs={12} style={{ paddingTop: "30px" }}>
+                  <TextField
+                    // type="description"
+                    label="Enter Password"
+                    multiline
+                    // rows={6}
+                    placeholder="Enter Password"
+                    variant="outlined"
+                    fullWidth
+                    required
+                    onChange={(event) => setPassword(event.target.value)}
+                    // error={descriptionError}
+                  />
+                </Grid>
+                <Grid item xs={12} style={{ paddingTop: "30px" }}>
+                  <Button
+                    type="submit"
+                    size="large"
+                    classes={{
+                      root: classes.root,
+                      label: classes.label,
+                    }}
+                    fullWidth
+                    onClick={contacFormSubmitHandler}
+                  >
+                    Submit
+                  </Button>
+                </Grid>
               </Grid>
             </form>
-          </div>
-        </Grid>
+          </CardContent>
+        </Card>
       </Grid>
     </>
   );
 }
+
 export default SignIn;

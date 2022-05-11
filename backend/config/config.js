@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const connectDB = async () => {
   try {
-    const url = `mongodb+srv://rajsanghavi:${process.env.MONGO_DB_PASSWORD}@fullstacksimplified.szczh.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`;
+    const url = `mongodb+srv://raj:raj@isexp.dnbbf.mongodb.net/IS-Experiment?retryWrites=true&w=majority`;
 
     mongoose
       .connect(url, {
