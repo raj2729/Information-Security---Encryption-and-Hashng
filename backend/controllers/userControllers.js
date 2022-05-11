@@ -95,7 +95,6 @@ const userLogin = asyncHandler(async (req, res) => {
   let secretKey = "Information Security";
   // let encryptedData = cryptojs.AES.encrypt(textData, secretKey).toString();
 
-  // console.log("Encrypted Data = " + encryptedData);
   var cipher = crypto.createCipher("aes256", secretKey);
   var encrypted = cipher.update(password, "utf8", "hex") + cipher.final("hex");
   // console.log("Encrypted Data = " + encrypted);
