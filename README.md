@@ -21,9 +21,9 @@
 ### Installation
 
 - Clone the repository
-  ````
-  https://github.com/raj2729/Information-Security---Encryption-and-Hashng.git  ```
-  ````
+  ```
+  https://github.com/raj2729/Information-Security---Encryption-and-Hashng.git
+  ```
 - Install NPM packages for Backend Application
 
   ```
