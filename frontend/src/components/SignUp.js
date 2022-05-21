@@ -45,25 +45,8 @@ function SignUp() {
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
 
-  // const [nameError, setNameError] = useState("");
-  // const [numberError, setNumberError] = useState("");
-  // const [emailError, setEmailError] = useState("");
-  // const [descriptionError, setDescriptionError] = useState("");
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //  setDescriptionError(false);
-  //  setEmailError(false);
-  //  setNameError(false);
-  //  setNumberError(false);
-
-  //   if (name == "") setNameError(true);
-  //   if (email == "") setEmailError(true);
-  //   if (number == "") setNumberError(true);
-  //   if(description=="") setDescriptionError(true);
-  // };
-
-  const contacFormSubmitHandler = async () => {
+  const contacFormSubmitHandler = async (e) => {
+    e.preventDefault();
     // Regex to check if a string
     // contains uppercase, lowercase
     // special character & numeric value
@@ -79,44 +62,35 @@ function SignUp() {
         "Enter a valid Password. The length of Password should be minimum 12 characters and the password must contain 1 Uppercase Character, 1 Lowercase Character, 1 Numeric Character and 1 Special Character"
       );
     } else {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          // courseId: match.params.id,
+      try {
+        const config = {
+          headers: {
+            "content-type": "application/json",
+          },
+        };
+        const obj = {
           name: name,
           email: email,
           number: Number(number),
           password: password,
           address: address,
-        }),
-      };
-      fetch(`http://localhost:8080/user/userRegister`, requestOptions)
-        .then((response) => {
-          console.log(response);
-          response.json();
-        })
-        .then((response) => {
-          console.log(response);
-        });
-      // alert("Query sent successfully");
-      // const config = { headers: { "Content-Type": "application/json" } };
-      // const { data } = await axios.post(
-      //   "/user/userRegister",
-      //   { name, email, number, password, address },
-      //   config
-      // );
-      // if (data.success) {
-      //   alert("Success");
-      // } else {
-      //   alert("Failure");
-      // }
-      // console.log(data);
-      Swal.fire(
-        "User Registration is successful",
-        `Username: ${name}`,
-        "success"
-      );
+        };
+
+        const resp = await axios.post("/user/userRegister", obj, config);
+        console.log(resp.data);
+        if (resp.data.success) {
+          Swal.fire(
+            "User Registration is successful",
+            `Username: ${name}`,
+            "success"
+          );
+        } else {
+          Swal.fire("User Registration not successful", `Try again`, "error");
+        }
+        console.log("Doneeeeeeeeeeeeee");
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 

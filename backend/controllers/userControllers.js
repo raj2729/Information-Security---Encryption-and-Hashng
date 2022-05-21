@@ -29,31 +29,14 @@ const passKey = "Information Security";
 // Register New user
 const registerUser = asyncHandler(async (req, res) => {
   const { email, name, password, address, number } = req.body;
-  // console.log("Hello World");
-  // let textData = password;
 
+  // Encryption Process
   let secretKey = "Information Security";
-  // let encryptedData = cryptojs.AES.encrypt(textData, secretKey, {
-  //   mode: cryptojs.mode.ECB,
-  // }).toString();
-
-  // console.log("Encrypted Data = " + encryptedData);
-  // --------------------------------------------------------
-
   var cipher = crypto.createCipher("aes256", secretKey);
   var encrypted = cipher.update(password, "utf8", "hex") + cipher.final("hex");
   console.log("Encrypted Data = " + encrypted);
-  // -------------------------------------------------------
-  // console.log(cipher);
-  // console.log("Key = " + key);
-  // console.log("iv = " + iv);
 
-  // let encrypted = cipher.update(password);
-
-  // encrypted = Buffer.concat([encrypted, cipher.final()]);
-  // console.log("Encrypted" + encrypted.toString("hex"));
-  // return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
-  // ----------------------------------------------------------
+  // Hashing Process
   const messageDigest = crypto
     // .createHmac("md5", secretKey)
     .createHmac("sha256", passKey)
@@ -77,7 +60,6 @@ const registerUser = asyncHandler(async (req, res) => {
       encryptedData: encrypted,
       messageDigest: messageDigest,
     });
-    // const userId = user._id;
 
     res.status(201).json({
       success: true,
@@ -89,32 +71,25 @@ const registerUser = asyncHandler(async (req, res) => {
 // Login existing users
 const userLogin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-  // console.log("Password = " + password);
-  // let textData = password;
 
+  // Encryption Process
   let secretKey = "Information Security";
-  // let encryptedData = cryptojs.AES.encrypt(textData, secretKey).toString();
-
   var cipher = crypto.createCipher("aes256", secretKey);
   var encrypted = cipher.update(password, "utf8", "hex") + cipher.final("hex");
-  // console.log("Encrypted Data = " + encrypted);
+
+  // Hashing Process
   const messageDigest = crypto
-    // .createHmac("md5", secretKey)
     .createHmac("sha256", passKey)
     .update(encrypted.toString("hex"))
     .digest("hex");
-  // console.log("Message Digest = " + messageDigest);
 
   const user = await User.findOne({ email });
-
   if (user && user.messageDigest.localeCompare(messageDigest) === 0) {
-    console.log("Logged IN");
     res.status(200).json({
       success: true,
-      data: user,
+      data: "Login successful",
     });
   } else {
-    console.log("Not Logged IN");
     res.status(200).json({
       success: false,
       data: "Login failed",

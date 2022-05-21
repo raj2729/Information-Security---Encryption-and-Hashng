@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
-
-// import "../App.css";
+import { useHistory } from "react-router-dom";
 import {
   Grid,
   TextField,
@@ -39,57 +38,45 @@ const useStyles = makeStyles({
 
 function SignIn() {
   const classes = useStyles();
-  // const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  // const [number, setNumber] = useState("");
-  // const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
+
+  const history = useHistory();
 
   const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
 
-  const contacFormSubmitHandler = async () => {
+  const contacFormSubmitHandler = async (e) => {
+    e.preventDefault();
     if (email.includes("@") === false || email.includes(".") === false) {
       alert("Enter a valid Email ID");
     } else {
-      const requestOptions = {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      };
-      await fetch(`http://localhost:8080/user/userLogin`, requestOptions)
-        .then((response) => {
-          console.log(response);
-          alert(response);
-          response.json();
-        })
-        .then((response) => {
-          alert(response);
-          if (response.success) {
-            Swal.fire("User Login is successful", `Success`, "success");
-          } else {
-            Swal.fire("Cancelled", "Your imaginary file is safe :)", "error");
-          }
-          console.log(response);
-        });
-      // alert("Query sent successfully");
-      // const config = { headers: { "Content-Type": "application/json" } };
-      // const { data } = await axios.post(
-      //   "/user/userRegister",
-      //   { name, email, number, password, address },
-      //   config
-      // );
-      // if (data.success) {
-      //   alert("Success");
-      // } else {
-      //   alert("Failure");
-      // }
-      // console.log(data);
-      await sleep(5000);
+      try {
+        const config = {
+          headers: {
+            "content-type": "application/json",
+          },
+        };
+        const obj = {
+          password: password,
+          email: email,
+        };
+
+        const resp = await axios.post("/user/userLogin", obj, config);
+        console.log(resp.data);
+        if (resp.data.success) {
+          Swal.fire("User Login is successful", `Yayyyyyyy`, "success");
+          setTimeout(() => {
+            history.push("/");
+          }, 4000);
+        } else {
+          Swal.fire("User Login not successful", `Try again`, "error");
+        }
+        console.log("Doneeeeeeeeeeeeee");
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
